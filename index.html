@@ -404,6 +404,9 @@ var DATA = [
 
 
 var STORAGE_KEY = "quiz_5_sections_v2";
+try {
+    localStorage.removeItem("STORAGE_KEY");
+  } catch (e) {};
 var LETTERS = ["A", "B", "C", "D"];
 var activeSection = DATA.length ? DATA[0].id : "";
 var searchText = "";
