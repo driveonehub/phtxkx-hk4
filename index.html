@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="vi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luyện trắc nghiệm Lịch sử Phật giáo Trung Quốc 2026</title>
+  <style>
+    :root { --bg:#f7f3ed; --card:#fffdf9; --text:#1f2933; --muted:#6b7280; --line:#e8dfd2; --brand:#7c4a22; --brand-dark:#5f3617; --ok:#15803d; --bad:#b42318; --soft:#f3eadf; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+    .wrap { max-width:1040px; margin:0 auto; padding:18px; }
+    .hero { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:0 12px 36px rgba(30,20,10,.08); }
+    h1 { margin:0 0 8px; font-size:clamp(26px,5vw,42px); line-height:1.1; }
+    .muted { color:var(--muted); }
+    .tabs { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0; }
+    button { font:inherit; }
+    .tab,.btn { border:1px solid var(--line); background:#fff; color:var(--text); padding:10px 13px; border-radius:999px; cursor:pointer; }
+    .tab.active,.btn.primary { background:var(--brand); color:#fff; border-color:var(--brand); }
+    .toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:12px; position:sticky; top:0; z-index:5; }
+    .toolbar input { flex:1 1 220px; min-width:0; border:1px solid var(--line); border-radius:999px; padding:11px 14px; font:inherit; background:#fff; }
+    .stats { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:16px 0; }
+    .stat { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:12px; }
+    .stat b { display:block; font-size:24px; }
+    .section-head { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin:24px 0 12px; }
+    .section-head h2 { margin:0; font-size:26px; }
+    .qcard { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:12px 0; box-shadow:0 6px 18px rgba(30,20,10,.04); }
+    .qtop { display:flex; gap:10px; align-items:flex-start; }
+    .qnum { flex:0 0 auto; min-width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:var(--soft); color:var(--brand-dark); font-weight:800; }
+    .qtext { font-weight:700; font-size:17px; }
+    .qid { color:var(--muted); font-size:13px; margin-top:3px; }
+    .options { display:grid; gap:9px; margin-top:14px; }
+    .option { width:100%; text-align:left; display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); background:#fff; border-radius:14px; padding:12px; cursor:pointer; }
+    .option:hover { border-color:#c6a57e; }
+    .letter { flex:0 0 auto; width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:#eee5da; font-weight:800; }
+    .option.correct { border-color:rgba(21,128,61,.5); background:#edfdf3; }
+    .option.correct .letter { background:var(--ok); color:#fff; }
+    .option.wrong { border-color:rgba(180,35,24,.45); background:#fff1f0; }
+    .option.wrong .letter { background:var(--bad); color:#fff; }
+    .feedback { min-height:24px; margin-top:10px; font-weight:700; }
+    .feedback.ok { color:var(--ok); }
+    .feedback.bad { color:var(--bad); }
+    .questions-img{ display:block; margin:12px auto; max-width:100%; height:auto; }
+    .explain{ display:none; margin-top:12px; padding:12px; border:1px solid #ddd; border-radius:8px; background:#fafafa; }
+    .explain img{ display:block; margin-top:8px; max-width:100%; height:auto; }
+    .danger{ color:red; font-size:20px; font-weight:bold; margin-right:6px; }    
+    .empty { background:var(--card); border:1px dashed var(--line); border-radius:18px; padding:24px; text-align:center; color:var(--muted); }
+    @media (max-width:720px) { .wrap { padding:12px; } .stats { grid-template-columns:repeat(2,minmax(0,1fr)); } .toolbar { position:static; } .btn,.tab { padding:10px 11px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Lịch sử Phật giáo Trung Quốc</h1>
+      <div class="muted">Chọn để làm từng phần. Có thể chọn lại đáp án nhiều lần. Nếu chọn sai, hệ thống không hiển thị đáp án đúng.</div>
+    </section>
+
+    <nav id="tabs" class="tabs"><button type="button" class="tab active" data-section="phan-1">PG Đông Truyền</button><button type="button" class="tab " data-section="phan-2">PG Đông Hán</button><button type="button" class="tab " data-section="phan-3">PG Tam Quốc</button><button type="button" class="tab " data-section="phan-4">PG Tây Tấn Và Tiền Tần</button><button type="button" class="tab " data-section="phan-5">PG Đông Tấn</button><button type="button" class="tab " data-section="phan-6">PG Nam Bắc Triều</button></nav>
+
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Tìm câu hỏi, ID hoặc nội dung đáp án...">
+      <button id="shuffleQuestions" class="btn primary" type="button">Xáo trộn câu hỏi</button>
+      <button id="shuffleAnswers" class="btn" type="button">Xáo trộn đáp án</button>
+      <button id="resetCurrent" class="btn" type="button">Làm lại đề này</button>
+      <button id="resetAll" class="btn" type="button">Làm lại tất cả</button>
+    </div>
+
+    <section class="stats">
+      <div class="stat"><span>Đang xem</span><b id="activeLabel">Đề 1</b></div>
+      <div class="stat"><span>Đã làm</span><b><span id="done">0</span>/<span id="total">40</span></b></div>
+      <div class="stat"><span>Đúng</span><b id="right">0</b></div>
+      <div class="stat"><span>Sai</span><b id="wrong">0</b></div>
+      <div class="stat"><span>Tỷ lệ đúng</span><b><span id="score">0</span>%</b></div>
+    </section>
+
+    <div id="app"></div>
+  </main>
+
+<script>
+var DATA = [
+
+{"id": "phan-1", "title": "PG Đông Truyền", "count": 180, "questions": [
+{"num":1,"id":1,"q":"Các nước chịu ảnh hưởng của Phật giáo Trung Quốc là:","opts":{"A":"Việt Nam, Triều Tiên, Nhật Bản","B":"Triều Tiên, Nhật Bản","C":"Việt Nam, Nhật Bản","D":"Triều Tiên, Việt Nam"},"answer":"A"},
+{"num":2,"id":2,"q":"Kho tàng tư tưởng phong phú nhất của nền tư tưởng Á Đông là:","opts":{"A":"Phật giáo Nhật Bản","B":"Phật giáo Trung Quốc","C":"Phật giáo Việt Nam","D":"Phật giáo Triều Tiên"},"answer":"B"},
+{"num":3,"id":3,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, có thể chia thành:","opts":{"A":"5 thời kỳ","B":"6 thời kỳ","C":"4 thời kỳ","D":"7 thời kỳ"},"answer":"A"},
+{"num":4,"id":4,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, theo thứ tự:","opts":{"A":"Thời đại phiên dịch, Thời đại nghiên cứu, Thời đại kiến thiết, Thời đại kế thừa, Thời đại suy vi","B":"Thời đại phiên dịch, Thời đại kiến thiết, Thời đại nghiên cứu, Thời đại kế thừa, Thời đại suy vi","C":"Thời đại phiên dịch, Thời đại kiến thiết, Thời đại kế thừa, Thời đại nghiên cứu, Thời đại suy vi","D":"Thời đại phiên dịch, Thời đại kế thừa, Thời đại suy vi, Thời đại nghiên cứu, Thời đại kiến thiết"},"answer":"A"},
+{"num":5,"id":5,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, thời kỳ thứ nhất là:","opts":{"A":"Thời đại phiên dịch","B":"Thời đại nghiên cứu","C":"Thời đại suy vi","D":"Thời đại kế thừa"},"answer":"A"},
+{"num":6,"id":6,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, thời kỳ thứ hai là:","opts":{"A":"Thời đại phiên dịch","B":"Thời đại nghiên cứu","C":"Thời đại suy vi","D":"Thời đại kế thừa"},"answer":"B"},
+{"num":7,"id":7,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, thời kỳ thứ ba là:","opts":{"A":"Thời đại kiến thiết","B":"Thời đại nghiên cứu","C":"Thời đại suy vi","D":"Thời đại kế thừa"},"answer":"A"},
+{"num":8,"id":8,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, thời kỳ thứ tư là:","opts":{"A":"Thời đại phiên dịch","B":"Thời đại nghiên cứu","C":"Thời đại suy vi","D":"Thời đại kế thừa"},"answer":"D"},
+{"num":9,"id":9,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, thời kỳ thứ năm là:","opts":{"A":"Thời đại phiên dịch","B":"Thời đại nghiên cứu","C":"Thời đại suy vi","D":"Thời đại kế thừa"},"answer":"C"},
+{"num":10,"id":10,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo thời đại của lịch sử Trung Quốc, theo thứ tự sau:","opts":{"A":"Lưỡng Hán, Nam Bắc Triều, Lưỡng Tấn, Tam Quốc","B":"Lưỡng Hán, Nam Bắc Triều, Tam Quốc, Lưỡng Tấn","C":"Lưỡng Hán, Lưỡng Tấn, Tam Quốc, Nam Bắc Triều","D":"Lưỡng Hán, Tam Quốc, Lưỡng Tấn, Nam Bắc Triều"},"answer":"D"},
+{"num":11,"id":11,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo thời đại của lịch sử Trung Quốc, thời kỳ thứ nhất là:","opts":{"A":"Lưỡng Hán","B":"Tam Quốc","C":"Lưỡng Tấn","D":"Nam Bắc Triều"},"answer":"A"},
+{"num":12,"id":12,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo thời đại của lịch sử Trung Quốc, thời kỳ thứ hai là:","opts":{"A":"Lưỡng Hán","B":"Nam Bắc Triều","C":"Lưỡng Tấn","D":"Tam Quốc"},"answer":"D"},
+{"num":13,"id":13,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo thời đại của lịch sử Trung Quốc, thời kỳ thứ ba là:","opts":{"A":"Lưỡng Tấn","B":"Tam Quốc","C":"Lưỡng Hán","D":"Nam Bắc Triều"},"answer":"A"},
+{"num":14,"id":14,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo thời đại của lịch sử Trung Quốc, thời kỳ thứ tư là:","opts":{"A":"Lưỡng Hán","B":"Lưỡng Tấn","C":"Nam Bắc Triều","D":"Tam Quốc"},"answer":"C"},
+{"num":15,"id":15,"q":"Lịch sử Phật giáo Trung Quốc phân chia theo thời đại của lịch sử Trung Quốc, theo thứ tự sau:","opts":{"A":"Tuỳ Đường, Ngũ Đại, Tống Nguyên Minh Thanh, Cận đại","B":"Tuỳ Đường, Tống Nguyên Minh Thanh, Cận đại, Ngũ Đại,","C":"Tuỳ Đường, Tống Nguyên Minh Thanh, Ngũ Đại, Cận đại","D":"Tuỳ Đường, Cận đại, Ngũ Đại, Tống Nguyên Minh Thanh"},"answer":"A"},
+{"num":16,"id":16,"q":"Phật giáo từ Ấn Độ truyền đến Trung Quốc theo đường:","opts":{"A":"đường bộ và đường thủy","B":"đường bộ và đường tơ lụa","C":"đường bộ","D":"đường thủy"},"answer":"A"},
+{"num":17,"id":17,"q":"Phật giáo truyền đến Trung Quốc theo đường bộ xuất phát từ:","opts":{"A":"Miền Nam Ấn Độ","B":"Miền Bắc Ấn Độ","C":"Miền Đông Nam Ấn Độ","D":"Miền Tây Nam Ấn Độ"},"answer":"B"},
+{"num":18,"id":18,"q":"Phật giáo truyền đến Trung Quốc theo đường thủy xuất phát từ:","opts":{"A":"Miền Bắc Ấn Độ","B":"Miền Tây Nam Ấn Độ","C":"Miền Đông Nam Ấn Độ","D":"Miền Nam Ấn Độ"},"answer":"D"},
+{"num":19,"id":19,"q":"Có bao nhiêu thuyết Phật giáo truyền vào Trung Quốc:","opts":{"A":"15","B":"12","C":"10","D":"8"},"answer":"B"},
+{"num":20,"id":20,"q":"Phật giáo truyền vào Trung Quốc có liên quan đến Nho giáo là thuyết:","opts":{"A":"Thích Lợi Phòng đem Phật giáo truyền vào","B":"Lễ bái hình người vàng","C":"Thuyết Khẩu truyền Phật giáo của Y Tồn","D":"Thuyết Tây phương Thánh giả của Khổng Tử"},"answer":"D"},
+{"num":21,"id":21,"q":"Phật giáo Trung Quốc kỷ niệm 2000 năm Phật giáo truyền vào Trung Quốc:","opts":{"A":"năm 2000","B":"năm 2004","C":"năm 1998","D":"năm 2010"},"answer":"C"},
+{"num":22,"id":22,"q":"Thuyết “Khẩu truyền Phật giáo của Y Tồn” vào năm:","opts":{"A":"năm 67 Tây lịch","B":"năm 67 trước Tây lịch","C":"năm 2 trước Tây lịch","D":"năm 2 Tây lịch"},"answer":"C"},
+{"num":23,"id":23,"q":"Phật giáo du nhập vào Trung Quốc, truyền thuyết được được công nhận là:","opts":{"A":"Thích Lợi Phòng đem Phật giáo truyền vào","B":"Trước đời Tam Đại Ngũ Hoàng, Bá Ích đã biết có Phật","C":"Thuyết Khẩu truyền Phật giáo của Y Tồn","D":"Thuyết Tây phương Thánh giả của Khổng Tử"},"answer":"C"},
+{"num":24,"id":24,"q":"Phật giáo truyền vào Trung Quốc, truyền thuyết được được công nhận là:","opts":{"A":"Thuyết Tây phương Thánh giả của Khổng Tử","B":"Lễ bái hình người vàng","C":"Thời Yên Chiêu Vương","D":"Từ năm 67 đời vua Hán Minh Đế"},"answer":"D"},
+{"num":25,"id":25,"q":"Quyển kinh Phật được dịch đầu tiên bằng khẩu truyền là:","opts":{"A":"Tứ thập nhị chương","B":"Kinh Phù Đồ","C":"Đạo Hạnh Bát nhã","D":"Bát đại nhân giác"},"answer":"B"},
+{"num":26,"id":26,"q":"Quyển kinh Phật được dịch đầu tiên bằng khẩu truyền vào thời:","opts":{"A":"cuối Đông Hán","B":"trước Tây Hán","C":"đầu Tây Hán","D":"cuối Tây Hán"},"answer":"D"},
+{"num":27,"id":27,"q":"Quyển kinh Phật được dịch đầu tiên bằng khẩu truyền vào:","opts":{"A":"năm 67 Tây lịch","B":"năm 2 Tây lịch","C":"năm 2 trước Tây lịch","D":"năm 67 trước Tây lịch"},"answer":"C"},
+{"num":28,"id":28,"q":"Quyển kinh Phật được dịch đầu tiên bằng khẩu truyền vào thời:","opts":{"A":"Hán Minh Đế","B":"Hán Võ Đế.","C":"Hán Hiếu Đế","D":"Hán Ai Đế"},"answer":"D"},
+{"num":29,"id":29,"q":"Quyển kinh Phù Đồ do ai truyền thọ đến Trung Quốc:","opts":{"A":"Y Tồn","B":"Chi Lâu Ca Sấm","C":"Ca Diếp Ma Đằng","D":"Trúc Pháp Lan"},"answer":"A"},
+{"num":30,"id":30,"q":"Y Tồn là sứ giả nước:","opts":{"A":"Khương Cư","B":"An Tức","C":"Đại Nguyệt Chi","D":"Thiên Trúc"},"answer":"C"},
+{"num":31,"id":31,"q":"Y Tồn truyền thọ Kinh Phù Đồ cho ai:","opts":{"A":"Cảnh Lô","B":"Thái Hâm","C":"Tần Cảnh","D":"Vương Tuân"},"answer":"A"},
+{"num":32,"id":32,"q":"Quyển kinh đầu tiên được dịch thành tiếng Hán là:","opts":{"A":"Bát đại nhân giác","B":"Đạo Hạnh Bát nhã","C":"Tứ thập nhị chương","D":"Kinh An Ban Thủ Ý"},"answer":"C"},
+{"num":33,"id":33,"q":"Ngài Ca Diếp Ma Đằng và Trúc Pháp Lan dịch:","opts":{"A":"Tứ thập nhị chương","B":"Đạo Hành Bát nhã","C":"Kinh Phù Đồ","D":"Bát đại nhân giác"},"answer":"A"},
+{"num":34,"id":34,"q":"Dịch giả quyển kinh Tứ thập nhị chương là Ngài:","opts":{"A":"Ca Diếp Ma Đằng và Trúc Pháp Lan","B":"Chi Lâu Ca Sấm","C":"An Thế Cao","D":"Cưu Ma La Thập"},"answer":"A"},
+{"num":35,"id":35,"q":"Kinh Tứ thập nhị chương được dịch vào thời:","opts":{"A":"đầu Đông Hán","B":"trước Tây Hán","C":"đầu Tây Hán","D":"cuối Tây Hán"},"answer":"A"},
+{"num":36,"id":36,"q":"Ngôi chùa đầu tiên của Phật giáo tại Trung Quốc là:","opts":{"A":"Chùa Phổ Đà","B":"Chùa Kiến Sơ","C":"Chùa Bạch Mã","D":"Chùa Từ Ân"},"answer":"C"},
+{"num":37,"id":37,"q":"Ngài Ca Diếp Ma Đằng và Trúc Pháp Lan khi mới đến Trung Quốc, vua Hán Minh đế thỉnh 2 Ngài ở:","opts":{"A":"Phổ Đà tự","B":"Hồng Lô tự","C":"Bạch Mã tự","D":"Kiến Sơ tự"},"answer":"B"},
+{"num":38,"id":38,"q":"Vị vua xây dựng chùa Bạch Mã là:","opts":{"A":"Hán Minh Đế","B":"Hán Võ Đế.","C":"Hán Hiếu Đế","D":"Hán Ai Đế"},"answer":"A"},
+{"num":39,"id":39,"q":"Phật giáo thời Hậu Hán thuộc thời đại:","opts":{"A":"Phiên dịch","B":"Nghiên cứu","C":"Suy vi","D":"Kế thừa"},"answer":"A"},
+{"num":40,"id":40,"q":"Khi Phật giáo mới truyền vào Trung Quốc, vị nào đòi tranh tài hơn kém với Phật giáo:","opts":{"A":"Nho giáo","B":"Chữ Thiện Tín","C":"Đệ tử của Khổng tử","D":"Chữ Thiện Tín và 690 đạo sĩ"},"answer":"D"}
+]}, 
+
+
+{"id": "phan-2", "title": "PG Đông Hán", "count": 25, "questions": [
+{"num":41,"id":41,"q":"Thời Đông Hán có các nhà dịch giả là:","opts":{"A":"Đàm Ma Ca La, Đàm Đế","B":"Ngài Ca Diếp Ma Đằng, Trúc Pháp Lan","C":"Cưu Ma La Thập, Giác Hiền","D":"Khương Tăng Hội, Chi Khiêm"},"answer":"B"},
+{"num":42,"id":42,"q":"Thời Đông Hán có các nhà dịch giả là:","opts":{"A":"An Thế Cao, Chi Lâu Ca Sấm, Đàm Ma Ca La, Đàm Đế","B":"Ngài Ca Diếp Ma Đằng, Trúc Pháp Lan, An Thế Cao, Chi Lâu Ca Sấm","C":"Ngài Ca Diếp Ma Đằng, Trúc Pháp Lan, Cưu Ma La Thập, Giác Hiền","D":"An Thế Cao, Chi Lâu Ca Sấm, Khương Tăng Hội, Chi Khiêm"},"answer":"B"},
+{"num":43,"id":43,"q":"Thời Đông Hán có các nhà dịch giả là:","opts":{"A":"Cưu Ma La Thập, Giác Hiền","B":"Đàm Ma Ca La, Đàm Đế","C":"Khương Tăng Hội, Chi Khiêm","D":"An Thế Cao, Chi Lâu Ca Sấm"},"answer":"D"},
+{"num":44,"id":44,"q":"Thời Hậu Hán có các nhà dịch giả là:","opts":{"A":"Đàm Ma Ca La, Đàm Đế","B":"An Thế Cao, Chi Lâu Ca Sấm","C":"Cưu Ma La Thập, Giác Hiền","D":"Khương Tăng Hội, Chi Khiêm"},"answer":"B"},
+{"num":45,"id":45,"q":"Bộ luận được viết thời Đông Hán là:","opts":{"A":"Lý Hoặc luận","B":"Minh Phật luận","C":"Hộ Pháp luận","D":"Hoằng Minh luận"},"answer":"A"},
+{"num":46,"id":46,"q":"Tác giả Lý Hoặc luận là:","opts":{"A":"Khương Tăng Hội","B":"Mâu Tử","C":"Chu Sĩ Hành","D":"An Thế Cao"},"answer":"B"},
+{"num":47,"id":47,"q":"Tác giả Lý Hoặc luận là:","opts":{"A":"Mâu Tử thời Tây Hán","B":"Mâu Tử thời Đông Hán","C":"Mâu Tử thời Tam Quốc","D":"Mâu Tử thời Ngụy"},"answer":"B"},
+{"num":48,"id":48,"q":"Lý Hoặc luận là tác phẩm thời:","opts":{"A":"Tam Quốc","B":"Đông Hán","C":"Tây Hán","D":"Tiền Hán"},"answer":"B"},
+{"num":49,"id":49,"q":"Vị đầu tiên đem Thiền quán vào Trung Quốc là:","opts":{"A":"Khương Tăng Hội","B":"Mâu Tử","C":"Chu Sĩ Hành","D":"An Thế Cao"},"answer":"D"},
+{"num":50,"id":50,"q":"Các dịch phẩm của Ngài An Thế Cao là:","opts":{"A":"Kinh An Ban Thủ Ý, Bát Chánh Đạo, Kinh Bát Châu Tam Muội","B":"Kinh An Ban Thủ Ý, Đạo Hành Bát nhã, Bát Đại Nhân Giác","C":"Kinh An Ban Thủ Ý, Bát Chánh Đạo, Bát Đại Nhân Giác","D":"Kinh An Ban Thủ Ý, Bát Chánh Đạo, Lục Độ Tập Kinh"},"answer":"C"},
+{"num":51,"id":51,"q":"Các dịch phẩm của Ngài An Thế Cao là:","opts":{"A":"Kinh An Ban Thủ Ý, Tứ Đế, Kinh Bát Châu Tam Muội","B":"Kinh An Ban Thủ Ý, Tứ Đế, Lục Độ Tập Kinh","C":"Kinh An Ban Thủ Ý, Tứ Đế, Bát Đại Nhân Giác","D":"Kinh An Ban Thủ Ý, Đạo Hành Bát nhã, Bát Đại Nhân Giác"},"answer":"C"},
+{"num":52,"id":52,"q":"Các dịch phẩm của Ngài An Thế Cao là:","opts":{"A":"Tứ Đế, Đạo Hành Bát nhã, Bát Đại Nhân Giác","B":"Tứ Đế, Bát Chánh Đạo, Bát Đại Nhân Giác","C":"Tứ Đế, Bát Chánh Đạo, Kinh Bát Châu Tam Muội","D":"Tứ Đế, Bát Chánh Đạo, Lục Độ Tập Kinh"},"answer":"B"},
+{"num":53,"id":53,"q":"Các dịch phẩm của Ngài An Thế Cao là:","opts":{"A":"Tứ Đế, Bát Chánh Đạo, Kinh Bát Châu Tam Muội","B":"Kinh An Ban Thủ Ý, Tứ Đế, Bát Chánh Đạo","C":"Kinh An Ban Thủ Ý, Tứ Đế, Đạo Hành Bát nhã","D":"Kinh An Ban Thủ Ý, Tứ Đế, Lục Độ Tập Kinh"},"answer":"B"},
+{"num":54,"id":54,"q":"Quyển kinh do Ngài An Thế Cao dịch thành tiếng Hán là:","opts":{"A":"Đạo Hành Bát nhã","B":"Kinh An Ban Thủ Ý","C":"Kinh Phù Đồ","D":"Tứ thập nhị chương"},"answer":"B"},
+{"num":55,"id":55,"q":"Quyển kinh do Ngài An Thế Cao dịch thành tiếng Hán là:","opts":{"A":"Bát đại nhân giác","B":"Đạo Hành Bát nhã","C":"Tứ thập nhị chương","D":"Kinh Phù Đồ"},"answer":"A"},
+{"num":56,"id":56,"q":"Ngài An Thế Cao dịch các kinh điển thuộc hệ tư tưởng","opts":{"A":"Thiền nguyên thuỷ và Thiền phát triển","B":"Phật giáo phát triển và Phật giáo nguyên thuỷ","C":"Phật giáo phát triển","D":"Phật giáo nguyên thuỷ"},"answer":"D"},
+{"num":57,"id":57,"q":"Cụm từ \"Duy tuệ thị nghiệp\" xuất xứ từ quyển kinh:","opts":{"A":"Bát Đại Nhân Giác","B":"Bát Châu Tam Muội","C":"Lục Độ Tập Kinh","D":"Đạo Hành Bát nhã"},"answer":"A"},
+{"num":58,"id":58,"q":"Đạo giáo lập ra pháp Thai Tức từ quyển kinh:","opts":{"A":"Đạo Hành Bát nhã","B":"An Ban Thủ Ý","C":"Bát Châu Tam Muội","D":"Bát Đại Nhân Giác"},"answer":"B"},
+{"num":59,"id":59,"q":"Ngài Trí Giả lập ra Lục Diệu Pháp Môn từ quyển kinh:","opts":{"A":"Bát Châu Tam Muội","B":"Bát Đại Nhân Giác","C":"An Ban Thủ Ý","D":"Đạo Hành Bát nhã"},"answer":"C"},
+{"num":60,"id":60,"q":"Từ quyển kinh An Ban Thủ Ý, Đạo giáo lập ra pháp:","opts":{"A":"Sổ tức","B":"Thai Tức","C":"Lục Diệu","D":"Niệm Phật"},"answer":"B"},
+{"num":61,"id":61,"q":"Từ quyển kinh An Ban Thủ Ý, Đại sư Trí Giả lập ra pháp môn:","opts":{"A":"Sổ tức","B":"Thai Tức","C":"Lục Diệu","D":"Niệm Phật"},"answer":"C"},
+{"num":62,"id":62,"q":"Ngài An Thế Cao là người nước:","opts":{"A":"An Tức","B":"Thiên Trúc","C":"Khương Cư","D":"Đại Nguyệt Chi"},"answer":"A"},
+{"num":63,"id":63,"q":"Người đầu tiên xuất gia (nhưng chưa thọ giới) ở Trung Quốc là:","opts":{"A":"Khương Tăng Hội","B":"Nghiêm Phật Điều","C":"Chu Sĩ Hành","D":"Đạo An"},"answer":"B"},
+{"num":64,"id":64,"q":"Nghiêm Phật Điều là đệ tử của Ngài:","opts":{"A":"An Thế Cao","B":"Huệ Viễn","C":"Chi Lâu Ca Sấm","D":"Phật Đồ Trừng"},"answer":"A"},
+{"num":65,"id":65,"q":"Dịch giả quyển kinh Đạo Hành Bát nhã là Ngài:","opts":{"A":"Ca Diếp Ma Đằng và Trúc Pháp Lan","B":"Chi Lâu Ca Sấm","C":"An Thế Cao","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":66,"id":66,"q":"Quyển kinh do Ngài Chi Lâu Ca Sấm dịch thành tiếng Hán là:","opts":{"A":"Tứ thập nhị chương","B":"Bát đại nhân giác","C":"Đạo Hành Bát nhã","D":"Kinh Phù Đồ"},"answer":"C"},
+{"num":67,"id":67,"q":"Quyển kinh do Ngài Chi Lâu Ca Sấm dịch thành tiếng Hán là:","opts":{"A":"Tứ thập nhị chương","B":"Bát đại nhân giác","C":"Bát Châu Tam Muội","D":"Kinh Phù Đồ"},"answer":"C"},
+{"num":68,"id":68,"q":"Ngài Chi Lâu Ca Sấm dịch các kinh điển thuộc hệ tư tưởng","opts":{"A":"Phật giáo nguyên thuỷ","B":"Phật giáo phát triển","C":"Phật giáo phát triển và Phật giáo nguyên thuỷ","D":"Thiền nguyên thuỷ và Thiền phát triển"},"answer":"B"},
+{"num":69,"id":69,"q":"Ngài Chi Lâu Ca Sấm là người nước:","opts":{"A":"An Tức","B":"Khương Cư","C":"Đại Nguyệt Chi","D":"Thiên Trúc"},"answer":"C"},
+{"num":70,"id":70,"q":"Pháp môn niệm Phật ảnh hưởng từ quyển kinh:","opts":{"A":"Đạo Hành Bát nhã","B":"Bát Đại Nhân Giác","C":"Chuyển pháp luân","D":"Bát Châu Tam Muội"},"answer":"D"},
+{"num":71,"id":71,"q":"Huyền Học Thanh Đàm thời Ngụy Tấn ảnh hưởng từ quyển kinh:","opts":{"A":"Bát Châu Tam Muội","B":"Bát Đại Nhân Giác","C":"Chuyển pháp luân","D":"Đạo Hành Bát nhã"},"answer":"D"},
+{"num":72,"id":72,"q":"Pháp môn niệm Phật bắt đầu từ thời:","opts":{"A":"Đông Tấn","B":"Tuỳ Đường","C":"Nam Bắc triều","D":"Tây Tấn"},"answer":"A"},
+{"num":73,"id":73,"q":"Pháp môn niệm Phật bắt đầu từ Ngài:","opts":{"A":"An Thế Cao","B":"Huệ Viễn","C":"Chi Lâu Ca Sấm","D":"Phật Đồ Trừng"},"answer":"B"},
+{"num":74,"id":74,"q":"Pháp môn niệm Phật bắt đầu từ Ngài:","opts":{"A":"Huệ Viễn thời Đông Tấn","B":"Huệ Viễn thời Tây Tấn","C":"Huệ Viễn thời Nam Bắc triều","D":"Huệ Viễn thời Tam Quốc"},"answer":"A"},
+{"num":75,"id":75,"q":"Sơ Tổ Tịnh Độ tông là Ngài:","opts":{"A":"Huệ Viễn thời Tam Quốc","B":"Huệ Viễn thời Tây Tấn","C":"Huệ Viễn thời Nam Bắc triều","D":"Huệ Viễn thời Đông Tấn"},"answer":"D"},
+{"num":76,"id":76,"q":"Đời Hán, hàng vương công quý tộc tín ngưỡng Phật giáo là:","opts":{"A":"Sở vương Lưu Anh","B":"Hán vương Lưu Bang","C":"Sở vương Hàn Tín","D":"Hán vương Lưu Anh"},"answer":"A"},
+{"num":77,"id":77,"q":"Đời Hán, hàng vương công quý tộc tín ngưỡng Phật giáo là:","opts":{"A":"Hạng Vũ","B":"Lưu Bang","C":"Hàn Tín","D":"Trách Dung"},"answer":"D"},
+{"num":78,"id":78,"q":"Đặc sắc Phật giáo thời Đông Hán là:","opts":{"A":"Phiên dịch kinh điển Thiền nguyên thuỷ","B":"Phiên dịch kinh điển Phật giáo nguyên thuỷ","C":"Phiên dịch kinh điển Phật giáo phát triển","D":"Phiên dịch kinh điển Phật giáo nguyên thuỷ và Phật giáo phát triển"},"answer":"D"},
+{"num":79,"id":79,"q":"Triều đại nào lấy Nho giáo làm quốc giáo:","opts":{"A":"Hán","B":"Tuỳ Đường","C":"Nam Bắc triều","D":"Tấn"},"answer":"A"},
+{"num":80,"id":80,"q":"Đề nghị vua Hán Võ Đế lấy tư tưởng Nho giáo làm tư tưởng chủ đạo là:","opts":{"A":"Đổng Trọng Thư","B":"Trương Lương","C":"Hàn Tín","D":"Khổng Tử"},"answer":"A"}
+]},
+
+
+{"id": "phan-3", "title": "PG Tam Quốc", "count": 58, "questions": [
+{"num":81,"id":81,"q":"Tam quốc là các nước:","opts":{"A":"Hán, Ngụy, Thục","B":"Nguỵ, Thục, Tấn","C":"Nguỵ, Thục, Ngô","D":"Hán, Thục, Ngô"},"answer":"C"},
+{"num":82,"id":82,"q":"Thời Tam quốc, các nước có Phật giáo là:","opts":{"A":"Ngụy, Thục","B":"Ngô, Thục","C":"Nguỵ, Ngô","D":"Ngụy, Thục, Ngô"},"answer":"C"},
+{"num":83,"id":83,"q":"Người lập nước Tào Ngụy là:","opts":{"A":"Tào Tháo","B":"Tào Phi","C":"Tư Mã Viêm","D":"Lưu Bị"},"answer":"B"},
+{"num":84,"id":84,"q":"Kinh đô của nước Tào Ngụy là:","opts":{"A":"Thành Đô","B":"Kiến Nghiệp","C":"Lạc Dương","D":"Trường An"},"answer":"C"},
+{"num":85,"id":85,"q":"Người lập nước Thục Hán là:","opts":{"A":"Lưu Bị","B":"Tôn Quyền","C":"Tào Phi","D":"Tư Mã Viêm"},"answer":"A"},
+{"num":86,"id":86,"q":"Kinh đô của Thục Hán là:","opts":{"A":"Lạc Dương","B":"Thành Đô","C":"Kiến Nghiệp","D":"Võ Xương"},"answer":"B"},
+{"num":87,"id":87,"q":"Người lập nước Ngô là:","opts":{"A":"Tào Phi","B":"Lưu Bị","C":"Tôn Quyền","D":"Tư Mã Viêm"},"answer":"C"},
+{"num":88,"id":88,"q":"Kinh đô của nước Ngô là:","opts":{"A":"Thành Đô","B":"Lạc Dương","C":"Kiến Nghiệp","D":"Trường An"},"answer":"C"},
+{"num":89,"id":89,"q":"Năm 263, nước nào bị Ngụy tiêu diệt?","opts":{"A":"Đông Ngô","B":"Thục Hán","C":"Tây Tấn","D":"Đông Hán"},"answer":"B"},
+{"num":90,"id":90,"q":"Năm 265, họ Tư Mã thay nhà Ngụy lập triều đại nào?","opts":{"A":"Đông Tấn","B":"Tây Tấn","C":"Nam Tống","D":"Bắc Ngụy"},"answer":"B"},
+{"num":91,"id":91,"q":"Năm 280, triều đại nào tiêu diệt Đông Ngô và thống nhất Trung Quốc?","opts":{"A":"Tào Ngụy","B":"Thục Hán","C":"Tây Tấn","D":"Đông Hán"},"answer":"C"},
+{"num":92,"id":92,"q":"Thời Nguỵ có các nhà dịch giả như:","opts":{"A":"Đàm Ma Ca La, Đàm Đế","B":"An Thế Cao, Chi Lâu Ca Sấm","C":"Cưu Ma La Thập, Giác Hiền","D":"Khương Tăng Hội, Chi Khiêm"},"answer":"A"},
+{"num":93,"id":93,"q":"Ngài Đàm Ma Ca La dịch Tăng Kỳ giới bổn vào:","opts":{"A":"thời Đông Tấn","B":"thời Hán","C":"thời Nguỵ","D":"thời Tây Tấn"},"answer":"C"},
+{"num":94,"id":94,"q":"Dịch giả Tăng Kỳ giới bổn là Ngài:","opts":{"A":"Trúc Pháp Hộ","B":"Đàm Ma Ca La","C":"An Thế Cao","D":"Nghiêm Phật Ðiều"},"answer":"B"},
+{"num":95,"id":95,"q":"Dịch giả Tăng Kỳ giới bổn là Ngài:","opts":{"A":"Đàm Ma Ca La thời Hán","B":"Đàm Ma Ca La thời Ngô","C":"Đàm Ma Ca La thời Nguỵ","D":"Đàm Ma Ca La thời Tây Tấn"},"answer":"C"},
+{"num":96,"id":96,"q":"Ngài Đàm Ma Ca La cùng với Ngài Đàm Đế dịch:","opts":{"A":"Tăng Kỳ giới tâm","B":"Luật Tứ phần Đàm Vô Đức yết ma","C":"Bát thập tụng luật","D":"Tăng Kỳ giới bổn"},"answer":"B"},
+{"num":97,"id":97,"q":"Ngài Đàm Ma Ca La dịch luật Tứ phần Đàm Vô Đức yết ma cùng với Ngài:","opts":{"A":"Chu Sĩ Hành","B":"Trúc Pháp Hộ","C":"Nghiêm Phật Ðiều","D":"Đàm Đế"},"answer":"D"},
+{"num":98,"id":98,"q":"Ngài Đàm Ma Ca La được tôn là Sơ tổ của:","opts":{"A":"Luật tông","B":"Tịnh Độ tông","C":"Thiên Thai tông","D":"Tam Luận tông"},"answer":"A"},
+{"num":99,"id":99,"q":"Thời Nguỵ, thỉnh 10 vị Sa môn từ Thiên Trúc đến Trung Quốc truyền giới là Ngài:","opts":{"A":"Đàm Ma Ca La, Đàm Đế","B":"An Thế Cao, Chi Lâu Ca Sấm","C":"Cưu Ma La Thập, Giác Hiền","D":"Khương Tăng Hội, Chi Khiêm"},"answer":"A"},
+{"num":100,"id":100,"q":"Giới đàn đầu tiên được thiết lập tại:","opts":{"A":"Nam Kinh","B":"Lạc Dương","C":"Trường An","D":"Bắc Kinh"},"answer":"B"},
+{"num":101,"id":101,"q":"Người đầu tiên xuất gia thọ giới Tỳ kheo ở Trung Quốc là:","opts":{"A":"Nghiêm Phật Điều","B":"Chu Sĩ Hành","C":"Đạo An","D":"Khương Tăng Hội"},"answer":"B"},
+{"num":102,"id":102,"q":"Người đầu tiên Mở đường “nhập Trúc cầu pháp”:","opts":{"A":"Nghiêm Phật Điều","B":"Chu Sĩ Hành","C":"Đạo An","D":"Khương Tăng Hội"},"answer":"B"},
+{"num":103,"id":103,"q":"Ngài Chu Sĩ Hành nhập Trúc cầu pháp thỉnh được bộ kinh:","opts":{"A":"Đại Minh Độ kinh","B":"Phóng Quang Bát nhã","C":"Đạo Hành Bát nhã","D":"Bát nhã tâm kinh"},"answer":"B"},
+{"num":104,"id":104,"q":"Ngài Chu Sĩ Hành thường giảng kinh:","opts":{"A":"Tứ thập nhị chương","B":"Bát đại nhân giác","C":"Đạo Hành Bát nhã","D":"Kinh Phù Đồ"},"answer":"C"},
+{"num":105,"id":105,"q":"Đem bộ kinh Phóng Quang Bát nhã về nước là Ngài:","opts":{"A":"Chu Sĩ Hành","B":"đệ tử của Ngài Chu Sĩ Hành (Phất Như Đàn)","C":"Đạo An","D":"Khương Tăng Hội"},"answer":"B"},
+{"num":106,"id":106,"q":"Phật giáo thời Tào Ngụy có thể xem là sự tiếp nối trực tiếp của Phật giáo thời nào?","opts":{"A":"Đông Hán","B":"Tây Tấn","C":"Nam Bắc triều","D":"Tùy"},"answer":"A"},
+{"num":107,"id":107,"q":"Nguyên nhân chính khiến Ngài Chu Sĩ Hành Tây hành cầu pháp là:","opts":{"A":"Muốn gặp vua Tôn Quyền","B":"Nhận thấy bản Đạo Hành Bát Nhã còn giản lược, nghĩa lý chưa đầy đủ","C":"Muốn thành lập một tông phái mới","D":"Muốn nghiên cứu Nho giáo"},"answer":"B"},
+{"num":108,"id":108,"q":"Năm 260, Ngài Chu Sĩ Hành đến đâu để tìm bản Bát-nhã đầy đủ hơn?","opts":{"A":"Giao Châu","B":"Kiến Nghiệp","C":"Vu Điền","D":"Thành Đô"},"answer":"C"},
+{"num":109,"id":109,"q":"Ngài Khang Tăng Khải hoạt động dịch kinh tại chùa nào ở Lạc Dương?","opts":{"A":"Kiến Sơ tự","B":"Bạch Mã tự","C":"Ngõa Quan tự","D":"Thanh Thành tự"},"answer":"B"},
+{"num":110,"id":110,"q":"Theo truyền thống kinh lục, Khang Tăng Khải được gắn với bản dịch kinh nào?","opts":{"A":"Vô Lượng Thọ Kinh","B":"Đại Minh Độ Kinh","C":"Lục Độ Tập Kinh","D":"Pháp Hoa Tam Muội Kinh"},"answer":"A"},
+{"num":111,"id":111,"q":"Thời Ngô có các nhà dịch giả như:","opts":{"A":"Cưu Ma La Thập, Giác Hiền","B":"Đàm Ma Ca La, Đàm Đế","C":"An Thế Cao, Chi Lâu Ca Sấm","D":"Khương Tăng Hội, Chi Khiêm"},"answer":"D"},
+{"num":112,"id":112,"q":"Cư sĩ Chi Khiêm là người nước:","opts":{"A":"Thiên Trúc","B":"Đại Nguyệt Chi","C":"Khương Cư","D":"An Tức"},"answer":"B"},
+{"num":113,"id":113,"q":"Cư sĩ Chi Khiêm học đạo với Ngài:","opts":{"A":"Chi Lượng","B":"Chi Lâu Ca Sấm","C":"Chi Sấm","D":"An Thế Cao"},"answer":"A"},
+{"num":114,"id":114,"q":"Dịch phẩm tiêu biểu của Cư sĩ Chi Khiêm:","opts":{"A":"Kinh Pháp Hoa, Phật Thuyết Bột kinh sao","B":"Kinh Duy Ma Cật, Kinh Vu Lan","C":"Kinh Duy Ma Cật, kinh Hoa Nghiêm","D":"Kinh Duy Ma Cật, Kinh Đại Minh Độ"},"answer":"D"},
+{"num":115,"id":115,"q":"Dịch giả quyển Đại Minh Độ Kinh là Ngài:","opts":{"A":"Tỳ kheo Chi Khiêm thời Ngô","B":"Tỳ kheo Chi Khiêm thời Hán","C":"Cư sĩ Chi Khiêm thời Ngô","D":"Cư sĩ Chi Khiêm thời Hán"},"answer":"C"},
+{"num":116,"id":116,"q":"Dịch phẩm tiêu biểu của Cư sĩ Chi Khiêm:","opts":{"A":"Kinh Pháp Hoa, kinh Hoa Nghiêm","B":"Kinh Duy Ma Cật, Kinh Vu Lan","C":"Kinh Duy Ma Cật, kinh Hoa Nghiêm","D":"Kinh Duy Ma Cật, Phật Thuyết Bột kinh sao"},"answer":"D"},
+{"num":117,"id":117,"q":"Dịch giả quyển Phật Thuyết Bột kinh sao là Ngài:","opts":{"A":"Tỳ kheo Chi Khiêm thời Ngô","B":"Tỳ kheo Chi Khiêm thời Hán","C":"Cư sĩ Chi Khiêm thời Ngô","D":"Cư sĩ Chi Khiêm thời Hán"},"answer":"C"},
+{"num":118,"id":118,"q":"Phật Thuyết Bột kinh sao được dịch sang tiếng Việt với nhan đề:","opts":{"A":"Kinh Niết Bàn","B":"Kinh Pháp Hoa","C":"Kinh Hiền Nhân","D":"Kinh Đại Minh Độ"},"answer":"C"},
+{"num":119,"id":119,"q":"“Thiên hạ bác tri, bất xuất tam Chi”, “tam Chi” là:","opts":{"A":"Chi Lâu Ca Sấm, Chi Lượng, Chi Khiêm","B":"Chi Lâu Ca Sấm, Chi Lượng, Trúc Pháp Hộ","C":"Chi Lâu Ca Sấm, Chi Lượng, Cưu Ma La Thập","D":"Chi Lâu Ca Sấm, Chi Lượng, Khương Tăng Hội"},"answer":"A"},
+{"num":120,"id":120,"q":"Trung tâm Phật giáo quan trọng của Đông Ngô là:","opts":{"A":"Lạc Dương","B":"Trường An","C":"Kiến Nghiệp","D":"Thành Đô"},"answer":"C"},
+{"num":121,"id":121,"q":"Hoạt động Phật giáo ở Đông Ngô nổi bật trước hết ở phương diện nào?","opts":{"A":"Dịch kinh","B":"Thành lập Thiền tông","C":"Phát triển Mật tông","D":"Tổ chức kết tập kinh điển"},"answer":"A"},
+{"num":122,"id":122,"q":"Chi Lượng là đệ tử của:","opts":{"A":"Khương Tăng Hội","B":"Chi Lâu Ca Sấm","C":"Đàm Đế","D":"Khang Tăng Khải"},"answer":"B"},
+{"num":123,"id":123,"q":"Chi Khiêm được Tôn Quyền trọng đãi và giao nhiệm vụ:","opts":{"A":"Dạy Thái tử","B":"Lập giới đàn ở Lạc Dương","C":"Tây hành đến Vu Điền","D":"Xây Bạch Mã tự"},"answer":"A"},
+{"num":124,"id":124,"q":"Đặc điểm nổi bật trong văn dịch của Chi Khiêm là:","opts":{"A":"Sáng rõ, lưu loát và phù hợp hơn với Hán văn","B":"Chỉ dùng phiên âm, không dịch nghĩa","C":"Chỉ dịch Luật tạng","D":"Cố ý giữ nguyên cú pháp tiếng Phạn"},"answer":"A"},
+{"num":125,"id":125,"q":"Cha của Ngài Khương Tăng Hội là người nước:","opts":{"A":"An Tức","B":"Thiên Trúc","C":"Khương Cư","D":"Đại Nguyệt Chi"},"answer":"C"},
+{"num":126,"id":126,"q":"Mẹ của Ngài Khương Tăng Hội là người nước:","opts":{"A":"An Tức","B":"Thiên Trúc","C":"Giao Châu (Việt Nam)","D":"Đại Nguyệt Chi"},"answer":"C"},
+{"num":127,"id":127,"q":"Sanh quán của Ngài Khương Tăng Hội là:","opts":{"A":"An Tức","B":"Thiên Trúc","C":"Giao Châu (Việt Nam)","D":"Đại Nguyệt Chi"},"answer":"C"},
+{"num":128,"id":128,"q":"Dịch giả quyển Lục Độ Tập Kinh là Ngài:","opts":{"A":"Chu Sĩ Hành","B":"Đàm Đế","C":"Nghiêm Phật Ðiều","D":"Khương Tăng Hội"},"answer":"D"},
+{"num":129,"id":129,"q":"Dịch giả quyển Lục Độ Tập Kinh là Ngài:","opts":{"A":"Khương Tăng Hội thời Ngô","B":"Khương Tăng Hội thời Hán","C":"Chi Khiêm thời Ngô","D":"Khương Tăng Hội thời Tây Tấn"},"answer":"A"},
+{"num":130,"id":130,"q":"Dịch phẩm tiêu biểu của Ngài Khương Tăng Hội là:","opts":{"A":"Lục Độ Tập Kinh","B":"Phật Thuyết Bột kinh sao","C":"kinh Vu lan","D":"Kinh Đại Minh Độ"},"answer":"A"},
+{"num":131,"id":131,"q":"Dịch phẩm tiêu biểu của Ngài Khương Tăng Hội là:","opts":{"A":"Lục Độ Yếu mục","B":"Phật Thuyết Bột kinh sao","C":"kinh Vu lan","D":"Kinh Đại Minh Độ"},"answer":"A"},
+{"num":132,"id":132,"q":"Ngài Khương Tăng Hội đề tựa kinh:","opts":{"A":"An Ban Thủ ý","B":"Phật Thuyết Bột kinh sao","C":"Lục Độ Tập Kinh","D":"Kinh Đại Minh Độ"},"answer":"A"},
+{"num":133,"id":133,"q":"Ngài Khương Tăng Hội chú sớ kinh:","opts":{"A":"An Ban Thủ ý","B":"Phật Thuyết Bột kinh sao","C":"Lục Độ Tập Kinh","D":"Kinh Đại Minh Độ"},"answer":"A"},
+{"num":134,"id":134,"q":"Ngài Khương Tăng Hội được vua Tôn Quyền kính trọng và xây chùa ____ cho Ngài ở:","opts":{"A":"Phổ Đà tự","B":"Hồng Lô tự","C":"Bạch Mã tự","D":"Kiến Sơ tự"},"answer":"D"},
+{"num":135,"id":135,"q":"Kiến Sơ tự là ngôi chùa đầu tiên ở nước:","opts":{"A":"Ngụy","B":"Thục","C":"Ngô","D":"Hán"},"answer":"C"},
+{"num":136,"id":136,"q":"Ngôi chùa đầu tiên ở nước Ngô là:","opts":{"A":"Phổ Đà tự","B":"Hồng Lô tự","C":"Bạch Mã tự","D":"Kiến Sơ tự"},"answer":"D"},
+{"num":137,"id":137,"q":"Người Việt Nam đầu tiên truyền bá Phật giáo đến Trung Quốc là:","opts":{"A":"Ngài Khương Tăng Hội","B":"Ngài Đàm Đế","C":"Ngài Nghiêm Phật Ðiều","D":"Ngài Chi Khiêm"},"answer":"A"},
+{"num":138,"id":138,"q":"Theo Cao Tăng Truyện, cha của Khương Tăng Hội dời đến Giao Chỉ vì:","opts":{"A":"Làm quan","B":"Buôn bán","C":"Cầu pháp","D":"Lánh nạn chiến tranh"},"answer":"B"},
+{"num":139,"id":139,"q":"Năm 247, Khương Tăng Hội đến đâu để hoằng pháp?","opts":{"A":"Lạc Dương","B":"Kiến Nghiệp","C":"Thành Đô","D":"Vu Điền"},"answer":"B"},
+{"num":140,"id":140,"q":"Nội dung trung tâm của Lục Độ Tập Kinh gắn với:","opts":{"A":"Sáu Ba-la-mật của hạnh Bồ-tát","B":"Bốn Thánh đế","C":"Mười hai nhân duyên","D":"Bảy giác chi"},"answer":"A"},
+{"num":141,"id":141,"q":"Nội dung nào sau đây KHÔNG thuộc Lục độ?","opts":{"A":"Bố thí","B":"Trì giới","C":"Nhẫn nhục","D":"Tín"},"answer":"D"},
+{"num":142,"id":142,"q":"Quan hệ giữa Phật giáo và chính quyền biểu hiện rõ nhất tại:","opts":{"A":"Đông Ngô","B":"Thục Hán","C":"Tây Tấn","D":"Đông Hán"},"answer":"A"},
+{"num":143,"id":143,"q":"Kiến Nghiệp dưới thời Đông Ngô trở thành:","opts":{"A":"Một trung tâm Phật giáo quan trọng của miền Nam Trung Quốc","B":"Trung tâm duy nhất của Phật giáo Trung Quốc","C":"Kinh đô của Thục Hán","D":"Trung tâm của Phật giáo Tây Vực"},"answer":"A"},
+{"num":144,"id":144,"q":"So với Đông Ngô, điểm nổi bật hơn của Phật giáo Tào Ngụy là:","opts":{"A":"Giới luật, Yết-ma và hoạt động Tây hành cầu pháp","B":"Việc xây dựng Kiến Sơ tự","C":"Quan hệ trực tiếp với Giao Châu","D":"Hoạt động của Chi Khiêm"},"answer":"A"},
+{"num":145,"id":145,"q":"Việc truyền giới luật và pháp Yết-ma thời Tào Ngụy có ý nghĩa chủ yếu là:","opts":{"A":"Góp phần quy phạm hóa đời sống Tăng đoàn","B":"Làm Phật giáo trở thành quốc giáo","C":"Hình thành Thiền tông","D":"Chấm dứt việc dịch kinh"},"answer":"A"},
+{"num":146,"id":146,"q":"Vô Lượng Thọ Kinh là một trong những kinh điển căn bản của tông phái nào?","opts":{"A":"Luật tông","B":"Thiên Thai tông","C":"Tịnh Độ tông","D":"Tam Luận tông"},"answer":"C"},
+{"num":147,"id":147,"q":"Ban đầu, pháp tu Tịnh Độ tông y cứ vào hệ thống kinh luận nào?","opts":{"A":"Tam kinh nhất luận","B":"Tứ kinh nhất luận","C":"Ngũ kinh nhất luận","D":"Ngũ kinh nhị luận"},"answer":"A"},
+{"num":148,"id":148,"q":"Vãng Sinh Luận trong hệ thống Tịnh Độ do vị Bồ-tát nào trước tác?","opts":{"A":"Long Thọ","B":"Thiên Thân","C":"Vô Trước","D":"Mã Minh"},"answer":"B"},
+{"num":149,"id":149,"q":"Phẩm nào trong Hoa Nghiêm Kinh về sau được đưa vào làm kinh thứ tư của Tịnh Độ?","opts":{"A":"Phẩm Phổ Hiền Bồ-tát Hạnh Nguyện","B":"Phẩm Thập Địa","C":"Phẩm Tịnh Hạnh","D":"Phẩm Nhập Pháp Giới"},"answer":"A"},
+{"num":150,"id":150,"q":"Chương Đại Thế Chí Bồ-tát Niệm Phật Viên Thông thuộc kinh nào?","opts":{"A":"Kinh Pháp Hoa","B":"Kinh Hoa Nghiêm","C":"Kinh Lăng Nghiêm","D":"Kinh Niết Bàn"},"answer":"C"}
+]},
+
+
+{"id": "phan-4", "title": "PG Tây Tấn Và Tiền Tần", "count": 37, "questions": [
+{"num":151,"id":151,"q":"Nhà Tấn được chia thành hai triều đại:","opts":{"A":"Tây Tấn và Đông Tấn","B":"Tiền Tấn và Hậu Tấn","C":"Bắc Tấn và Nam Tấn","D":"Tiền Tấn và Đông Tấn"},"answer":"A"},
+{"num":152,"id":152,"q":"Nhà Tây Tấn được thành lập bởi ai?","opts":{"A":"Tư Mã Ý","B":"Tư Mã Viêm","C":"Tư Mã Duệ","D":"Tư Mã Chiêu"},"answer":"B"},
+{"num":153,"id":153,"q":"Kinh đô của nhà Tây Tấn là:","opts":{"A":"Kiến Khang","B":"Trường An","C":"Lạc Dương","D":"Thành Đô"},"answer":"C"},
+{"num":154,"id":154,"q":"Sau thời Tam Quốc, nhà Tây Tấn hoàn thành việc thống nhất Trung Quốc sau khi tiêu diệt nước nào?","opts":{"A":"Thục Hán","B":"Đông Ngô","C":"Hậu Triệu","D":"Tiền Tần"},"answer":"B"},
+{"num":155,"id":155,"q":"Cuộc nội chiến làm suy yếu nghiêm trọng vương triều Tây Tấn được gọi là:","opts":{"A":"Loạn Hoàng Cân","B":"Loạn Bát Vương","C":"Loạn An Sử","D":"Loạn Hầu Cảnh"},"answer":"B"},
+{"num":156,"id":156,"q":"Một hậu quả quan trọng của Loạn Bát Vương là:","opts":{"A":"Nhà Tấn thống nhất thêm lãnh thổ","B":"Quốc lực Tây Tấn suy yếu nghiêm trọng","C":"Phật giáo bị tiêu diệt hoàn toàn","D":"Nho giáo không còn tồn tại"},"answer":"B"},
+{"num":157,"id":157,"q":"Sự kiện tiêu biểu của Loạn Vĩnh Gia là:","opts":{"A":"Kinh đô Lạc Dương bị công phá","B":"Đông Ngô bị tiêu diệt","C":"Nhà Tấn vừa được thành lập","D":"Cưu Ma La Thập đến Trường An"},"answer":"A"},
+{"num":158,"id":158,"q":"Phật giáo thời Tây Tấn thuộc thời đại:","opts":{"A":"Phiên dịch","B":"Nghiên cứu","C":"Suy vi","D":"Kế thừa"},"answer":"A"},
+{"num":159,"id":159,"q":"So với thời Đông Hán và Tam Quốc, hoạt động dịch kinh Tây Tấn có đặc điểm:","opts":{"A":"Giảm sút rõ rệt","B":"Chỉ dịch kinh Tiểu thừa","C":"Phạm vi kinh điển Đại thừa được mở rộng","D":"Hoàn toàn ngừng dịch kinh"},"answer":"C"},
+{"num":160,"id":160,"q":"Sự thống nhất dưới thời Tây Tấn tạo điều kiện thuận lợi nào cho sự truyền bá Phật giáo?","opts":{"A":"Tăng sĩ, kinh điển và cư sĩ lưu thông thuận lợi hơn giữa Bắc và Nam","B":"Phật giáo chấm dứt hoạt động phiên dịch","C":"Chỉ có Tăng sĩ Tây Vực được phép hoằng pháp","D":"Các tự viện đều rời khỏi Lạc Dương"},"answer":"A"},
+{"num":161,"id":161,"q":"Một đặc điểm đáng chú ý của dịch trường Tây Tấn là:","opts":{"A":"Chỉ người Ấn Độ được tham gia","B":"Cư sĩ và người Hán trực tiếp tham gia dịch thuật","C":"Không có người Tây Vực","D":"Chỉ dịch bằng khẩu truyền"},"answer":"B"},
+{"num":162,"id":162,"q":"Ngài Trúc Pháp Hộ là cao Tăng nước:","opts":{"A":"Tây Tấn","B":"Ngô","C":"Đông Tấn","D":"Tiền Hán"},"answer":"A"},
+{"num":163,"id":163,"q":"Ngài Trúc Pháp Hộ còn gọi là:","opts":{"A":"An Pháp Hộ","B":"Khương Pháp Hộ","C":"Chi Pháp Hộ","D":"Chi Pháp Tọa"},"answer":"C"},
+{"num":164,"id":164,"q":"Tên phiên âm khác của Trúc Pháp Hộ là:","opts":{"A":"Đàm Ma La Sát","B":"Đàm Ma Ca La","C":"Phật Đồ Trừng","D":"Cưu Ma La Thập"},"answer":"A"},
+{"num":165,"id":165,"q":"Ngài Chi Pháp Hộ là người nước:","opts":{"A":"An Tức","B":"Thiên Trúc","C":"Khương Cư","D":"Đại Nguyệt Chi"},"answer":"D"},
+{"num":166,"id":166,"q":"Thầy của Ngài Trúc Pháp Hộ là Ngài:","opts":{"A":"Chu Sĩ Hành","B":"Đàm Đế","C":"Nghiêm Phật Ðiều","D":"Trúc Cao Toạ"},"answer":"D"},
+{"num":167,"id":167,"q":"Ngài Trúc Pháp Hộ được tôn là:","opts":{"A":"Tây Tấn Bồ tát","B":"Đôn Hoàng Bồ tát","C":"Đông Tấn Bồ tát","D":"Tam quốc Bồ tát"},"answer":"B"},
+{"num":168,"id":168,"q":"Kinh điển được lưu hành rộng rãi tại Trung Hoa, nhờ công sức của Ngài:","opts":{"A":"Trúc Pháp Hộ","B":"Chu Sĩ Hành","C":"Nghiêm Phật Ðiều","D":"Đàm Đế"},"answer":"A"},
+{"num":169,"id":169,"q":"\"Phật giáo đại sự biểu\" của Trung Hoa về Ngài Trúc Pháp Hộ là:","opts":{"A":"dịch kinh Pháp Hoa, kinh Vu Lan","B":"dịch Kinh Niết Bàn, Kinh A hàm","C":"dịch Kinh Niết Bàn, kinh Pháp Hoa","D":"dịch Kinh Niết Bàn, kinh Hoa Nghiêm"},"answer":"C"},
+{"num":170,"id":170,"q":"Lịch sử phiên dịch của Phật giáo Trung Hoa có 3 cái mốc là:","opts":{"A":"Khương Tăng Hội-Cưu Ma La Thập-Huyền Tráng","B":"Trúc Pháp Hộ-Cưu Ma La Thập-Huyền Tráng","C":"Trúc Pháp Hộ-Đạo An-Huyền Tráng","D":"Trúc Pháp Hộ-Cưu Ma La Thập-Huệ Viễn"},"answer":"B"},
+{"num":171,"id":171,"q":"Dịch giả Quang Tán Bát Nhã Kinh là Ngài:","opts":{"A":"Trúc Pháp Hộ","B":"Phật Đồ Trừng","C":"Đạo An","D":"Cưu Ma La Thập"},"answer":"A"},
+{"num":172,"id":172,"q":"Tác phẩm tiêu biểu thuộc hệ Pháp Hoa do Trúc Pháp Hộ dịch là:","opts":{"A":"Diệu Pháp Liên Hoa Kinh","B":"Chính Pháp Hoa Kinh","C":"Pháp Hoa Văn Cú","D":"Pháp Hoa Huyền Nghĩa"},"answer":"B"},
+{"num":173,"id":173,"q":"Bản Chính Pháp Hoa Kinh của Trúc Pháp Hộ có ý nghĩa đáng chú ý đối với:","opts":{"A":"Sự phổ biến tín ngưỡng Quán Thế Âm trong dân gian","B":"Sự hình thành Thiền tông","C":"Sự thành lập Luật tông","D":"Việc chấm dứt dịch kinh Đại thừa"},"answer":"A"},
+{"num":174,"id":174,"q":"Dịch giả kinh Vu Lan là Ngài:","opts":{"A":"Trúc Pháp Hộ","B":"Chu Sĩ Hành","C":"Nghiêm Phật Ðiều","D":"Đàm Đế"},"answer":"A"},
+{"num":175,"id":175,"q":"Dịch giả Phóng Quang Bát nhã kinh là Ngài:","opts":{"A":"Vô La Xoa và Ưu bà tắc Trúc Thúc Lan","B":"Chu Sĩ Hành và Nghiêm Phật Ðiều","C":"Chu Sĩ Hành và đệ tử","D":"Trúc Pháp Hộ và Vô La Xoa"},"answer":"A"},
+{"num":176,"id":176,"q":"Phạm bản làm cơ sở cho việc dịch Phóng Quang Bát Nhã Kinh có liên hệ với công cuộc cầu pháp của:","opts":{"A":"Đạo An","B":"Chu Sĩ Hành","C":"Tuệ Viễn","D":"Phật Đồ Trừng"},"answer":"B"},
+{"num":177,"id":177,"q":"Phóng Quang Bát Nhã Kinh thuộc hệ kinh điển nào?","opts":{"A":"Bát-nhã","B":"A-hàm","C":"Luật tạng","D":"Mật giáo"},"answer":"A"},
+{"num":178,"id":178,"q":"Các bản dịch của Trúc Pháp Hộ có ý nghĩa quan trọng vì:","opts":{"A":"Chấm dứt hoạt động dịch kinh","B":"Chuẩn bị cơ sở kinh điển cho Phật học đời sau","C":"Chỉ phục vụ tín ngưỡng dân gian","D":"Chỉ truyền bá giới luật"},"answer":"B"},
+{"num":179,"id":179,"q":"Tư tưởng trung tâm của hệ kinh Bát-nhã là:","opts":{"A":"Thần quyền","B":"Tánh Không","C":"Thiên mệnh","D":"Trường sinh"},"answer":"B"},
+{"num":180,"id":180,"q":"Huyền học thời Ngụy–Tấn chủ yếu chịu ảnh hưởng của tư tưởng:","opts":{"A":"Mặc gia","B":"Lão–Trang","C":"Pháp gia","D":"Danh gia"},"answer":"B"},
+{"num":181,"id":181,"q":"Phong khí Thanh đàm, Huyền đàm thời Ngụy–Tấn tạo điều kiện để Phật giáo tiếp cận mạnh hơn với tầng lớp nào?","opts":{"A":"Sĩ đại phu và trí thức","B":"Quân đội biên cương","C":"Thợ thủ công","D":"Nông dân tá điền"},"answer":"A"},
+{"num":182,"id":182,"q":"Trong bối cảnh tư tưởng Ngụy–Tấn, “danh giáo” chủ yếu chỉ:","opts":{"A":"Đạo đức và chuẩn mực của Nho gia","B":"Giáo lý Bát-nhã","C":"Giáo pháp của Thiên Sư Đạo","D":"Phương pháp dịch kinh"},"answer":"A"},
+{"num":183,"id":183,"q":"Thời Tây Tấn có:","opts":{"A":"Trúc Lâm Thất Hiền","B":"Trúc Lâm Bát Hiền","C":"Trúc Sơn Bát Hiền","D":"Trúc Sơn Thất Hiền"},"answer":"A"},
+{"num":184,"id":184,"q":"Hiện tượng dùng khái niệm của Lão–Trang để giải thích giáo lý Phật giáo thường được gọi là:","opts":{"A":"Giáo phán","B":"Cách nghĩa","C":"Phán giáo","D":"Truyền đăng"},"answer":"B"},
+{"num":185,"id":185,"q":"Điểm cần tránh khi giải thích mối quan hệ giữa Bát-nhã và Huyền học là:","opts":{"A":"Phân tích sự giao lưu tư tưởng","B":"Nhận ra ảnh hưởng của Lão–Trang","C":"Đồng nhất “Không” của Bát-nhã với “Vô” của Lão–Trang","D":"Tìm hiểu vai trò của giới sĩ đại phu"},"answer":"C"},
+{"num":186,"id":186,"q":"Bát-nhã học thời Ngụy–Tấn về sau tạo tiền đề cho sự xuất hiện của:","opts":{"A":"Lục gia thất tông","B":"Ngũ gia thất tông","C":"Tam luận thất phái","D":"Ngũ giáo thập tông"},"answer":"A"},
+{"num":187,"id":187,"q":"Tác giả Lão Tử Hóa Hồ Kinh là:","opts":{"A":"Vương Phù","B":"Chữ Thiện Tín","C":"Vương Đạo","D":"Tập Tạc Sĩ"},"answer":"A"},
+{"num":188,"id":188,"q":"Theo phần trình bày về quan hệ Phật–Đạo, Vương Phù soạn Lão Tử Hóa Hồ Kinh nhằm:","opts":{"A":"Đối kháng với Phật giáo","B":"Chú giải kinh Bát-nhã","C":"Truyền bá Pháp Hoa","D":"Lập danh mục kinh điển"},"answer":"A"},
+{"num":189,"id":189,"q":"Trạng thái giáo đoàn Phật giáo Tây Tấn cho thấy:","opts":{"A":"Tự viện và Tăng Ni có sự phát triển, đồng thời nhận được sự bảo hộ của một số vua","B":"Phật giáo bị triều đình cấm tuyệt đối","C":"Không có hoạt động xây dựng tự viện","D":"Tăng Ni hoàn toàn tách khỏi xã hội"},"answer":"A"},
+{"num":190,"id":190,"q":"Từ Tây Tấn trở đi, sự phát triển của Bát-nhã học góp phần làm Phật giáo chuyển dần theo hướng:","opts":{"A":"Từ chú trọng trai tự, tín ngưỡng sang chú trọng nghiên cứu và giải thích nghĩa lý","B":"Từ nghiên cứu kinh điển sang từ bỏ kinh điển","C":"Từ Đại thừa sang chỉ còn tín ngưỡng dân gian","D":"Từ hoạt động giáo đoàn sang hoàn toàn thế tục hóa"},"answer":"A"},
+{"num":191,"id":191,"q":"Phật giáo thời Đông Tấn thuộc thời đại:","opts":{"A":"Phiên dịch","B":"Nghiên cứu","C":"Suy vi","D":"Kế thừa"},"answer":"B"},
+{"num":192,"id":192,"q":"Thời Đông Tấn thập lục quốc, các nước có Phật giáo là:","opts":{"A":"Đông Tấn, Hậu Triệu, Tiền Tần, Hậu Tần, Bắc Lương","B":"Hậu Triệu, Thành, Tiền Tần, Hậu Tần, Tây Tần","C":"Hậu Triệu, Tây Tấn, Đông Tấn, Tiền Tần, Hạ","D":"Hậu Triệu, Đông Tấn, Tiền Tần, Thành, Hậu Lương"},"answer":"A"},
+{"num":193,"id":193,"q":"Thời Đông Tấn thập lục quốc, các nước có truyền dịch kinh điển là:","opts":{"A":"Tiền Tần, Hậu Tần, Thành, Hạ","B":"Hạ, Tiền Tần, Hậu Tần, Hậu Triệu","C":"Đông Tấn, Tiền Tần, Hậu Tần, Bắc Lương","D":"Hậu Triệu, Tây Tấn, Đông Tấn, Thành"},"answer":"C"},
+{"num":194,"id":194,"q":"Ngài Phật Đồ Trừng là cao Tăng nước:","opts":{"A":"Hậu Tần","B":"Hậu Triệu","C":"Tiền Tần","D":"Nguỵ"},"answer":"B"},
+{"num":195,"id":195,"q":"Ngài Phật Đồ Trừng là Thầy của Ngài:","opts":{"A":"Đạo Sanh","B":"Đạo An","C":"Huệ Viễn","D":"Chi Khiêm"},"answer":"B"},
+{"num":196,"id":196,"q":"Đời Hậu Triệu, được tôn xưng “Quốc chi đại bảo” là Ngài:","opts":{"A":"Trúc Pháp Lan","B":"Phật Đồ Trừng","C":"An Thế Cao","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":197,"id":197,"q":"Đời Hậu Triệu, được tôn xưng “Đại Hòa thượng” là Ngài:","opts":{"A":"Ca Diếp Ma Đằng","B":"Phật Đồ Trừng","C":"An Thế Cao","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":198,"id":198,"q":"Ngài Phật Đồ Trừng hóa độ vua chúa nước Hậu Triệu là:","opts":{"A":"Thạch Lặc, Thạch Hổ","B":"Tôn Quyền, Tôn Hạo","C":"Phù Kiên, Lữ Quang","D":"Diêu Trành, Diêu Hưng"},"answer":"A"},
+{"num":199,"id":199,"q":"Người Hán được xuất gia là do công lao của Ngài:","opts":{"A":"Ca Diếp Ma Đằng","B":"Phật Đồ Trừng","C":"An Thế Cao","D":"Chi Lâu Ca Sấm"},"answer":"B"},
+{"num":200,"id":200,"q":"Ngài Đạo An là cao Tăng nước:","opts":{"A":"Tiền Tần","B":"Nguỵ","C":"Ngô","D":"Hậu Tần"},"answer":"A"},
+{"num":201,"id":201,"q":"Ngài Đạo An là đệ tử của Ngài:","opts":{"A":"Chi Khiêm","B":"Phật Đồ Trừng","C":"An Thế Cao","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":202,"id":202,"q":"Ngài Đạo An là thầy của Ngài:","opts":{"A":"La Thập","B":"Chi Khiêm","C":"Huệ Viễn","D":"Đàm Đế"},"answer":"C"},
+{"num":203,"id":203,"q":"Vị học giả nổi tiếng cùng thời Ngài Đạo An là:","opts":{"A":"Tập Tạc Sĩ","B":"Phù Kiên","C":"Lữ Quang","D":"Vương Phù"},"answer":"A"},
+{"num":204,"id":204,"q":"Vua nào thờ Ngài Đạo An là thầy:","opts":{"A":"Tập Tạc Sĩ","B":"Phù Kiên","C":"Lữ Quang","D":"Vương Phù"},"answer":"B"},
+{"num":205,"id":205,"q":"Câu “Bất y quốc chủ tắc pháp sự nan lập” của Ngài:","opts":{"A":"Đạo An","B":"Tăng Triệu","C":"Huệ Viễn","D":"Khương Tăng Hội"},"answer":"A"},
+{"num":206,"id":206,"q":"Ngài Đạo An đề nghị với vua Phù Kiên đi Tây vực thỉnh ngài:","opts":{"A":"Chi Lâu Ca Sấm","B":"Cưu Ma La Thập","C":"Trúc Pháp Hộ","D":"Tập Tạc Sĩ"},"answer":"B"},
+{"num":207,"id":207,"q":"Tăng Ni lấy họ Thích bắt đầu từ Ngài:","opts":{"A":"Huệ Viễn","B":"Đạo An","C":"Cưu Ma La Thập","D":"Chi Lâu Ca Sấm"},"answer":"B"},
+{"num":208,"id":208,"q":"Làm sáng nghĩa kinh điển cổ xưa, khởi đầu từ Ngài:","opts":{"A":"Cưu Ma La Thập","B":"Chi Lâu Ca Sấm","C":"Đạo An","D":"Huệ Viễn"},"answer":"C"},
+{"num":209,"id":209,"q":"Tác giả quyển Tổng Lý Chúng Kinh Mục Lục là Ngài:","opts":{"A":"Đạo An nước Hậu Tần","B":"Đạo An nước Tiền Tần","C":"Đạo An nước Tây Tần","D":"Đạo An nước Dao Tần"},"answer":"B"},
+{"num":210,"id":210,"q":"Quyển Tổng Lý Chúng Kinh Mục Lục được ra đời vào thời:","opts":{"A":"Tùy Đường","B":"Nam Bắc Triều","C":"Đông Tấn","D":"Minh Thanh"},"answer":"C"},
+{"num":211,"id":211,"q":"Quyển Tổng Lý Chúng Kinh Mục Lục còn được gọi là:","opts":{"A":"An Lục","B":"Tam Tạng Ký Tập","C":"Hựu Lục","D":"Tam Bảo Ký"},"answer":"A"},
+{"num":212,"id":212,"q":"Người đầu tiên lập ra bản danh mục kinh điển bằng Hán ngữ là Ngài:","opts":{"A":"Đạo An","B":"Tăng Triệu","C":"Huệ Viễn","D":"Khương Tăng Hội"},"answer":"A"},
+{"num":213,"id":213,"q":"Người đầu tiên khởi xướng việc thờ Phật Di Lặc là Ngài:","opts":{"A":"Khương Tăng Hội","B":"Tăng Triệu","C":"Huệ Viễn","D":"Đạo An"},"answer":"D"},
+{"num":214,"id":214,"q":"Người đầu tiên kết hợp giữa Bát nhã và Thiền là Ngài:","opts":{"A":"Đạo An","B":"Tăng Triệu","C":"Huệ Viễn","D":"Khương Tăng Hội"},"answer":"A"},
+{"num":215,"id":215,"q":"Người đầu tiên quy định những quy tắc chính về sinh hoạt chung cho tự viện Phật giáo là Ngài:","opts":{"A":"Huệ Viễn","B":"Tăng Triệu","C":"Đạo An","D":"Khương Tăng Hội"},"answer":"C"},
+{"num":216,"id":216,"q":"Lý luận dịch kinh nổi tiếng của Ngài Đạo An được khái quát bằng:","opts":{"A":"Ngũ thất bản và Tam bất dị","B":"Ngũ chủng bất phiên và Thập huyền môn","C":"Tam pháp ấn và Tứ y","D":"Lục tức và Tam quán"},"answer":"A"},
+{"num":217,"id":217,"q":"“Ngũ thất bản” trong lý luận dịch kinh của Ngài Đạo An chủ yếu nói đến:","opts":{"A":"Những phương diện bản dịch phải biến đổi so với nguyên bản","B":"Năm vị dịch giả trong một dịch trường","C":"Năm bộ kinh bị thất lạc","D":"Năm cách phân chia tông phái"},"answer":"A"},
+{"num":218,"id":218,"q":"“Tam bất dị” trong lý luận dịch kinh của Ngài Đạo An chủ yếu nhấn mạnh:","opts":{"A":"Ba loại kinh điển Đại thừa","B":"Ba điều khó trong công việc chuyển dịch kinh điển","C":"Ba cấp bậc của Tăng đoàn","D":"Ba phương pháp hành thiền"},"answer":"B"},
+{"num":219,"id":219,"q":"Ý nghĩa quan trọng của Tổng Lý Chúng Kinh Mục Lục (An Lục) là:","opts":{"A":"Chỉnh lý, phân loại kinh điển và đặt nền tảng cho thư mục Phật giáo Hán ngữ","B":"Thành lập một tông phái mới","C":"Thay thế toàn bộ các bản dịch trước đó","D":"Chỉ ghi chép lịch sử chính trị nhà Tấn"},"answer":"A"},
+{"num":220,"id":220,"q":"Đóng góp của Ngài Đạo An được khái quát đầy đủ nhất là:","opts":{"A":"Nghiên cứu Bát-nhã, chỉnh lý kinh lục, xây dựng tăng chế và phát triển lý luận dịch kinh","B":"Chỉ chuyên dịch kinh Pháp Hoa","C":"Chỉ hoạt động trong cung đình","D":"Chỉ truyền bá tín ngưỡng dân gian"},"answer":"A"}
+]},
+
+
+{"id": "phan-5", "title": "PG Đông Tấn", "count": 185, "questions": [
+{"num":221,"id":221,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Kinh Pháp Hoa ảnh hưởng:","opts":{"A":"Thiên Thai Tông","B":"Hoa Nghiêm Tông","C":"Tịnh Độ Tông","D":"Luật Tông"},"answer":"A"},
+{"num":222,"id":222,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, ảnh hưởng Thiên Thai Tông là:","opts":{"A":"Kinh Pháp Hoa","B":"Kinh Kim Cang","C":"Thành Thực Luận","D":"Kinh A Di Đà"},"answer":"A"},
+{"num":223,"id":223,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Kinh A Di Đà ảnh hưởng:","opts":{"A":"Thiên Thai Tông","B":"Tịnh Độ Tông","C":"Thiền Tông","D":"Hoa Nghiêm Tông"},"answer":"B"},
+{"num":224,"id":224,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, ảnh hưởng Tịnh Độ Tông là:","opts":{"A":"Kinh Kim Cang","B":"Kinh Pháp Hoa","C":"Kinh A Di Đà","D":"Thành Thực Luận"},"answer":"C"},
+{"num":225,"id":225,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Kinh Kim Cang ảnh hưởng:","opts":{"A":"Tịnh Độ Tông","B":"Hoa Nghiêm Tông","C":"Thiền Tông","D":"Thiên Thai Tông"},"answer":"C"},
+{"num":226,"id":226,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, ảnh hưởng Thiền Tông là:","opts":{"A":"Kinh Kim Cang","B":"Trung Luận","C":"Kinh A Di Đà","D":"Thành Thực Luận"},"answer":"A"},
+{"num":227,"id":227,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Thập Trụ Tỳ Bà Sa Luận ảnh hưởng:","opts":{"A":"Thiên Thai Tông","B":"Hoa Nghiêm Tông","C":"Thiền Tông","D":"Luật Tông"},"answer":"B"},
+{"num":228,"id":228,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, ảnh hưởng Hoa Nghiêm Tông là:","opts":{"A":"Kinh Kim Cang","B":"Thập Trụ Tỳ Bà Sa Luận","C":"Kinh Pháp Hoa","D":"Kinh A Di Đà"},"answer":"B"},
+{"num":229,"id":229,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Thành Thực Luận ảnh hưởng:","opts":{"A":"Tam Luận Tông","B":"Duy Thức Tông","C":"Luật Tông","D":"Thành Thực Tông"},"answer":"D"},
+{"num":230,"id":230,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, ảnh hưởng Thành Thực Tông là:","opts":{"A":"Kinh Kim Cang","B":"Thành Thực Luận","C":"Kinh Pháp Hoa","D":"Thập Trụ Tỳ Bà Sa Luận"},"answer":"B"},
+{"num":231,"id":231,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Tứ Luận ảnh hưởng:","opts":{"A":"Duy Thức Tông","B":"Luật Tông","C":"Tam Luận Tông","D":"Thành Thực Tông"},"answer":"C"},
+{"num":232,"id":232,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Thập Tụng Luật ảnh hưởng:","opts":{"A":"Duy Thức Tông","B":"Tam Luận Tông","C":"Luật Tông","D":"Thành Thực Tông"},"answer":"C"},
+{"num":233,"id":233,"q":"Các dịch phẩm quan trọng của Ngài Cưu Ma La Thập:","opts":{"A":"Kinh Duy Ma, Kinh Pháp Hoa, Kinh Thắng Man","B":"Kinh Duy Ma, Kinh Pháp Hoa, kinh Giải Thâm Mật","C":"Kinh Duy Ma, Kinh Pháp Hoa, Kinh Đại Bát Nhã","D":"Kinh Duy Ma, Kinh Hoa Nghiêm, kinh Phạm Võng"},"answer":"C"},
+{"num":234,"id":234,"q":"Định bản Kinh Kim Cang là dịch phẩm của Ngài:","opts":{"A":"Trúc Pháp Hộ","B":"Huệ Viễn","C":"Cưu Ma La Thập","D":"Huyền Tráng"},"answer":"C"},
+{"num":235,"id":235,"q":"Định bản Kinh Pháp Hoa là dịch phẩm của Ngài:","opts":{"A":"Huệ Viễn","B":"Huyền Tráng","C":"Cưu Ma La Thập","D":"Trúc Pháp Hộ"},"answer":"C"},
+{"num":236,"id":236,"q":"Định bản Kinh Duy Ma là dịch phẩm của Ngài:","opts":{"A":"Cưu Ma La Thập","B":"Trúc Pháp Hộ","C":"Huệ Viễn","D":"Huyền Tráng"},"answer":"A"},
+{"num":237,"id":237,"q":"Ngài Đạo Sanh là cao Tăng nước:","opts":{"A":"Hậu Tần","B":"Hậu Hán","C":"Tiền Hán","D":"Ngô"},"answer":"A"},
+{"num":238,"id":238,"q":"Người đầu tiên đưa ra tư tưởng “Nhất xiển đề cũng có thể thành Phật” là:","opts":{"A":"Huệ Viễn","B":"Đạo An","C":"Pháp Hiển","D":"Đạo Sanh"},"answer":"D"},
+{"num":239,"id":239,"q":"Ngài Đạo Sanh là đệ tử của Ngài:","opts":{"A":"Đạo An","B":"Pháp Hiển","C":"Cưu Ma La Thập","D":"Trúc Pháp Hộ"},"answer":"C"},
+{"num":240,"id":240,"q":"Ngài Tăng Triệu là cao Tăng nước:","opts":{"A":"Hậu Hán","B":"Hậu Tần","C":"Tiền Hán","D":"Ngô"},"answer":"B"},
+{"num":241,"id":241,"q":"“Giải Không đệ nhất” là Ngài:","opts":{"A":"Pháp Hiển","B":"Đạo Sanh","C":"Huệ Viễn","D":"Tăng Triệu"},"answer":"D"},
+{"num":242,"id":242,"q":"Ngài Tăng Triệu là đệ tử của Ngài:","opts":{"A":"Pháp Hiển","B":"Đạo An","C":"Cưu Ma La Thập","D":"Huệ Viễn"},"answer":"C"},
+{"num":243,"id":243,"q":"Ngài Huệ Viễn là cao tăng thời:","opts":{"A":"Tiền Hán","B":"Đông Tấn","C":"Tây Tấn","D":"Hậu Hán"},"answer":"B"},
+{"num":244,"id":244,"q":"Tác giả bài “Sa môn bất bái vương giả luận” là Ngài:","opts":{"A":"Tăng Triệu","B":"Huệ Viễn","C":"Đạo Sanh","D":"Đạo An"},"answer":"B"},
+{"num":245,"id":245,"q":"Tác giả quyển “Đại Trí Độ luận sao” là Ngài:","opts":{"A":"Đạo An","B":"Huệ Viễn","C":"Đạo Sanh","D":"Tăng Triệu"},"answer":"B"},
+{"num":246,"id":246,"q":"Ngài Huệ Viễn là tác giả:","opts":{"A":"Đại Trí Độ luận sao","B":"Phật Thuyết Bột kinh sao","C":"Ma Ha Tăng Kỳ Luận","D":"Phật Sở Hành Tán"},"answer":"A"},
+{"num":247,"id":247,"q":"Ngài Huệ Viễn là tác giả:","opts":{"A":"Phật Sở Hành Tán","B":"Ma Ha Tăng Kỳ Luận","C":"Phật Thuyết Bột kinh sao","D":"Sa môn bất bái vương giả luận"},"answer":"D"},
+{"num":248,"id":248,"q":"Người đầu tiên khởi xướng Pháp môn niệm Phật là Ngài:","opts":{"A":"Chi Lâu Ca Sấm","B":"Huệ Viễn","C":"Trúc Pháp Hộ","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":249,"id":249,"q":"Dịch giả Kinh Hoa Nghiêm 60 quyển là Ngài:","opts":{"A":"Chi Khiêm","B":"Giác Hiền","C":"La Thập","D":"Đàm Đế"},"answer":"B"},
+{"num":250,"id":250,"q":"Ngài Giác Hiền là cao Tăng nước:","opts":{"A":"Đông Tấn","B":"Hậu Hán","C":"Ngô","D":"Tiền Hán"},"answer":"A"},
+{"num":251,"id":251,"q":"Cao Tăng thời Đông Tấn là Ngài:","opts":{"A":"Khương Tăng Hội, Chi Khiêm","B":"Huệ Viễn, Giác Hiền","C":"An Thế Cao, Chi Lâu Ca Sấm","D":"Đàm Ma Ca La, Đàm Đế"},"answer":"B"},
+{"num":252,"id":252,"q":"Ngài Đàm Vô Sấm là cao tăng nước:","opts":{"A":"Bắc Lương","B":"Tây Tấn","C":"Hậu Tần","D":"Tiền Tần"},"answer":"A"},
+{"num":253,"id":253,"q":"Ngài Đàm Vô Sấm dịch kinh:","opts":{"A":"Kinh Pháp Hoa","B":"Kinh Duy Ma","C":"Đại Bát Niết Bàn","D":"Trung A hàm"},"answer":"C"},
+{"num":254,"id":254,"q":"Có bao nhiêu bản Hán dịch Kinh Kim Cang bằng chữ Hán:","opts":{"A":"6 bản dịch","B":"4 bản dịch","C":"9 bản dịch","D":"12 bản dịch"},"answer":"A"},
+{"num":255,"id":255,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Thiền pháp yếu giải ảnh hưởng:","opts":{"A":"Tịnh Độ Tông","B":"Hoa Nghiêm Tông","C":"Thiền Tông","D":"Thiên Thai Tông"},"answer":"C"},
+{"num":256,"id":256,"q":"Trong các dịch phẩm của Ngài Cưu Ma La Thập, Toạ thiền tam muội kinh ảnh hưởng:","opts":{"A":"Tịnh Độ Tông","B":"Hoa Nghiêm Tông","C":"Thiền Tông","D":"Thiên Thai Tông"},"answer":"C"},
+{"num":257,"id":257,"q":"Có bao nhiêu bản dịch Kinh Pháp Hoa bằng chữ Hán:","opts":{"A":"3 bản dịch","B":"4 bản dịch","C":"5 bản dịch","D":"6 bản dịch"},"answer":"A"},
+{"num":258,"id":258,"q":"Có bao nhiêu bản dịch Kinh Duy Ma bằng chữ Hán:","opts":{"A":"3 bản dịch","B":"4 bản dịch","C":"5 bản dịch","D":"6 bản dịch"},"answer":"A"},
+{"num":259,"id":259,"q":"Các dịch phẩm định bản của Ngài Cưu Ma La Thập:","opts":{"A":"Kinh Duy Ma, Kinh Pháp Hoa","B":"Kinh Pháp Hoa, kinh Giải Thâm Mật","C":"Kinh Duy Ma, Kinh Hoa Nghiêm","D":"Kinh Hoa Nghiêm, kinh Phạm Võng"},"answer":"A"},
+{"num":260,"id":260,"q":"Các dịch phẩm định bản của Ngài Cưu Ma La Thập:","opts":{"A":"Kinh Pháp Hoa, Kinh Kim Cang","B":"Kinh Pháp Hoa, kinh Giải Thâm Mật","C":"Kinh Pháp Hoa, Kinh Hoa Nghiêm","D":"kinh Phạm Võng, Kinh Hoa Nghiêm"},"answer":"A"},
+{"num":261,"id":261,"q":"Sơ Tổ Tịnh độ tông là Ngài:","opts":{"A":"Chi Lâu Ca Sấm","B":"Huệ Viễn","C":"Trúc Pháp Hộ","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":262,"id":262,"q":"Quá trình phiên dịch kinh Phật tại Trung Quốc kéo dài:","opts":{"A":"Hơn 1000 năm","B":"Hơn 400 năm","C":"Hơn 500 năm","D":"Hơn 200 năm"},"answer":"A"},
+{"num":263,"id":263,"q":"Giáo đoàn Tỳ kheo ni bắt đầu thành lập từ thời:","opts":{"A":"Đông Tấn","B":"Hậu Hán","C":"Ngô","D":"Tiền Hán"},"answer":"A"},
+{"num":264,"id":264,"q":"Vị Tỳ kheo ni đầu tiên là Ngài:","opts":{"A":"Thanh Thủy","B":"Tịnh Kiểm","C":"Đạo Dung","D":"Diệu Âm"},"answer":"B"},
+{"num":265,"id":265,"q":"Ngài Tịnh Kiểm cùng với bao nhiêu người cùng thọ Cụ túc giới trong giới đàn.","opts":{"A":"20","B":"23","C":"32","D":"30"},"answer":"B"},
+{"num":266,"id":266,"q":"Ngài Tịnh Kiểm đã y chỉ ngài:","opts":{"A":"Trí Sơn","B":"Huệ Viễn","C":"Trúc Pháp Hộ","D":"Cưu Ma La Thập"},"answer":"A"},
+{"num":267,"id":267,"q":"Ngài Tịnh Kiểm đã y chỉ ngài Trí Sơn thọ:","opts":{"A":"Cụ túc giới","B":"10 giới","C":"Thức xoa giới","D":"Bồ tát giới"},"answer":"B"},
+{"num":268,"id":268,"q":"Trên thuyền trên dòng sông Tứ, kiến lập giới đàn Tỳ kheo ni là Ngài:","opts":{"A":"Huệ Viễn","B":"Đàm Ma Kiệt Đa","C":"Trúc Pháp Hộ","D":"Cưu Ma La Thập"},"answer":"B"},
+{"num":269,"id":269,"q":"Các vị Tỳ kheo ni nổi tiếng thời Đông Tấn là:","opts":{"A":"Trí Sơn. Thanh Thủy","B":"Tịnh Kiểm, Đạo Dung","C":"Đạo Dung, Huệ Viễn","D":"Cưu Ma La Thập, Diệu Âm"},"answer":"B"},
+{"num":270,"id":270,"q":"Các vị Tỳ kheo ni nổi tiếng thời Đông Tấn là:","opts":{"A":"Trí Sơn, Thanh Thủy","B":"Tịnh Kiểm, Diệu Âm","C":"Đạo Dung, Huệ Viễn","D":"Cưu Ma La Thập, Diệu Âm"},"answer":"B"}
+]},
+
+{"id": "phan-6", "title": "PG Nam Bắc Triều", "count": 115, "questions": [
+{"num":271,"id":271,"q":"Phật giáo Trung Quốc có mấy lần pháp nạn:","opts":{"A":"4","B":"3","C":"2","D":"1"},"answer":"A"},
+{"num":272,"id":272,"q":"4 lần pháp nạn của Phật giáo Trung Quốc gọi là:","opts":{"A":"Tam Vũ pháp nạn","B":"Tam Vũ Nhất Tông pháp nạn","C":"Tam Vũ Nhất Chu pháp nạn","D":"Tam Đế Nhất Tông pháp nạn"},"answer":"B"},
+{"num":273,"id":273,"q":"Ngài Pháp Quả tôn xưng Đạo Vũ đế là:","opts":{"A":"Hoàng đế Bồ tát","B":"Thánh Tăng","C":"Bồ tát","D":"Như Lai hiện đời"},"answer":"D"},
+{"num":274,"id":274,"q":"Vị nào tôn xưng Đạo Vũ đế là Như Lai hiện đời:","opts":{"A":"Pháp Quả","B":"Chơn Đế","C":"Bồ Đề Lưu Chi","D":"Tăng Lãng"},"answer":"A"},
+{"num":275,"id":275,"q":"Vị nào được gọi là Tể tướng áo đen:","opts":{"A":"Pháp Quả","B":"Chơn Đế","C":"Bồ Đề Lưu Chi","D":"Tuệ Lâm"},"answer":"D"},
+{"num":276,"id":276,"q":"Vị vua nào tín ngưỡng Phật giáo nhất trong lịch đại Hoàng đế ở Trung Quốc","opts":{"A":"Lương Vũ đế","B":"Văn Thành Đế","C":"Thái Võ đế","D":"Đạo Vũ đế"},"answer":"A"},
+{"num":277,"id":277,"q":"Vị vua nào đề xướng cúng chay, ăn chay","opts":{"A":"Lương Vũ đế","B":"Văn Thành Đế","C":"Thái Võ đế","D":"Đạo Vũ đế"},"answer":"A"},
+{"num":278,"id":278,"q":"Lương Vũ đế thỉnh Ngài Chí Công soạn bộ sám nào:","opts":{"A":"Lương Hoàng Bảo Sám","B":"Từ bi thủy sám","C":"Dược Sư sám pháp","D":"Hồng danh sám hối"},"answer":"A"},
+{"num":279,"id":279,"q":"Phủ nhận công đức của vua Lương Vũ đế là Ngài:","opts":{"A":"Bồ Đề Lưu Chi","B":"Bồ Đề Đạt Ma","C":"Chơn Đế","D":"Tuệ Lâm"},"answer":"B"},
+{"num":280,"id":280,"q":"Sơ Tổ Thiền tông Trung Quốc là Ngài:","opts":{"A":"Bồ Đề Lưu Chi","B":"Bồ Đề Đạt Ma","C":"Chơn Đế","D":"Tuệ Lâm"},"answer":"B"},
+{"num":281,"id":281,"q":"Thời Nam Bắc triều, miền Bắc được thống nhất bởi triều đại :","opts":{"A":"Lưu Tống","B":"Nam Tề","C":"Bắc Ngụy","D":"Trần"},"answer":"C"},
+{"num":282,"id":282,"q":"Kế tiếp thời Đông Tấn là triều đại :","opts":{"A":"Lưu Tống","B":"Nam Tề","C":"Lương","D":"Trần"},"answer":"A"},
+{"num":283,"id":283,"q":"Khai sáng tư tưởng Phật tánh luận là các bộ kinh:","opts":{"A":"Kinh Đại Bát Niết bàn, Kinh Lăng Già","B":"Kinh Giải Thâm Mật, Trung Luận","C":"Kinh Đại Bát Niết bàn, kinh Đạo Hành Bát nhã","D":"kinh Thắng Man, kinh Bát Đại Nhân Giác"},"answer":"A"},
+{"num":284,"id":284,"q":"Khai sáng tư tưởng Phật tánh luận là các bộ kinh:","opts":{"A":"Kinh Đại Bát Niết bàn, kinh Thắng Man","B":"Kinh Giải Thâm Mật, Trung Luận","C":"Kinh Đại Bát Niết bàn, kinh Đạo Hành Bát nhã","D":"kinh Thắng Man, kinh Bát Đại Nhân Giác"},"answer":"A"},
+{"num":285,"id":285,"q":"Khai sáng tư tưởng Phật tánh luận là các bộ kinh:","opts":{"A":"Kinh Giải Thâm Mật, Trung Luận","B":"Kinh Đại Bát Niết bàn, kinh Giải Thâm Mật","C":"Kinh Lăng Già, kinh Bát Đại Nhân Giác","D":"Kinh Thắng Man, kinh Đạo Hành Bát nhã"},"answer":"B"},
+{"num":286,"id":286,"q":"Khai sáng tư tưởng Phật tánh luận là các bộ kinh:","opts":{"A":"Kinh Đại Bát Niết bàn, kinh Đạo Hành Bát nhã","B":"Kinh Giải Thâm Mật, Trung Luận","C":"Kinh Thắng Man, kinh Bát Đại Nhân Giác","D":"Kinh Lăng Già, kinh Giải Thâm Mật"},"answer":"D"},
+{"num":287,"id":287,"q":"Những dịch phẩm ảnh hưởng đến sự thành lập tông Duy Thức là:","opts":{"A":"Thập Địa Kinh luận, Thập nhị môn luận","B":"Thập nhị môn luận, Đại Trí Độ Luận","C":"Thập Địa Kinh luận, Nhiếp Đại Thừa luận","D":"Nhiếp Đại Thừa luận, Trung Luận"},"answer":"C"},
+{"num":288,"id":288,"q":"Phật giáo thời Nam Bắc triều thuộc thời đại:","opts":{"A":"Phiên dịch","B":"Nghiên cứu","C":"Suy vi","D":"Kế thừa"},"answer":"B"},
+{"num":289,"id":289,"q":"Phật điển thời kỳ Nam Bắc Triều phần đông:","opts":{"A":"do kiều dân nước ngoài đem vào","B":"do tăng sĩ nước ngoài đem vào","C":"do tăng sĩ và kiều dân nước ngoài đem vào","D":"do các vị tăng sĩ Trung Quốc đi Ấn Độ, Tây Vực đem về"},"answer":"D"},
+{"num":290,"id":290,"q":"Dịch giả quyển Thập Địa Kinh luận là Ngài:","opts":{"A":"Nghĩa Tịnh","B":"Bồ Đề Lưu Chi","C":"Chân Đế","D":"Huyền Tráng"},"answer":"B"},
+{"num":291,"id":291,"q":"Ngài Bồ Đề Lưu Chi được tôn là Tổ của:","opts":{"A":"Địa Luận tông","B":"Tam luận tông","C":"Nhiếp luận tông","D":"Duy Thức tông"},"answer":"A"},
+{"num":292,"id":292,"q":"Tứ đại dịch giả là:","opts":{"A":"Cưu Ma La Thập, Chân Đế, Huyền Tráng, Bất Không","B":"Trúc Pháp Hộ, Cưu Ma La Thập, Chân Đế, Huyền Tráng","C":"Cưu Ma La Thập, Huệ Viễn, Chân Đế, Huyền Tráng","D":"An Thế Cao, Cưu Ma La Thập, Huyền Tráng, Bất Không"},"answer":"A"},
+{"num":293,"id":293,"q":"Tứ đại dịch giả là:","opts":{"A":"An Thế Cao, Cưu Ma La Thập, Huyền Tráng, Bất Không","B":"Trúc Pháp Hộ, Cưu Ma La Thập, Chân Đế, Huyền Tráng","C":"Cưu Ma La Thập, Chân Đế, Huyền Tráng, Nghĩa Tịnh","D":"Cưu Ma La Thập, Huệ Viễn, Chân Đế, Huyền Tráng"},"answer":"C"},
+{"num":294,"id":294,"q":"Dịch giả quyển Nhiếp Đại Thừa luận là Ngài:","opts":{"A":"Bồ Đề Lưu Chi","B":"Chân Đế","C":"Huyền Tráng","D":"Bất Không"},"answer":"B"},
+{"num":295,"id":295,"q":"Thập Địa Kinh luận, Nhiếp Đại Thừa luận được dịch trong thời:","opts":{"A":"Tống","B":"Tuỳ Đường","C":"Đông Tấn","D":"Nam Bắc triều"},"answer":"D"},
+{"num":296,"id":296,"q":"Các bộ luận nổi tiếng được dịch trong thời kỳ Nam Bắc triều là:","opts":{"A":"Đại Trí Độ luận, Thập Địa Kinh luận","B":"Trung luận, Nhiếp Đại Thừa luận","C":"Nhiếp Đại Thừa luận, Thành Thực Luận","D":"Thập Địa Kinh luận, Nhiếp Đại Thừa luận"},"answer":"D"},
+{"num":297,"id":297,"q":"Kinh điển được phiên dịch trong thời kỳ Nam Bắc Triều là:","opts":{"A":"Kinh Đại Bát Niết Bàn, Kinh Thắng Man, Kinh Bát Đại Nhân Giác","B":"Kinh Thắng Man, Kinh Lăng Già, Đạo Hành Bát nhã","C":"Kinh Đại Bát Niết Bàn, Kinh Thắng Man, Kinh Lăng Già","D":"Kinh Lăng Già, Kinh Thâm Mật giải thoát, Bát Châu Tam Muội"},"answer":"C"},
+{"num":298,"id":298,"q":"Thập Địa Kinh luận ảnh hưởng đến sự thành lập:","opts":{"A":"Hoa Nghiêm tông","B":"Tam luận tông","C":"Nhiếp luận tông","D":"Địa luận tông"},"answer":"D"},
+{"num":299,"id":299,"q":"Tiền thân của Duy Thức Pháp Tướng tông là:","opts":{"A":"Địa luận tông và Thiên Thai tông","B":"Địa luận tông và Nhiếp luận tông","C":"Nhiếp luận tông và Hoa Nghiêm tông","D":"Địa luận tông và Thành thực tông"},"answer":"B"},
+{"num":300,"id":300,"q":"Nhiếp Đại Thừa luận ảnh hưởng đến sự thành lập:","opts":{"A":"Địa luận tông","B":"Nhiếp luận tông","C":"Tam luận tông","D":"Hoa Nghiêm tông"},"answer":"B"}
+]}
+
+];
+
+
+var STORAGE_KEY = "quiz_5_sections_v2";
+var LETTERS = ["A", "B", "C", "D"];
+var activeSection = DATA.length ? DATA[0].id : "";
+var searchText = "";
+var state = createInitialState();
+
+function byId(id) { return document.getElementById(id); }
+function makeKey(sectionId, qid) { return sectionId + "::" + qid; }
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, function(ch) {
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch];
+  });
+}
+function safeGetStorage() {
+  try { return window.localStorage; } catch (e) { return null; }
+}
+function createInitialState() {
+  var order = {};
+  var optionOrders = {};
+  for (var i = 0; i < DATA.length; i++) {
+    var section = DATA[i];
+    order[section.id] = [];
+    for (var j = 0; j < section.questions.length; j++) {
+      var q = section.questions[j];
+      order[section.id].push(q.id);
+      optionOrders[makeKey(section.id, q.id)] = q.opts ? Object.keys(q.opts) : [];
+    }
+  }
+  return { order: order, optionOrders: optionOrders, answers: {} };
+}
+function loadState() {
+  var storage = safeGetStorage();
+  if (!storage) return;
+  try {
+    var raw = storage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    var saved = JSON.parse(raw);
+    if (saved && saved.order && saved.optionOrders && saved.answers) { state = saved; }
+  } catch (e) {}
+}
+function saveState() {
+  var storage = safeGetStorage();
+  if (!storage) return;
+  try { storage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+function shuffle(list) {
+  var arr = list.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+  }
+  return arr;
+}
+function getSection() {
+  for (var i = 0; i < DATA.length; i++) if (DATA[i].id === activeSection) return DATA[i];
+  return DATA[0];
+}
+function getQuestions(section, qid) {
+  for (var i = 0; i < section.questions.length; i++) if (String(section.questions[i].id) === String(qid)) return section.questions[i];
+  return null;
+}
+function matchesSearch(section, q) {
+    if (!searchText) return true;
+    var arr=[section.title,q.id,q.q];
+    for(var k in q.opts){
+        arr.push(q.opts[k]);
+    }
+    var haystack=arr.join(" ").toLowerCase();
+    return haystack.indexOf(searchText.toLowerCase())!=-1;
+}
+function renderTabs() {
+  var html = "";
+  for (var i = 0; i < DATA.length; i++) {
+    var s = DATA[i];
+    html += '<button type="button" class="tab ' + (s.id === activeSection ? 'active' : '') + '" data-section="' + escapeHtml(s.id) + '">' + escapeHtml(s.title) + ' · ' + s.questions.length + '</button>';
+  }
+  byId('tabs').innerHTML = html;
+}
+function render() {
+  renderTabs();
+  var section = getSection();
+  var ids = state.order[section.id] || [];
+  var html = '<div class="section-head"><h2>' + escapeHtml(section.title) + '</h2><span class="muted">' + section.questions.length + ' câu</span></div>';
+  var count = 0;
+  for (var i = 0; i < ids.length; i++) {
+    var q = getQuestions(section, ids[i]);
+    if (!q || !matchesSearch(section, q)) continue;
+    count++;
+    var k = makeKey(section.id, q.id);
+    var picked = state.answers[k] || "";
+    var isRight = picked && picked === q.answer;
+    // Chỉ lấy những đáp án thực sự có trong dữ liệu
+    var optionOrder = (state.optionOrders[k] || Object.keys(q.opts))
+    .filter(function(letter){
+        return q.opts[letter] != null && q.opts[letter] !== "";
+    });
+
+    // ===== HIỂN THỊ CÂU HỎI =====
+    html += '<article class="qcard"><div class="qtop"><div class="qnum">' + count + '</div><div>';
+    html += '<div class="qtext">';
+
+    if (q.danger) {
+    html += '<span class="danger">★ </span>';
+    }
+
+    html += escapeHtml(q.q);
+    html += '</div>';
+
+    if (q.img) {
+    html += '<img class="questions-img" src="' + escapeHtml(q.img) + '">';
+    }
+
+    html += '<div class="qid">ID: ' + escapeHtml(q.id) + '</div>';
+    html += '</div></div>';
+
+    html += '<div class="options">';
+
+    // ===== HIỂN THỊ ĐÁP ÁN =====
+    for (var j = 0; j < optionOrder.length; j++) {
+
+    var letter = optionOrder[j];
+
+    var cls = "";
+
+    if (picked === letter) {
+        cls = (letter === q.answer ? " correct" : " wrong");
+    }
+
+    html += '<button type="button" class="option' + cls +
+        '" data-section="' + escapeHtml(section.id) +
+        '" data-qid="' + escapeHtml(q.id) +
+        '" data-letter="' + letter + '">' +
+
+        '<span class="letter">' + (j + 1) + '</span>' +
+
+        '<span>' + escapeHtml(q.opts[letter]) + '</span>' +
+
+        '</button>';
+}
+
+    var feedback = "";
+    var fcls = "";
+    if (picked) { feedback = isRight ? "Đúng." : "Sai. Bạn chọn " + picked + "."; fcls = isRight ? " ok" : " bad"; }
+
+    html += '</div>';
+    html += '<div class="feedback' + fcls + '">'
+      + escapeHtml(feedback)
+      + '</div>';
+
+    if (picked && (q.explain || q.explainImg)) {
+
+    html += '<div class="explain" style="display:block">';
+
+    if (q.explain) {
+        html += '<p>' + escapeHtml(q.explain).replace(/\n/g, '<br>') + '</p>';
+    }
+
+    if (q.explainImg) {
+        html += '<img class="questions-img" src="' +
+                 escapeHtml(q.explainImg) + '">';
+    }
+
+    html += '</div>';
+    }
+
+    html += '</article>';
+    }
+      if (count === 0) html = '<div class="empty">Không tìm thấy câu hỏi phù hợp.</div>';
+      byId('app').innerHTML = html;
+      updateStats();
+    }
+function updateStats() {
+  var section = getSection();
+  var done = 0, right = 0;
+  for (var i = 0; i < section.questions.length; i++) {
+    var q = section.questions[i];
+    var picked = state.answers[makeKey(section.id, q.id)];
+    if (picked) { done++; if (picked === q.answer) right++; }
+  }
+  byId('activeLabel').textContent = section.title;
+  byId('done').textContent = done;
+  byId('total').textContent = section.questions.length;
+  byId('right').textContent = right;
+  byId('wrong').textContent = done - right;
+  byId('score').textContent = done ? Math.round((right / done) * 100) : 0;
+}
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest ? e.target.closest('button') : null;
+  if (!btn) return;
+  if (btn.className.indexOf('tab') !== -1) { activeSection = btn.getAttribute('data-section'); render(); window.scrollTo(0, 0); return; }
+  if (btn.className.indexOf('option') !== -1) {
+    var k = makeKey(btn.getAttribute('data-section'), btn.getAttribute('data-qid'));
+    state.answers[k] = btn.getAttribute('data-letter');
+    saveState(); render(); return;
+  }
+});
+byId('shuffleQuestions').onclick = function() {
+  var section = getSection();
+  state.order[section.id] = shuffle(state.order[section.id] || section.questions.map(function(q) { return q.id; }));
+  saveState(); render();
+};
+byId('shuffleAnswers').onclick=function(){
+    // return; // Tạm thời tắt chức năng xáo đáp án, xáo đáp án thì bỏ dòng return này
+    var section=getSection();
+    for(var i=0;i<section.questions.length;i++){
+        var q=section.questions[i];
+        if (q.shuffle === false || q.shuffle === "false") {
+            continue;
+        }
+        var letters=Object.keys(q.opts);
+        var values=[];
+        for(var j=0;j<letters.length;j++){
+            values.push(q.opts[letters[j]]);
+        }
+        values=shuffle(values);
+        var newOpts={};
+        for(var j=0;j<letters.length;j++){
+            newOpts[letters[j]]=values[j];
+        }
+        var answerText=q.opts[q.answer];
+        for(var j=0;j<letters.length;j++){
+            if(newOpts[letters[j]]==answerText){
+                q.answer=letters[j];
+                break;
+            }
+        }
+        q.opts=newOpts;
+    }
+    saveState();
+    render();
+};
+
+byId('resetCurrent').onclick = function() {
+  if (!confirm('Làm lại đề đang xem?')) return;
+  var section = getSection();
+  for (var i = 0; i < section.questions.length; i++) delete state.answers[makeKey(section.id, section.questions[i].id)];
+  saveState(); render();
+};
+byId('resetAll').onclick = function() {
+  if (!confirm('Xoá toàn bộ tiến độ của 5 đề?')) return;
+  state = createInitialState();
+  saveState(); render();
+};
+byId('search').oninput = function(e) { searchText = e.target.value.replace(/^\s+|\s+$/g, ''); render(); };
+loadState();
+render();
+</script>
+
+
+</body></html>
