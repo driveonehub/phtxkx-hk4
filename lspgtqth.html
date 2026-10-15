@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sổ Tay Ôn Thi Cấp Tốc - Lịch Sử Phật Giáo Trung Quốc (300 Câu)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background-color: #faf6f0;
+      color: #2c221e;
+    }
+    /* Hiệu ứng che đáp án để tự dò bài */
+    .cloze-mode .ans-key {
+      filter: blur(6px);
+      background-color: #fde68a;
+      color: transparent;
+      user-select: none;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 0 4px;
+      transition: all 0.2s ease;
+    }
+    .cloze-mode .ans-key:hover,
+    .cloze-mode .ans-key.revealed {
+      filter: blur(0);
+      background-color: #fef08a;
+      color: #991b1b;
+    }
+    .ans-key {
+      font-weight: 700;
+      color: #b91c1c;
+      background-color: #fef2f2;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border-bottom: 2px solid #fca5a5;
+      transition: all 0.2s ease;
+    }
+    /* Hiệu ứng lật thẻ Flashcard */
+    .perspective {
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 1rem;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+    /* Thanh cuộn đẹp */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1eae1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c2a887;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- HEADER CỐ ĐỊNH -->
+  <header class="sticky top-0 z-40 bg-gradient-to-r from-amber-900 via-red-900 to-amber-900 text-amber-50 shadow-lg border-b-4 border-amber-500">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">🪷</span>
+        <div>
+          <h1 class="text-lg md:text-xl font-extrabold tracking-wide text-amber-200 uppercase">
+            Lịch Sử Phật Giáo Trung Quốc
+          </h1>
+          <p class="text-xs text-amber-100/80">
+            Sổ Tay Phản Xạ 3 Giây • Chinh Phục 100% Bộ 300 Câu Trắc Nghiệm
+          </p>
+        </div>
+      </div>
+
+      <!-- Các chế độ học -->
+      <div class="flex flex-wrap items-center gap-1.5 bg-black/25 p-1.5 rounded-xl">
+        <button onclick="switchMainTab('mindmap')" id="tab-btn-mindmap" class="tab-btn px-3 py-1.5 rounded-lg text-xs md:text-sm font-bold bg-amber-400 text-amber-950 shadow transition">
+          🗺️ 6 Chuyên Đề Trực Quan
+        </button>
+        <button onclick="switchMainTab('compare')" id="tab-btn-compare" class="tab-btn px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold text-amber-100 hover:bg-white/10 transition">
+          ⚖️ Bảng Chống Nhầm Lẫn
+        </button>
+        <button onclick="switchMainTab('flashcard')" id="tab-btn-flashcard" class="tab-btn px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold text-amber-100 hover:bg-white/10 transition">
+          🗂️ Lật Thẻ Flashcard
+        </button>
+        <button onclick="switchMainTab('quiz')" id="tab-btn-quiz" class="tab-btn px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold text-amber-100 hover:bg-white/10 transition">
+          ⚡ Thi Thử Phản Xạ
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- THANH CÔNG CỤ PHỤ (Chỉ hiện ở Tab 6 Chuyên Đề) -->
+  <div id="sub-toolbar" class="bg-amber-100/90 border-b border-amber-200 sticky top-[68px] z-30 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <!-- Nút lọc 6 chuyên đề -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+        <button onclick="filterTopic('all')" class="topic-pill active px-3 py-1 rounded-full text-xs font-bold bg-red-800 text-white shadow-sm whitespace-nowrap" data-topic="all">
+          Tất cả (6)
+        </button>
+        <button onclick="filterTopic('cd1')" class="topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap" data-topic="cd1">
+          1. Đông Truyền (40c)
+        </button>
+        <button onclick="filterTopic('cd2')" class="topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap" data-topic="cd2">
+          2. Đông Hán (40c)
+        </button>
+        <button onclick="filterTopic('cd3')" class="topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap" data-topic="cd3">
+          3. Tam Quốc (70c)
+        </button>
+        <button onclick="filterTopic('cd4')" class="topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap" data-topic="cd4">
+          4. Tây Tấn & 16 Nước (70c)
+        </button>
+        <button onclick="filterTopic('cd5')" class="topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap" data-topic="cd5">
+          5. Đông Tấn (50c)
+        </button>
+        <button onclick="filterTopic('cd6')" class="topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap" data-topic="cd6">
+          6. Nam Bắc Triều (30c)
+        </button>
+      </div>
+
+      <!-- Công cụ Tìm kiếm & Che đáp án -->
+      <div class="flex items-center gap-2 ml-auto">
+        <div class="relative">
+          <input type="text" id="searchInput" oninput="searchContent()" placeholder="🔍 Tìm tên sư, kinh, nước..." class="text-xs px-3 py-1.5 rounded-lg border border-amber-300 bg-white focus:outline-none focus:ring-2 focus:ring-red-700 w-44 md:w-56" />
+        </div>
+        <button onclick="toggleClozeMode()" id="clozeBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-600 text-amber-950 shadow-sm flex items-center gap-1 transition whitespace-nowrap" title="Làm mờ các từ khóa đỏ để bạn tự nhẩm trong đầu, bấm vào từ bị mờ để xem">
+          <span>🙈</span> <span id="clozeText">Che Đáp Án (Tự Dò Bài)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full">
+
+    <!-- ==========================================
+         TAB 1: SƠ ĐỒ 6 CHUYÊN ĐỀ TRỰC QUAN
+    =========================================== -->
+    <section id="view-mindmap" class="space-y-8">
+      
+      <!-- Hướng dẫn sử dụng nhanh -->
+      <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-red-700 p-4 rounded-r-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="text-xs md:text-sm space-y-1">
+          <p class="font-bold text-red-900">💡 Cách học thuộc siêu tốc trong 2 tiếng:</p>
+          <p class="text-stone-700">
+            1. Chỉ cần đọc các chữ <span class="ans-key">Tô Đỏ</span> (đây chính là đáp án đúng trong tờ phiếu trả lời) và hộp <span class="bg-yellow-200 text-yellow-900 px-1.5 py-0.5 rounded font-semibold">🧠 Mẹo Nhớ</span>.<br>
+            2. Sau khi đọc xong 1 lượt, hãy bấm nút <b>"🙈 Che Đáp Án (Tự Dò Bài)"</b> ở góc phải phía trên $\rightarrow$ Tự nhẩm từ bị mờ rồi chạm vào để kiểm tra!
+          </p>
+        </div>
+      </div>
+
+      <!-- CHUYÊN ĐỀ 1 -->
+      <div class="topic-section bg-white rounded-2xl shadow-md border border-amber-200 overflow-hidden" data-topic="cd1">
+        <div class="bg-gradient-to-r from-red-800 to-amber-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs uppercase tracking-wider bg-amber-400 text-amber-950 font-extrabold px-2.5 py-0.5 rounded-full">Chuyên đề 1 • Bài Kiểm Tra Lần 1</span>
+            <h2 class="text-xl font-extrabold mt-1">PHẬT GIÁO ĐÔNG TRUYỀN (40 CÂU)</h2>
+          </div>
+          <span class="text-xs bg-white/20 px-3 py-1 rounded-lg font-medium">Trọng tâm: 5 Thời kỳ • 2 Con đường • Năm 2 TCN vs Năm 67 TL</span>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Card 1.1 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-red-800 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🌏</span> 1. Tầm Ảnh Hưởng & Con Đường
+              </div>
+              <ul class="text-sm space-y-2.5 text-stone-700">
+                <li>• Kho tàng tư tưởng phong phú nhất Á Đông: <span class="ans-key">Phật giáo Trung Quốc</span>.</li>
+                <li>• 3 nước chịu ảnh hưởng: <span class="ans-key">Việt Nam, Triều Tiên, Nhật Bản</span>.</li>
+                <li>• Truyền từ Ấn Độ sang theo 2 đường: <span class="ans-key">đường bộ và đường thủy</span>.
+                  <div class="ml-3 mt-1 text-xs bg-white p-2 rounded border border-stone-200 space-y-1">
+                    <div>🚶 <b>Đường Bộ</b> xuất phát từ: <span class="ans-key">Miền Bắc Ấn Độ</span></div>
+                    <div>⛵ <b>Đường Thủy</b> xuất phát từ: <span class="ans-key">Miền Nam Ấn Độ</span></div>
+                  </div>
+                </li>
+                <li>• Có tổng cộng <span class="ans-key">12</span> thuyết truyền nhập.</li>
+                <li>• Thuyết liên quan đến <b>Nho giáo</b>: <span class="ans-key">Tây phương Thánh giả của Khổng Tử</span>.</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo phản xạ:</b> Đường <b>B</b>ộ = Miền <b>B</b>ắc Ấn Độ (Cùng chữ <b>B</b>). Còn lại Đường Thủy = Miền Nam!
+            </div>
+          </div>
+
+          <!-- Card 1.2 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-red-800 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>⏳</span> 2. Phân Chia Thời Đại (13 Câu!)
+              </div>
+              <p class="text-xs font-bold text-stone-500 uppercase mb-1.5">A. Theo 5 thời kỳ Phật giáo:</p>
+              <div class="space-y-1.5 text-xs mb-3">
+                <div class="p-1.5 bg-red-50 rounded border border-red-200"><b>1.</b> Thời đại <span class="ans-key">Phiên dịch</span> <span class="text-stone-500">(Hậu Hán, Tam Quốc, Tây Tấn)</span></div>
+                <div class="p-1.5 bg-orange-50 rounded border border-orange-200"><b>2.</b> Thời đại <span class="ans-key">Nghiên cứu</span> <span class="text-stone-500">(Đông Tấn, Nam Bắc Triều)</span></div>
+                <div class="p-1.5 bg-amber-50 rounded border border-amber-200"><b>3.</b> Thời đại <span class="ans-key">Kiến thiết</span> <span class="text-stone-500">(Tùy - Đường)</span></div>
+                <div class="p-1.5 bg-emerald-50 rounded border border-emerald-200"><b>4.</b> Thời đại <span class="ans-key">Kế thừa</span> <span class="text-stone-500">(Ngũ Đại, Tống Nguyên Minh Thanh)</span></div>
+                <div class="p-1.5 bg-slate-100 rounded border border-slate-300"><b>5.</b> Thời đại <span class="ans-key">Suy vi</span> <span class="text-stone-500">(Cận đại)</span></div>
+              </div>
+
+              <p class="text-xs font-bold text-stone-500 uppercase mb-1">B. Theo Lịch sử Trung Quốc:</p>
+              <div class="text-xs space-y-1.5 text-stone-700">
+                <div>• <b>Nhóm 1:</b> (1) <span class="ans-key">Lưỡng Hán</span> $\rightarrow$ (2) <span class="ans-key">Tam Quốc</span> $\rightarrow$ (3) <span class="ans-key">Lưỡng Tấn</span> $\rightarrow$ (4) <span class="ans-key">Nam Bắc Triều</span>.</div>
+                <div>• <b>Nhóm 2:</b> <span class="ans-key">Tùy Đường</span> $\rightarrow$ <span class="ans-key">Ngũ Đại</span> $\rightarrow$ <span class="ans-key">Tống Nguyên Minh Thanh</span> $\rightarrow$ <span class="ans-key">Cận đại</span>.</div>
+              </div>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo nhớ 5 thời kỳ:</b> Phải dịch kinh trước (<b>Phiên dịch</b>) $\rightarrow$ có kinh rồi mới đọc hiểu (<b>Nghiên cứu</b>) $\rightarrow$ xây dựng tông phái (<b>Kiến thiết</b>) $\rightarrow$ truyền đời sau (<b>Kế thừa</b>) $\rightarrow$ suy giảm (<b>Suy vi</b>).
+            </div>
+          </div>
+
+          <!-- Card 1.3 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-red-800 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🔔</span> 3. Hai Mốc Vàng: Năm 2 TCN vs Năm 67 TL
+              </div>
+              <!-- Mốc 1 -->
+              <div class="bg-amber-50/70 p-2.5 rounded-lg border border-amber-200 mb-3 text-xs space-y-1">
+                <div class="font-extrabold text-amber-900 uppercase">📌 MỐC 1: KHẨU TRUYỀN (Truyền miệng)</div>
+                <div>• Thuyết công nhận: <span class="ans-key">Khẩu truyền Phật giáo của Y Tồn</span>.</div>
+                <div>• Thời gian: <span class="ans-key">Năm 2 trước Tây lịch</span> (<span class="ans-key">cuối Tây Hán</span>, đời vua <span class="ans-key">Hán Ai Đế</span>) $\rightarrow$ Kỷ niệm 2000 năm vào <span class="ans-key">năm 1998</span>.</div>
+                <div>• Nhân vật: Sứ giả <span class="ans-key">Y Tồn</span> (nước <span class="ans-key">Đại Nguyệt Chi</span>) truyền <span class="ans-key">Kinh Phù Đồ</span> cho <span class="ans-key">Cảnh Lô</span>.</div>
+              </div>
+              <!-- Mốc 2 -->
+              <div class="bg-red-50/70 p-2.5 rounded-lg border border-red-200 text-xs space-y-1">
+                <div class="font-extrabold text-red-900 uppercase">📌 MỐC 2: DỊCH SÁCH CHỮ HÁN & XÂY CHÙA</div>
+                <div>• Thời gian: <span class="ans-key">Năm 67 Tây lịch</span> (<span class="ans-key">đầu Đông Hán</span>, đời vua <span class="ans-key">Hán Minh Đế</span>).</div>
+                <div>• 2 Ngài <span class="ans-key">Ca Diếp Ma Đằng và Trúc Pháp Lan</span> mới đến ở tại <span class="ans-key">Hồng Lô tự</span> $\rightarrow$ Sau vua xây <span class="ans-key">Chùa Bạch Mã</span> (chùa đầu tiên ở TQ).</div>
+                <div>• Dịch kinh chữ Hán đầu tiên: <span class="ans-key">Tứ thập nhị chương</span>.</div>
+                <div>• Đòi tranh tài với Phật giáo: <span class="ans-key">Chữ Thiện Tín và 690 đạo sĩ</span>.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUYÊN ĐỀ 2 -->
+      <div class="topic-section bg-white rounded-2xl shadow-md border border-amber-200 overflow-hidden" data-topic="cd2">
+        <div class="bg-gradient-to-r from-amber-800 to-yellow-700 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs uppercase tracking-wider bg-amber-300 text-amber-950 font-extrabold px-2.5 py-0.5 rounded-full">Chuyên đề 2 • Bài Kiểm Tra Lần 2</span>
+            <h2 class="text-xl font-extrabold mt-1">PHẬT GIÁO THỜI ĐÔNG HÁN / HẬU HÁN (40 CÂU)</h2>
+          </div>
+          <span class="text-xs bg-white/20 px-3 py-1 rounded-lg font-medium">Trọng tâm: An Thế Cao (Nguyên thủy) vs Chi Lâu Ca Sấm (Đại thừa)</span>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 2.1 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-amber-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🏛️</span> 1. Bối Cảnh & Bộ Luận Đầu Tiên
+              </div>
+              <ul class="text-sm space-y-2.5 text-stone-700">
+                <li>• Nhà <span class="ans-key">Hán</span> lấy <b>Nho giáo làm quốc giáo</b> (do <span class="ans-key">Đổng Trọng Thư</span> đề nghị vua Hán Võ Đế).</li>
+                <li>• Vương công quý tộc đời Hán tín ngưỡng Phật giáo: <span class="ans-key">Sở vương Lưu Anh</span> và <span class="ans-key">Trách Dung</span>.</li>
+                <li>• Bộ luận đầu tiên viết thời Đông Hán: <span class="ans-key">Lý Hoặc luận</span> do <span class="ans-key">Mâu Tử thời Đông Hán</span> sáng tác.</li>
+                <li>• Đặc sắc Phật giáo Đông Hán: Phiên dịch kinh điển <span class="ans-key">Phật giáo nguyên thủy và Phật giáo phát triển</span>.</li>
+                <li>• 4 Dịch giả thời Đông Hán (Hậu Hán): <span class="ans-key">Ca Diếp Ma Đằng, Trúc Pháp Lan, An Thế Cao, Chi Lâu Ca Sấm</span>.</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-red-50 border border-red-200 rounded-lg p-2.5 text-xs text-red-900">
+              <b>⚠️ Bẫy đề thi:</b> Lưu Anh là <b>Sở vương</b> (không chọn "Hán vương Lưu Anh")!
+            </div>
+          </div>
+
+          <!-- Card 2.2 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-amber-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🧘</span> 2. Ngài An Thế Cao (Hệ Nguyên Thủy)
+              </div>
+              <ul class="text-sm space-y-2 text-stone-700">
+                <li>• Quê quán: Người nước <span class="ans-key">An Tức</span>.</li>
+                <li>• Là vị đầu tiên đem <span class="ans-key">Thiền quán</span> vào Trung Quốc; dịch kinh thuộc hệ <span class="ans-key">Phật giáo nguyên thủy</span>.</li>
+                <li>• <b>4 Dịch phẩm của An Thế Cao:</b>
+                  <div class="mt-1 p-2 bg-white rounded border border-amber-200 text-xs font-semibold space-y-1">
+                    <div>1. <span class="ans-key">Kinh An Ban Thủ Ý</span></div>
+                    <div>2. <span class="ans-key">Tứ Đế</span></div>
+                    <div>3. <span class="ans-key">Bát Chánh Đạo</span></div>
+                    <div>4. <span class="ans-key">Bát Đại Nhân Giác</span></div>
+                  </div>
+                </li>
+                <li>• Từ <b>Kinh Bát Đại Nhân Giác</b>: Xuất xứ câu <span class="ans-key">"Duy tuệ thị nghiệp"</span>.</li>
+                <li>• Từ <b>Kinh An Ban Thủ Ý</b>:
+                  <br>- Đạo giáo lập ra pháp: <span class="ans-key">Thai Tức</span>.
+                  <br>- Ngài Trí Giả lập ra: <span class="ans-key">Lục Diệu Pháp Môn</span>.
+                </li>
+                <li>• Đệ tử là <span class="ans-key">Nghiêm Phật Điều</span> (người đầu tiên xuất gia nhưng <b>chưa thọ giới</b> ở TQ).</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo nhớ:</b> <b>An</b> Thế Cao = nước <b>An</b> Tức = dịch <b>An</b> Ban Thủ Ý (giữ hơi thở từ bụng mẹ = <b>Thai Tức</b>, mở 6 cửa = <b>Lục Diệu</b>).
+            </div>
+          </div>
+
+          <!-- Card 2.3 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-amber-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>📿</span> 3. Ngài Chi Lâu Ca Sấm (Hệ Phát Triển)
+              </div>
+              <ul class="text-sm space-y-2.5 text-stone-700">
+                <li>• Quê quán: Người nước <span class="ans-key">Đại Nguyệt Chi</span>.</li>
+                <li>• Dịch kinh thuộc hệ: <span class="ans-key">Phật giáo phát triển</span> (Đại thừa).</li>
+                <li>• <b>2 Dịch phẩm & Ảnh hưởng:</b>
+                  <div class="mt-1.5 space-y-2 text-xs">
+                    <div class="p-2 bg-white rounded border border-amber-200">
+                      📘 <b>1. <span class="ans-key">Đạo Hành Bát nhã</span></b>
+                      <br>$\rightarrow$ Ảnh hưởng đến <span class="ans-key">Huyền Học Thanh Đàm</span> thời Ngụy Tấn.
+                    </div>
+                    <div class="p-2 bg-white rounded border border-amber-200">
+                      📿 <b>2. <span class="ans-key">Bát Châu Tam Muội</span></b>
+                      <br>$\rightarrow$ Ảnh hưởng đến <span class="ans-key">Pháp môn niệm Phật</span>.
+                    </div>
+                  </div>
+                </li>
+                <li>• <b>Pháp môn niệm Phật</b> chính thức bắt đầu từ thời <span class="ans-key">Đông Tấn</span> do Ngài <span class="ans-key">Huệ Viễn thời Đông Tấn</span> khởi xướng (Sơ Tổ Tịnh Độ tông).</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo nhớ:</b> <b>Chi</b> Lâu Ca Sấm = Đại Nguyệt <b>Chi</b>. Huyền <b>Học</b> đi với Đạo <b>Hành</b> (Học Hành). Lần 8 viên châu (<b>Bát Châu</b>) để <b>Niệm Phật</b>!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUYÊN ĐỀ 3 -->
+      <div class="topic-section bg-white rounded-2xl shadow-md border border-amber-200 overflow-hidden" data-topic="cd3">
+        <div class="bg-gradient-to-r from-emerald-800 to-teal-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs uppercase tracking-wider bg-emerald-300 text-emerald-950 font-extrabold px-2.5 py-0.5 rounded-full">Chuyên đề 3 • Bộ 70 Câu</span>
+            <h2 class="text-xl font-extrabold mt-1">PHẬT GIÁO THỜI TAM QUỐC (70 CÂU)</h2>
+          </div>
+          <span class="text-xs bg-white/20 px-3 py-1 rounded-lg font-medium">Trọng tâm: Tào Ngụy (Giới luật & Cầu pháp) vs Đông Ngô (Chi Khiêm & Khương Tăng Hội)</span>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 3.1 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-emerald-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>⚔️</span> 1. Bối Cảnh Tam Quốc (11 Câu)
+              </div>
+              <ul class="text-sm space-y-2 text-stone-700">
+                <li>• Tam Quốc gồm 3 nước: <span class="ans-key">Ngụy, Thục, Ngô</span>.</li>
+                <li>• Nước <b>có Phật giáo</b>: Chỉ có <span class="ans-key">Ngụy, Ngô</span> (Thục không có!).</li>
+                <li>• <b>Tào Ngụy:</b> Do <span class="ans-key">Tào Phi</span> lập, kinh đô <span class="ans-key">Lạc Dương</span>.</li>
+                <li>• <b>Thục Hán:</b> Do <span class="ans-key">Lưu Bị</span> lập, kinh đô <span class="ans-key">Thành Đô</span> (Năm 263 <span class="ans-key">Thục Hán</span> bị Ngụy diệt).</li>
+                <li>• <b>Đông Ngô:</b> Do <span class="ans-key">Tôn Quyền</span> lập, kinh đô <span class="ans-key">Kiến Nghiệp</span>.</li>
+                <li>• Năm 265: Họ Tư Mã thay Ngụy lập nhà <span class="ans-key">Tây Tấn</span>.</li>
+                <li>• Năm 280: <span class="ans-key">Tây Tấn</span> diệt Đông Ngô, thống nhất Trung Quốc.</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-red-50 border border-red-200 rounded-lg p-2.5 text-xs text-red-900">
+              <b>⚠️ Bẫy cực hay sai:</b> Người lập nước Tào Ngụy là <b>Tào Phi</b> (con Tào Tháo), tuyệt đối không chọn Tào Tháo!
+            </div>
+          </div>
+
+          <!-- Card 3.2 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-emerald-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>📜</span> 2. Tào Ngụy (Lạc Dương): Giới Luật & Cầu Pháp
+              </div>
+              <div class="text-xs space-y-2 text-stone-700">
+                <p>• Tiếp nối trực tiếp thời <span class="ans-key">Đông Hán</span>; nổi bật về <span class="ans-key">Giới luật, Yết-ma và Tây hành cầu pháp</span> (giúp <span class="ans-key">quy phạm hóa đời sống Tăng đoàn</span>).</p>
+                
+                <div class="p-2 bg-white rounded border border-emerald-200 space-y-1">
+                  <div class="font-bold text-emerald-900">👤 1. Ngài Đàm Ma Ca La (Thời Ngụy):</div>
+                  <div>- Tôn là Sơ tổ của <span class="ans-key">Luật tông</span>.</div>
+                  <div>- Dịch <span class="ans-key">Tăng Kỳ giới bổn</span>; cùng với <span class="ans-key">Đàm Đế</span> dịch <span class="ans-key">Luật Tứ phần Đàm Vô Đức yết ma</span>.</div>
+                  <div>- Thỉnh 10 Sa-môn Thiên Trúc lập giới đàn đầu tiên tại <span class="ans-key">Lạc Dương</span>.</div>
+                </div>
+
+                <div class="p-2 bg-white rounded border border-emerald-200 space-y-1">
+                  <div class="font-bold text-emerald-900">👤 2. Ngài Chu Sĩ Hành:</div>
+                  <div>- Người đầu tiên <b>xuất gia thọ giới Tỳ-kheo</b> ở TQ & mở đường <span class="ans-key">nhập Trúc cầu pháp</span>.</div>
+                  <div>- Thường giảng <span class="ans-key">Đạo Hành Bát nhã</span> (thấy nghĩa lý chưa đủ) $\rightarrow$ năm 260 đến <span class="ans-key">Vu Điền</span> thỉnh bộ <span class="ans-key">Phóng Quang Bát nhã</span> (đệ tử là <span class="ans-key">Phất Như Đàn</span> đem về nước).</div>
+                </div>
+
+                <div class="p-2 bg-white rounded border border-emerald-200 space-y-1">
+                  <div class="font-bold text-emerald-900">👤 3. Khang Tăng Khải & Tịnh Độ:</div>
+                  <div>- Dịch <span class="ans-key">Vô Lượng Thọ Kinh</span> (kinh căn bản của <span class="ans-key">Tịnh Độ tông</span>) tại <span class="ans-key">Bạch Mã tự</span>.</div>
+                  <div>- Tịnh Độ ban đầu y cứ <span class="ans-key">Tam kinh nhất luận</span> (<i>Vãng Sinh Luận</i> do Bồ-tát <span class="ans-key">Thiên Thân</span> soạn). Kinh thứ 4 là <span class="ans-key">Phẩm Phổ Hiền Bồ-tát Hạnh Nguyện</span> (Hoa Nghiêm); kinh thứ 5 (Đại Thế Chí Niệm Phật Viên Thông) thuộc <span class="ans-key">Kinh Lăng Nghiêm</span>.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3.3 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-emerald-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🏯</span> 3. Đông Ngô (Kiến Nghiệp): Chi Khiêm & Khương Tăng Hội
+              </div>
+              <div class="text-xs space-y-2 text-stone-700">
+                <p>• Trung tâm ở <span class="ans-key">Kiến Nghiệp</span> (quan trọng ở miền Nam TQ); nổi bật về <span class="ans-key">Dịch kinh</span> và quan hệ với chính quyền.</p>
+
+                <div class="p-2 bg-white rounded border border-emerald-200 space-y-1">
+                  <div class="font-bold text-emerald-900">🎓 1. Cư sĩ Chi Khiêm (Thời Ngô):</div>
+                  <div>- Người <span class="ans-key">Đại Nguyệt Chi</span>, học với <span class="ans-key">Chi Lượng</span> (đệ tử <span class="ans-key">Chi Lâu Ca Sấm</span>) $\rightarrow$ <b>"Tam Chi"</b>: <span class="ans-key">Chi Lâu Ca Sấm, Chi Lượng, Chi Khiêm</span>.</div>
+                  <div>- Tôn Quyền giao <span class="ans-key">dạy Thái tử</span>; văn dịch <span class="ans-key">sáng rõ, lưu loát, phù hợp Hán văn</span>.</div>
+                  <div>- Dịch: <span class="ans-key">Kinh Duy Ma Cật</span>, <span class="ans-key">Kinh Đại Minh Độ</span>, <span class="ans-key">Phật Thuyết Bột kinh sao</span> (tiếng Việt là <span class="ans-key">Kinh Hiền Nhân</span>).</div>
+                </div>
+
+                <div class="p-2 bg-white rounded border border-emerald-200 space-y-1">
+                  <div class="font-bold text-emerald-900">🇻🇳 2. Ngài Khương Tăng Hội (Thời Ngô):</div>
+                  <div>- Cha người <span class="ans-key">Khương Cư</span> (đến Giao Chỉ <span class="ans-key">buôn bán</span>), mẹ & sinh quán tại <span class="ans-key">Giao Châu (Việt Nam)</span> $\rightarrow$ Người VN đầu tiên truyền PG sang TQ.</div>
+                  <div>- Năm 247 đến <span class="ans-key">Kiến Nghiệp</span>, Tôn Quyền xây <span class="ans-key">Kiến Sơ tự</span> (chùa đầu tiên ở nước <span class="ans-key">Ngô</span>).</div>
+                  <div>- Dịch <span class="ans-key">Lục Độ Tập Kinh</span>, <span class="ans-key">Lục Độ Yếu mục</span> (6 Ba-la-mật; chữ <span class="ans-key">"Tín"</span> KHÔNG thuộc Lục độ); đề tựa & chú sớ kinh <span class="ans-key">An Ban Thủ Ý</span>.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUYÊN ĐỀ 4 -->
+      <div class="topic-section bg-white rounded-2xl shadow-md border border-amber-200 overflow-hidden" data-topic="cd4">
+        <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs uppercase tracking-wider bg-sky-300 text-indigo-950 font-extrabold px-2.5 py-0.5 rounded-full">Chuyên đề 4 • Bài Kiểm Tra Lần 4 ( + Đề 001)</span>
+            <h2 class="text-xl font-extrabold mt-1">TÂY TẤN & THẬP LỤC QUỐC (70 CÂU)</h2>
+          </div>
+          <span class="text-xs bg-white/20 px-3 py-1 rounded-lg font-medium">Trọng tâm: Trúc Pháp Hộ • Huyền Học Cách Nghĩa • Phật Đồ Trừng • Đạo An</span>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 4.1 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-indigo-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🌟</span> 1. Tây Tấn & "Đôn Hoàng Bồ Tát" Trúc Pháp Hộ
+              </div>
+              <ul class="text-xs space-y-2 text-stone-700">
+                <li>• Nhà Tấn chia làm <span class="ans-key">Tây Tấn và Đông Tấn</span>. Tây Tấn do <span class="ans-key">Tư Mã Viêm</span> lập, đô ở <span class="ans-key">Lạc Dương</span>, diệt <span class="ans-key">Đông Ngô</span>.</li>
+                <li>• Suy yếu vì <span class="ans-key">Loạn Bát Vương</span>; Lạc Dương bị phá trong <span class="ans-key">Loạn Vĩnh Gia</span>.</li>
+                <li>• Thời đại <span class="ans-key">Phiên dịch</span>: mở rộng kinh <span class="ans-key">Đại thừa</span>, lưu thông Bắc-Nam, <span class="ans-key">cư sĩ và người Hán trực tiếp tham gia dịch thuật</span>.</li>
+                <li class="p-2 bg-white rounded border border-indigo-200 space-y-1">
+                  <b class="text-indigo-900">👤 Ngài Trúc Pháp Hộ (Tây Tấn):</b>
+                  <div>- Tên khác: <span class="ans-key">Chi Pháp Hộ</span> / <span class="ans-key">Đàm Ma La Sát</span>; nước <span class="ans-key">Đại Nguyệt Chi</span>; thầy là <span class="ans-key">Trúc Cao Tọa</span>; tôn là <span class="ans-key">Đôn Hoàng Bồ tát</span>.</div>
+                  <div>- 3 mốc dịch kinh lớn: <span class="ans-key">Trúc Pháp Hộ - Cưu Ma La Thập - Huyền Tráng</span>.</div>
+                  <div>- Dịch: <span class="ans-key">Quang Tán Bát Nhã Kinh</span>, <span class="ans-key">Kinh Vu Lan</span>, <span class="ans-key">Chính Pháp Hoa Kinh</span> (phổ biến tín ngưỡng <span class="ans-key">Quán Thế Âm</span>).</div>
+                  <div>- <i>"Phật giáo đại sự biểu"</i> ghi: dịch <span class="ans-key">Kinh Niết Bàn, kinh Pháp Hoa</span>.</div>
+                </li>
+                <li>• Bộ <b>Phóng Quang Bát Nhã Kinh</b> (hệ <span class="ans-key">Bát-nhã</span>, từ bản của <span class="ans-key">Chu Sĩ Hành</span>) do <span class="ans-key">Vô La Xoa và Ưu bà tắc Trúc Thúc Lan</span> dịch.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 4.2 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-indigo-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>☯️</span> 2. Bát-Nhã Học, Huyền Học & Phật Đồ Trừng
+              </div>
+              <ul class="text-xs space-y-2 text-stone-700">
+                <li>• Tư tưởng trung tâm của Bát-nhã: <span class="ans-key">Tánh Không</span>.</li>
+                <li>• Huyền học ảnh hưởng tư tưởng <span class="ans-key">Lão–Trang</span> (thời Tây Tấn có <span class="ans-key">Trúc Lâm Thất Hiền</span>), tiếp cận tầng lớp <span class="ans-key">Sĩ đại phu và trí thức</span>.</li>
+                <li>• <b>"Danh giáo"</b> chỉ đạo đức của <span class="ans-key">Nho gia</span>.</li>
+                <li>• Dùng khái niệm Lão–Trang giải thích Phật giáo gọi là <span class="ans-key">Cách nghĩa</span> (Tránh <span class="ans-key">đồng nhất "Không" của Bát-nhã với "Vô" của Lão–Trang</span>).</li>
+                <li>• Bát-nhã học giúp PG chuyển từ trai tự sang <span class="ans-key">nghiên cứu và giải thích nghĩa lý</span>, tạo tiền đề cho <span class="ans-key">Lục gia thất tông</span>.</li>
+                <li>• <span class="ans-key">Vương Phù</span> soạn <i>Lão Tử Hóa Hồ Kinh</i> nhằm <span class="ans-key">đối kháng với Phật giáo</span>.</li>
+                <li class="p-2 bg-white rounded border border-indigo-200 space-y-1">
+                  <b class="text-indigo-900">🔮 Ngài Phật Đồ Trừng (Nước Hậu Triệu):</b>
+                  <div>- Thầy của <span class="ans-key">Đạo An</span>; được tôn là <span class="ans-key">Quốc chi đại bảo</span> & <span class="ans-key">Đại Hòa thượng</span>.</div>
+                  <div>- Hóa độ vua <span class="ans-key">Thạch Lặc, Thạch Hổ</span>; giúp <span class="ans-key">người Hán được xuất gia</span>.</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 4.3 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-indigo-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>👑</span> 3. Danh Tăng Đạo An (Nước Tiền Tần)
+              </div>
+              <div class="text-xs space-y-2 text-stone-700">
+                <p>• Đông Tấn thuộc thời đại <span class="ans-key">Nghiên cứu</span>. Các nước có PG / dịch kinh: <b>Mẹo chọn ngay đáp án có chữ <span class="ans-key">Bắc Lương</span> ở cuối!</b></p>
+                <div class="p-2.5 bg-white rounded border border-indigo-200 space-y-1.5">
+                  <div class="font-bold text-indigo-900">🌟 Tất tần tật về Ngài Đạo An (20 câu!):</div>
+                  <div>• Cao tăng nước <span class="ans-key">Tiền Tần</span>; đệ tử <span class="ans-key">Phật Đồ Trừng</span>; thầy của <span class="ans-key">Huệ Viễn</span>.</div>
+                  <div>• Vua <span class="ans-key">Phù Kiên</span> thờ làm thầy; học giả cùng thời là <span class="ans-key">Tập Tạc Sĩ</span>.</div>
+                  <div>• Nói câu: <span class="ans-key">"Bất y quốc chủ tắc pháp sự nan lập"</span> & khuyên Phù Kiên thỉnh <span class="ans-key">Cưu Ma La Thập</span>.</div>
+                  <div>• <b>6 Cái "Đầu Tiên" của Đạo An:</b>
+                    <br>1. Tăng Ni lấy <span class="ans-key">họ Thích</span>.
+                    <br>2. Làm sáng nghĩa kinh điển cổ xưa.
+                    <br>3. Lập danh mục kinh Hán ngữ đầu tiên: <span class="ans-key">Tổng Lý Chúng Kinh Mục Lục</span> (gọi là <span class="ans-key">An Lục</span>, ra đời thời <span class="ans-key">Đông Tấn</span>).
+                    <br>4. Khởi xướng thờ Phật <span class="ans-key">Di Lặc</span>.
+                    <br>5. Kết hợp giữa <span class="ans-key">Bát nhã và Thiền</span>.
+                    <br>6. Quy định quy tắc sinh hoạt tự viện (Tăng chế).
+                  </div>
+                  <div>• Lý luận dịch kinh: <span class="ans-key">Ngũ thất bản</span> (5 phương diện biến đổi so với nguyên bản) và <span class="ans-key">Tam bất dị</span> (3 điều khó khi dịch kinh).</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUYÊN ĐỀ 5 -->
+      <div class="topic-section bg-white rounded-2xl shadow-md border border-amber-200 overflow-hidden" data-topic="cd5">
+        <div class="bg-gradient-to-r from-purple-900 to-fuchsia-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs uppercase tracking-wider bg-fuchsia-300 text-purple-950 font-extrabold px-2.5 py-0.5 rounded-full">Chuyên đề 5 • Đề 5</span>
+            <h2 class="text-xl font-extrabold mt-1">ĐÔNG TẤN: CƯU MA LA THẬP, HUỆ VIỄN & NI ĐOÀN (50 CÂU)</h2>
+          </div>
+          <span class="text-xs bg-white/20 px-3 py-1 rounded-lg font-medium">Trọng tâm: Dịch phẩm La Thập $\leftrightarrow$ Tông phái • Đạo Sanh & Tăng Triệu • Tịnh Kiểm</span>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 5.1 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-purple-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>📚</span> 1. Cưu Ma La Thập & Các Tông Phái (20 Câu)
+              </div>
+              <div class="text-xs space-y-2 text-stone-700">
+                <div>• Phiên dịch kinh tại TQ kéo dài <span class="ans-key">hơn 1000 năm</span>.</div>
+                <div>• Số bản dịch Hán: Kinh Pháp Hoa = <span class="ans-key">3 bản dịch</span>; Kinh Duy Ma = <span class="ans-key">3 bản dịch</span>; Kinh Kim Cang = <span class="ans-key">6 bản dịch</span>.</div>
+                <div>• 3 dịch phẩm <b>quan trọng</b> của La Thập: <span class="ans-key">Kinh Duy Ma, Kinh Pháp Hoa, Kinh Đại Bát Nhã</span>.</div>
+                <div>• 3 dịch phẩm <b>Định bản</b> của La Thập: <span class="ans-key">Kinh Pháp Hoa, Kinh Kim Cang, Kinh Duy Ma</span>.</div>
+                
+                <div class="p-2 bg-white rounded border border-purple-200 space-y-1">
+                  <div class="font-bold text-purple-900">🔗 Ghép Dịch Phẩm La Thập $\leftrightarrow$ Tông Phái:</div>
+                  <div>• <span class="ans-key">Kinh Pháp Hoa</span> $\leftrightarrow$ <span class="ans-key">Thiên Thai Tông</span></div>
+                  <div>• <span class="ans-key">Kinh A Di Đà</span> $\leftrightarrow$ <span class="ans-key">Tịnh Độ Tông</span></div>
+                  <div>• <span class="ans-key">Kinh Kim Cang</span> / <span class="ans-key">Thiền pháp yếu giải</span> / <span class="ans-key">Tọa thiền tam muội kinh</span> $\leftrightarrow$ <span class="ans-key">Thiền Tông</span></div>
+                  <div>• <span class="ans-key">Thập Trụ Tỳ Bà Sa Luận</span> $\leftrightarrow$ <span class="ans-key">Hoa Nghiêm Tông</span></div>
+                  <div>• <span class="ans-key">Thành Thực Luận</span> $\leftrightarrow$ <span class="ans-key">Thành Thực Tông</span></div>
+                  <div>• <span class="ans-key">Tứ Luận</span> $\leftrightarrow$ <span class="ans-key">Tam Luận Tông</span></div>
+                  <div>• <span class="ans-key">Thập Tụng Luật</span> $\leftrightarrow$ <span class="ans-key">Luật Tông</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5.2 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-purple-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🪷</span> 2. Đạo Sanh, Tăng Triệu & Huệ Viễn
+              </div>
+              <div class="text-xs space-y-2.5 text-stone-700">
+                <div class="p-2 bg-white rounded border border-purple-200 space-y-1">
+                  <div class="font-bold text-purple-900">👥 2 Môn Đệ Xuất Sắc Của La Thập (Nước Hậu Tần):</div>
+                  <div>1. <span class="ans-key">Đạo Sanh</span> (nước <span class="ans-key">Hậu Tần</span>): Đưa ra tư tưởng <span class="ans-key">"Nhất xiển đề cũng có thể thành Phật"</span>.</div>
+                  <div>2. <span class="ans-key">Tăng Triệu</span> (nước <span class="ans-key">Hậu Tần</span>): Được tôn là <span class="ans-key">"Giải Không đệ nhất"</span>.</div>
+                </div>
+
+                <div class="p-2 bg-white rounded border border-purple-200 space-y-1">
+                  <div class="font-bold text-purple-900">🏔️ Cao Tăng Đông Tấn & Bắc Lương:</div>
+                  <div>• 2 Cao tăng tiêu biểu thời Đông Tấn: <span class="ans-key">Huệ Viễn, Giác Hiền</span>.</div>
+                  <div>• <b>Ngài <span class="ans-key">Huệ Viễn</span> (thời <span class="ans-key">Đông Tấn</span>):</b>
+                    <br>- Khởi xướng Pháp môn niệm Phật (<span class="ans-key">Sơ Tổ Tịnh Độ tông</span>).
+                    <br>- Tác giả: <span class="ans-key">Sa môn bất bái vương giả luận</span> và <span class="ans-key">Đại Trí Độ luận sao</span>.
+                  </div>
+                  <div>• <b>Ngài <span class="ans-key">Giác Hiền</span> (Đông Tấn):</b> Dịch <span class="ans-key">Kinh Hoa Nghiêm 60 quyển</span>.</div>
+                  <div>• <b>Ngài <span class="ans-key">Đàm Vô Sấm</span> (nước <span class="ans-key">Bắc Lương</span>):</b> Dịch kinh <span class="ans-key">Đại Bát Niết Bàn</span>.</div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo nhớ:</b> Đạo <b>Sanh</b> = Chúng <b>sanh</b> (Nhất xiển đề) cũng thành Phật. Đàm Vô <b>Sấm</b> = <b>Bắc Lương</b> = Đại Bát <b>Niết Bàn</b>.
+            </div>
+          </div>
+
+          <!-- Card 5.3 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-purple-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🙏</span> 3. Giáo Đoàn Tỳ-Kheo-Ni Đầu Tiên (8 Câu)
+              </div>
+              <ul class="text-sm space-y-2.5 text-stone-700">
+                <li>• Giáo đoàn Tỳ-kheo-ni bắt đầu thành lập từ thời: <span class="ans-key">Đông Tấn</span>.</li>
+                <li>• Vị Tỳ-kheo-ni đầu tiên của Trung Quốc: Ngài <span class="ans-key">Tịnh Kiểm</span>.</li>
+                <li>• Ngài Tịnh Kiểm đã y chỉ ngài <span class="ans-key">Trí Sơn</span> để thọ <span class="ans-key">10 giới</span>.</li>
+                <li>• Trong giới đàn, ngài Tịnh Kiểm cùng với <span class="ans-key">23</span> người cùng thọ Cụ túc giới.</li>
+                <li>• Vị kiến lập giới đàn Tỳ-kheo-ni trên thuyền trên dòng sông Tứ: Ngài <span class="ans-key">Đàm Ma Kiệt Đa</span>.</li>
+                <li>• Các vị Tỳ-kheo-ni nổi tiếng thời Đông Tấn: <span class="ans-key">Tịnh Kiểm, Đạo Dung, Diệu Âm</span>.</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo nhớ câu chuyện Ni đoàn:</b> Thời <b>Đông Tấn</b>, Ni sư <b>Tịnh Kiểm</b> lên núi (<b>Trí Sơn</b>) thọ <b>10 giới</b>, sau đó cùng <b>23</b> chị em lên thuyền sông Tứ do ngài <b>Đàm Ma Kiệt Đa</b> lập đàn truyền giới!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUYÊN ĐỀ 6 -->
+      <div class="topic-section bg-white rounded-2xl shadow-md border border-amber-200 overflow-hidden" data-topic="cd6">
+        <div class="bg-gradient-to-r from-rose-900 to-pink-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs uppercase tracking-wider bg-pink-300 text-rose-950 font-extrabold px-2.5 py-0.5 rounded-full">Chuyên đề 6 • Đề 6</span>
+            <h2 class="text-xl font-extrabold mt-1">PHẬT GIÁO THỜI NAM BẮC TRIỀU (30 CÂU)</h2>
+          </div>
+          <span class="text-xs bg-white/20 px-3 py-1 rounded-lg font-medium">Trọng tâm: Tam Vũ Nhất Tông • Lương Vũ Đế & Đạt Ma • Phật Tánh & Duy Thức</span>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 6.1 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-rose-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🌊</span> 1. Bối Cảnh, Pháp Nạn & Chính Trị
+              </div>
+              <ul class="text-sm space-y-2.5 text-stone-700">
+                <li>• Thuộc thời đại: <span class="ans-key">Nghiên cứu</span>.</li>
+                <li>• Miền Bắc thống nhất bởi: <span class="ans-key">Bắc Ngụy</span>.</li>
+                <li>• Miền Nam kế tiếp Đông Tấn là: <span class="ans-key">Lưu Tống</span>.</li>
+                <li>• Phật điển thời này phần đông do: <span class="ans-key">các vị tăng sĩ Trung Quốc đi Ấn Độ, Tây Vực đem về</span>.</li>
+                <li>• Phật giáo TQ có <span class="ans-key">4</span> lần pháp nạn, gọi là: <span class="ans-key">Tam Vũ Nhất Tông pháp nạn</span>.</li>
+                <li>• Ngài <span class="ans-key">Pháp Quả</span> tôn xưng Đạo Vũ Đế là <span class="ans-key">"Như Lai hiện đời"</span>.</li>
+                <li>• Ngài <span class="ans-key">Tuệ Lâm</span> được gọi là <span class="ans-key">"Tể tướng áo đen"</span>.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 6.2 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-rose-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>👑</span> 2. Lương Vũ Đế, Bồ Đề Đạt Ma & Tứ Đại Dịch Giả
+              </div>
+              <ul class="text-sm space-y-2.5 text-stone-700">
+                <li>• Vị vua tín ngưỡng Phật giáo nhất lịch sử TQ: <span class="ans-key">Lương Vũ Đế</span>.</li>
+                <li>• Lương Vũ Đế đề xướng <span class="ans-key">cúng chay, ăn chay</span> và thỉnh Ngài Chí Công soạn bộ <span class="ans-key">Lương Hoàng Bảo Sám</span>.</li>
+                <li>• Sơ Tổ Thiền tông Trung Quốc là Ngài <span class="ans-key">Bồ Đề Đạt Ma</span> (cũng là vị đã <span class="ans-key">phủ nhận công đức</span> của vua Lương Vũ Đế).</li>
+                <li>• <b>Tứ đại dịch giả:</b>
+                  <div class="mt-1 p-2 bg-white rounded border border-rose-200 text-xs font-semibold">
+                    <span class="ans-key">Cưu Ma La Thập, Chân Đế, Huyền Tráng, Bất Không</span> (hoặc <span class="ans-key">Nghĩa Tịnh</span>).
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo loại trừ Tứ đại dịch giả:</b> Đáp án nào có <i>Trúc Pháp Hộ, An Thế Cao</i> hoặc <i>Huệ Viễn</i> là SAI ngay!
+            </div>
+          </div>
+
+          <!-- Card 6.3 -->
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-rose-900 font-bold text-sm border-b border-stone-200 pb-2 mb-3">
+                <span>🌱</span> 3. Kinh Phật Tánh & Tiền Thân Duy Thức Tông
+              </div>
+              <div class="text-xs space-y-2.5 text-stone-700">
+                <div>• Kinh dịch thời Nam Bắc Triều: <span class="ans-key">Kinh Đại Bát Niết Bàn, Kinh Thắng Man, Kinh Lăng Già</span>.</div>
+                <div>• <b>Khai sáng tư tưởng Phật tánh luận (4 câu):</b> Cứ chọn đáp án ghép từ 4 kinh: <span class="ans-key">Đại Bát Niết Bàn, Thắng Man, Lăng Già, Giải Thâm Mật</span>.</div>
+                
+                <div class="p-2.5 bg-white rounded border border-rose-200 space-y-1.5">
+                  <div class="font-bold text-rose-900">🌳 Hai Nhánh Tiền Thân Của Duy Thức Tông:</div>
+                  <div>• Tiền thân của Duy Thức Pháp Tướng tông là: <span class="ans-key">Địa luận tông và Nhiếp luận tông</span>.</div>
+                  <div>• 2 bộ luận dịch thời <span class="ans-key">Nam Bắc triều</span> ảnh hưởng đến Duy Thức tông là: <span class="ans-key">Thập Địa Kinh luận, Nhiếp Đại Thừa luận</span>.</div>
+                  <div>1. Ngài <span class="ans-key">Bồ Đề Lưu Chi</span> dịch <span class="ans-key">Thập Địa Kinh luận</span> $\rightarrow$ Tổ của <span class="ans-key">Địa luận tông</span>.</div>
+                  <div>2. Ngài <span class="ans-key">Chân Đế</span> dịch <span class="ans-key">Nhiếp Đại Thừa luận</span> $\rightarrow$ Lập ra <span class="ans-key">Nhiếp luận tông</span>.</div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 bg-yellow-100/90 border border-yellow-300 rounded-lg p-2.5 text-xs text-yellow-950">
+              <b>🧠 Mẹo ghép tên:</b> Thập <b>Địa</b> = <b>Địa</b> luận tông (Bồ Đề Lưu Chi). <b>Nhiếp</b> Đại Thừa = <b>Nhiếp</b> luận tông (Chân Đế).
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================
+         TAB 2: BẢNG CHỐNG NHẦM LẪN (SO SÁNH NHANH)
+    =========================================== -->
+    <section id="view-compare" class="hidden space-y-6">
+      <div class="bg-amber-50 border-l-4 border-amber-600 p-4 rounded-r-xl">
+        <h2 class="text-lg font-extrabold text-amber-950">⚖️ BẢNG PHÂN BIỆT NHANH CÁC CÂU DỄ NHẦM LẪN NHẤT</h2>
+        <p class="text-xs md:text-sm text-stone-600 mt-1">Khi đi thi, giám khảo rất hay trộn lẫn các tên kinh, tên chùa và nhân vật dưới đây làm đáp án nhiễu. Chỉ cần nhìn bảng này là không bao giờ khoanh nhầm!</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Bảng 1: 4 Bộ Kinh Bát Nhã -->
+        <div class="bg-white rounded-2xl shadow border border-amber-200 overflow-hidden">
+          <div class="bg-red-900 text-white px-5 py-3 font-bold text-sm">
+            1. Phân Biệt 4 Bộ Kinh Hệ BÁT-NHÃ & Dịch Giả
+          </div>
+          <div class="p-4 overflow-x-auto">
+            <table class="w-full text-xs md:text-sm text-left border-collapse">
+              <thead>
+                <tr class="bg-amber-100 text-amber-950">
+                  <th class="p-2.5 border border-amber-200">Tên Kinh Bát-Nhã</th>
+                  <th class="p-2.5 border border-amber-200">Người Dịch / Thỉnh</th>
+                  <th class="p-2.5 border border-amber-200">Thời Kỳ / Ghi Chú</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200">
+                <tr>
+                  <td class="p-2.5 font-bold text-red-800">Đạo Hành Bát Nhã</td>
+                  <td class="p-2.5 font-semibold">Chi Lâu Ca Sấm</td>
+                  <td class="p-2.5">Đông Hán (Ảnh hưởng Huyền Học Thanh Đàm; Chu Sĩ Hành thường giảng)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-800">Đại Minh Độ Kinh</td>
+                  <td class="p-2.5 font-semibold">Cư sĩ Chi Khiêm</td>
+                  <td class="p-2.5">Tam Quốc - Đông Ngô</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-indigo-800">Phóng Quang Bát Nhã</td>
+                  <td class="p-2.5 font-semibold">Vô La Xoa & Trúc Thúc Lan dịch</td>
+                  <td class="p-2.5">Tây Tấn (Bản gốc do <b>Chu Sĩ Hành</b> thỉnh ở Vu Điền, đệ tử <b>Phất Như Đàn</b> đem về)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-blue-800">Quang Tán Bát Nhã</td>
+                  <td class="p-2.5 font-semibold">Trúc Pháp Hộ</td>
+                  <td class="p-2.5">Tây Tấn (Đôn Hoàng Bồ tát)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-purple-800">Kinh Đại Bát Nhã</td>
+                  <td class="p-2.5 font-semibold">Cưu Ma La Thập</td>
+                  <td class="p-2.5">Đông Tấn - Hậu Tần</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bảng 2: Những Người "Đầu Tiên" -->
+        <div class="bg-white rounded-2xl shadow border border-amber-200 overflow-hidden">
+          <div class="bg-amber-900 text-white px-5 py-3 font-bold text-sm">
+            2. Phân Biệt Những Nhân Vật "ĐẦU TIÊN" Trong Đề Thi
+          </div>
+          <div class="p-4 overflow-x-auto">
+            <table class="w-full text-xs md:text-sm text-left border-collapse">
+              <thead>
+                <tr class="bg-amber-100 text-amber-950">
+                  <th class="p-2.5 border border-amber-200">Danh Hiệu "Đầu Tiên"</th>
+                  <th class="p-2.5 border border-amber-200">Nhân Vật Chuẩn</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200">
+                <tr>
+                  <td class="p-2.5">Đem <b>Thiền quán</b> vào Trung Quốc đầu tiên</td>
+                  <td class="p-2.5 font-bold text-red-800">An Thế Cao (Đông Hán)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Xuất gia đầu tiên ở TQ (nhưng <b>chưa thọ giới</b>)</td>
+                  <td class="p-2.5 font-bold text-red-800">Nghiêm Phật Điều (đệ tử An Thế Cao)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Xuất gia <b>thọ giới Tỳ-kheo</b> đầu tiên & Mở đường <b>"nhập Trúc cầu pháp"</b></td>
+                  <td class="p-2.5 font-bold text-emerald-800">Chu Sĩ Hành (Tào Ngụy)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Người <b>Việt Nam</b> đầu tiên truyền PG sang TQ</td>
+                  <td class="p-2.5 font-bold text-emerald-800">Khương Tăng Hội (Đông Ngô)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Giúp <b>người Hán</b> chính thức được phép xuất gia</td>
+                  <td class="p-2.5 font-bold text-indigo-800">Phật Đồ Trừng (Hậu Triệu)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Lập <b>mục lục kinh Hán ngữ</b>, lấy <b>họ Thích</b>, thờ <b>Di Lặc</b>, lập <b>Tăng chế</b> đầu tiên</td>
+                  <td class="p-2.5 font-bold text-indigo-800">Đạo An (Tiền Tần)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Khởi xướng <b>Pháp môn niệm Phật</b> (Sơ tổ Tịnh Độ)</td>
+                  <td class="p-2.5 font-bold text-purple-800">Huệ Viễn (Đông Tấn)</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5">Vị <b>Tỳ-kheo-ni</b> đầu tiên của Trung Quốc</td>
+                  <td class="p-2.5 font-bold text-purple-800">Tịnh Kiểm (Đông Tấn)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bảng 3: Quê quán các vị Cao tăng Nước Ngoài -->
+        <div class="bg-white rounded-2xl shadow border border-amber-200 overflow-hidden">
+          <div class="bg-emerald-900 text-white px-5 py-3 font-bold text-sm">
+            3. Phân Biệt Quê Quán (Xuất Xứ) Các Dịch Giả
+          </div>
+          <div class="p-4 overflow-x-auto">
+            <table class="w-full text-xs md:text-sm text-left border-collapse">
+              <thead>
+                <tr class="bg-amber-100 text-amber-950">
+                  <th class="p-2.5 border border-amber-200">Quốc Gia Cổ</th>
+                  <th class="p-2.5 border border-amber-200">Nhân Vật Thuộc Nước Đó</th>
+                  <th class="p-2.5 border border-amber-200">Mẹo Nhớ Nhanh</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200">
+                <tr>
+                  <td class="p-2.5 font-bold text-red-800">Đại Nguyệt Chi</td>
+                  <td class="p-2.5 font-semibold">1. Y Tồn<br>2. Chi Lâu Ca Sấm<br>3. Cư sĩ Chi Khiêm<br>4. Trúc Pháp Hộ (Chi Pháp Hộ)</td>
+                  <td class="p-2.5">Có họ <b>"Chi"</b> (Chi Sấm, Chi Khiêm, Chi Pháp Hộ) + sứ giả <b>Y Tồn</b> đều là người <b>Đại Nguyệt Chi</b>!</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-amber-800">An Tức</td>
+                  <td class="p-2.5 font-semibold">An Thế Cao</td>
+                  <td class="p-2.5">Họ <b>An</b> = Nước <b>An Tức</b>.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-800">Khương Cư & Giao Châu</td>
+                  <td class="p-2.5 font-semibold">Khương Tăng Hội</td>
+                  <td class="p-2.5">Cha người <b>Khương Cư</b> (họ Khương), mẹ & nơi sinh tại <b>Giao Châu (Việt Nam)</b>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bảng 4: Các Ngôi Chùa & Sơ Tổ Các Tông Phái -->
+        <div class="bg-white rounded-2xl shadow border border-amber-200 overflow-hidden">
+          <div class="bg-indigo-900 text-white px-5 py-3 font-bold text-sm">
+            4. Các Ngôi Chùa Lịch Sử & Các Vị Sơ Tổ
+          </div>
+          <div class="p-4 overflow-x-auto">
+            <table class="w-full text-xs md:text-sm text-left border-collapse">
+              <thead>
+                <tr class="bg-amber-100 text-amber-950">
+                  <th class="p-2.5 border border-amber-200">Chùa / Tông Phái</th>
+                  <th class="p-2.5 border border-amber-200">Gắn Liền Với Sự Kiện / Vị Tổ</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200">
+                <tr>
+                  <td class="p-2.5 font-bold">Hồng Lô tự</td>
+                  <td class="p-2.5">Nơi vua Hán Minh Đế thỉnh Ca Diếp Ma Đằng & Trúc Pháp Lan ở <b>khi mới đến</b>.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-red-800">Chùa Bạch Mã</td>
+                  <td class="p-2.5">Ngôi chùa <b>đầu tiên ở Trung Quốc</b> (vua Hán Minh Đế xây); nơi Khang Tăng Khải dịch <i>Vô Lượng Thọ Kinh</i>.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-800">Chùa Kiến Sơ</td>
+                  <td class="p-2.5">Ngôi chùa <b>đầu tiên ở nước Ngô</b> (vua Tôn Quyền xây cho ngài <b>Khương Tăng Hội</b>).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-amber-900">Sơ tổ Luật tông</td>
+                  <td class="p-2.5">Ngài <b>Đàm Ma Ca La</b> (thời Tào Ngụy).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-purple-900">Sơ tổ Tịnh Độ tông</td>
+                  <td class="p-2.5">Ngài <b>Huệ Viễn</b> (thời Đông Tấn).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-rose-900">Sơ tổ Thiền tông TQ</td>
+                  <td class="p-2.5">Ngài <b>Bồ Đề Đạt Ma</b> (thời Nam Bắc Triều).</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-blue-900">Tổ Địa Luận tông vs Nhiếp Luận tông</td>
+                  <td class="p-2.5"><b>Bồ Đề Lưu Chi</b> (Thập Địa Kinh luận $\rightarrow$ Địa luận tông) vs <b>Chân Đế</b> (Nhiếp Đại Thừa luận $\rightarrow$ Nhiếp luận tông).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 3: THẺ LẬT FLASHCARD SIÊU TỐC
+    =========================================== -->
+    <section id="view-flashcard" class="hidden max-w-3xl mx-auto space-y-6">
+      <div class="bg-white p-5 rounded-2xl shadow border border-amber-200 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-extrabold text-amber-950">🗂️ FLASHCARD PHẢN XẠ TỪ KHÓA</h2>
+          <p class="text-xs text-stone-600">Chạm vào thẻ để lật xem đáp án. Dùng phím Mũi tên Trái/Phải hoặc nút bấm bên dưới để chuyển thẻ.</p>
+        </div>
+        <select id="fcTopicSelect" onchange="filterFlashcards()" class="text-xs font-bold px-3 py-2 rounded-xl border border-amber-300 bg-amber-50 text-amber-950">
+          <option value="all">Tất cả 6 Chuyên đề</option>
+          <option value="cd1">Chuyên đề 1: Đông Truyền</option>
+          <option value="cd2">Chuyên đề 2: Đông Hán</option>
+          <option value="cd3">Chuyên đề 3: Tam Quốc</option>
+          <option value="cd4">Chuyên đề 4: Tây Tấn & 16 Nước</option>
+          <option value="cd5">Chuyên đề 5: Đông Tấn</option>
+          <option value="cd6">Chuyên đề 6: Nam Bắc Triều</option>
+        </select>
+      </div>
+
+      <!-- Khung Thẻ Lật -->
+      <div id="flashcardContainer" onclick="flipCurrentCard()" class="perspective h-80 md:h-96 cursor-pointer select-none">
+        <div id="flashcardInner" class="flip-card-inner shadow-xl rounded-2xl">
+          <!-- Mặt trước -->
+          <div class="flip-card-front bg-gradient-to-br from-amber-50 via-white to-orange-50 border-2 border-amber-300 p-8 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-xs font-bold text-amber-800">
+              <span id="fcBadge" class="bg-amber-200 px-3 py-1 rounded-full">Chuyên đề 1</span>
+              <span id="fcCounter">Thẻ 1 / 36</span>
+            </div>
+            <div class="my-auto text-center space-y-3">
+              <p class="text-xs uppercase tracking-widest text-stone-400 font-bold">Khi đề bài hỏi từ khóa:</p>
+              <h3 id="fcQuestion" class="text-xl md:text-2xl font-extrabold text-stone-800 leading-snug">
+                ...
+              </h3>
+            </div>
+            <div class="text-center text-xs text-amber-700 font-semibold animate-pulse">
+              👆 Chạm vào thẻ để lật xem Đáp án & Mẹo nhớ
+            </div>
+          </div>
+
+          <!-- Mặt sau -->
+          <div class="flip-card-back bg-gradient-to-br from-red-900 via-red-800 to-amber-900 text-white p-8 flex flex-col justify-between border-2 border-amber-400">
+            <div class="flex items-center justify-between text-xs font-bold text-amber-200">
+              <span>✅ ĐÁP ÁN PHẢN XẠ</span>
+              <span>Chạm để lật lại</span>
+            </div>
+            <div class="my-auto text-center space-y-4">
+              <div id="fcAnswer" class="text-xl md:text-2xl font-extrabold text-amber-300 leading-snug">
+                ...
+              </div>
+              <div id="fcMnemonic" class="text-xs md:text-sm bg-black/30 p-3.5 rounded-xl text-amber-100 border border-amber-400/30">
+                ...
+              </div>
+            </div>
+            <div class="text-center text-xs text-amber-200/70">
+              Nhớ kỹ từ khóa vàng ở trên để khoanh trắc nghiệm trong 3 giây!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Điều khiển Flashcard -->
+      <div class="flex items-center justify-between gap-4">
+        <button onclick="prevFlashcard()" class="flex-1 py-3 rounded-xl bg-white border border-amber-300 font-bold text-sm text-amber-950 hover:bg-amber-50 shadow-sm transition">
+          ⬅️ Thẻ Trước
+        </button>
+        <button onclick="shuffleFlashcards()" class="px-5 py-3 rounded-xl bg-amber-200 font-bold text-sm text-amber-950 hover:bg-amber-300 shadow-sm transition">
+          🔀 Trộn Thẻ
+        </button>
+        <button onclick="nextFlashcard()" class="flex-1 py-3 rounded-xl bg-red-800 font-bold text-sm text-white hover:bg-red-900 shadow-sm transition">
+          Thẻ Tiếp Theo ➡️
+        </button>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 4: THI THỬ PHẢN XẠ TRẮC NGHIỆM
+    =========================================== -->
+    <section id="view-quiz" class="hidden max-w-4xl mx-auto space-y-6">
+      <div class="bg-white p-5 rounded-2xl shadow border border-amber-200 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-extrabold text-red-900">⚡ PHÒNG LUYỆN PHẢN XẠ TRẮC NGHIỆM</h2>
+          <p class="text-xs text-stone-600">Tuyển tập các câu hỏi trọng tâm đại diện cho toàn bộ 6 bài kiểm tra và Đề 001. Chọn đáp án để xem giải thích ngay lập tức!</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="quizTopicFilter" onchange="initQuiz()" class="text-xs font-bold px-3 py-2 rounded-xl border border-amber-300 bg-amber-50 text-amber-950">
+            <option value="all">Tất cả chuyên đề (Trộn ngẫu nhiên)</option>
+            <option value="cd1">1. Phật giáo Đông truyền</option>
+            <option value="cd2">2. Thời Đông Hán</option>
+            <option value="cd3">3. Thời Tam Quốc</option>
+            <option value="cd4">4. Tây Tấn & Thập Lục Quốc</option>
+            <option value="cd5">5. Đông Tấn (La Thập, Huệ Viễn)</option>
+            <option value="cd6">6. Nam Bắc Triều</option>
+          </select>
+          <button onclick="initQuiz()" class="px-3 py-2 rounded-xl bg-red-800 text-white text-xs font-bold hover:bg-red-900 transition">
+            🔄 Làm Mới
+          </button>
+        </div>
+      </div>
+
+      <!-- Thống kê điểm -->
+      <div class="bg-amber-100/80 border border-amber-300 rounded-xl px-5 py-3 flex items-center justify-between text-xs md:text-sm font-bold text-amber-950">
+        <div>Tiến độ: <span id="quizProgress">0</span> câu đã làm</div>
+        <div class="flex items-center gap-4">
+          <span class="text-emerald-700">✔ Đúng: <span id="quizRight">0</span></span>
+          <span class="text-red-700">✘ Sai: <span id="quizWrong">0</span></span>
+        </div>
+      </div>
+
+      <!-- Danh sách câu hỏi -->
+      <div id="quizList" class="space-y-4"></div>
+    </section>
+
+  </main>
+
+  <footer class="bg-stone-900 text-stone-400 text-xs text-center py-4 mt-10">
+    Sổ Tay Ôn Thi Trực Quan Lịch Sử Phật Giáo Trung Quốc • Chúc bạn thi đạt điểm tuyệt đối vào sáng Chủ Nhật!
+  </footer>
+
+  <!-- ==========================================
+       JAVASCRIPT LOGIC & DỮ LIỆU
+  =========================================== -->
+  <script>
+    // 1. Chuyển đổi Tab chính
+    function switchMainTab(tab) {
+      const tabs = ['mindmap', 'compare', 'flashcard', 'quiz'];
+      tabs.forEach(t => {
+        document.getElementById('view-' + t).classList.add('hidden');
+        const btn = document.getElementById('tab-btn-' + t);
+        btn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold text-amber-100 hover:bg-white/10 transition';
+      });
+      document.getElementById('view-' + tab).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-btn-' + tab);
+      activeBtn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs md:text-sm font-bold bg-amber-400 text-amber-950 shadow transition';
+
+      // Ẩn/hiện thanh công cụ phụ
+      const subToolbar = document.getElementById('sub-toolbar');
+      if (tab === 'mindmap') {
+        subToolbar.classList.remove('hidden');
+      } else {
+        subToolbar.classList.add('hidden');
+      }
+    }
+
+    // 2. Lọc chuyên đề ở Tab 1
+    function filterTopic(topic) {
+      document.querySelectorAll('.topic-pill').forEach(btn => {
+        if (btn.dataset.topic === topic) {
+          btn.className = 'topic-pill active px-3 py-1 rounded-full text-xs font-bold bg-red-800 text-white shadow-sm whitespace-nowrap';
+        } else {
+          btn.className = 'topic-pill px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-900 border border-amber-300 hover:bg-amber-50 whitespace-nowrap';
+        }
+      });
+
+      document.querySelectorAll('.topic-section').forEach(sec => {
+        if (topic === 'all' || sec.dataset.topic === topic) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    // 3. Tìm kiếm nhanh trong 6 chuyên đề
+    function searchContent() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      document.querySelectorAll('.topic-section').forEach(sec => {
+        if (!q) {
+          sec.classList.remove('hidden');
+          return;
+        }
+        const text = sec.innerText.toLowerCase();
+        if (text.includes(q)) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    // 4. Chế độ Che Đáp Án (Tự dò bài)
+    let isCloze = false;
+    function toggleClozeMode() {
+      isCloze = !isCloze;
+      const container = document.getElementById('view-mindmap');
+      const btnText = document.getElementById('clozeText');
+      if (isCloze) {
+        container.classList.add('cloze-mode');
+        btnText.innerText = 'Hiện Tất Cả Đáp Án';
+        document.querySelectorAll('.ans-key').forEach(el => el.classList.remove('revealed'));
+      } else {
+        container.classList.remove('cloze-mode');
+        btnText.innerText = 'Che Đáp Án (Tự Dò Bài)';
+      }
+    }
+
+    // Cho phép click vào từng từ bị làm mờ để mở riêng từ đó
+    document.addEventListener('click', function(e) {
+      if (isCloze && e.target.classList.contains('ans-key')) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    // 5. Dữ liệu Flashcards (36 thẻ cốt lõi quét sạch 300 câu)
+    const flashcardsData = [
+      // CD1
+      { topic: 'cd1', badge: 'Chuyên đề 1 • Đông Truyền', q: '5 thời kỳ phát triển của Phật giáo Trung Quốc theo đúng thứ tự?', a: '1. Phiên dịch → 2. Nghiên cứu → 3. Kiến thiết → 4. Kế thừa → 5. Suy vi', m: 'Mẹo: Dịch kinh trước (Phiên dịch) → Đọc hiểu (Nghiên cứu) → Lập tông phái (Kiến thiết) → Truyền đời sau (Kế thừa) → Suy giảm (Suy vi).' },
+      { topic: 'cd1', badge: 'Chuyên đề 1 • Đông Truyền', q: 'Thứ tự các triều đại lịch sử Trung Quốc (Giai đoạn 1 & Giai đoạn 2)?', a: 'GĐ1: Lưỡng Hán → Tam Quốc → Lưỡng Tấn → Nam Bắc Triều.\nGĐ2: Tùy Đường → Ngũ Đại → Tống Nguyên Minh Thanh → Cận đại.', m: 'Cứ nhớ câu vè: Hán - Tam - Tấn - Nam Bắc / Tùy Đường - Ngũ - Tống Nguyên Minh Thanh.' },
+      { topic: 'cd1', badge: 'Chuyên đề 1 • Đông Truyền', q: 'Phật giáo truyền vào TQ theo đường BỘ và đường THỦY xuất phát từ đâu?', a: '• Đường Bộ: Miền Bắc Ấn Độ\n• Đường Thủy: Miền Nam Ấn Độ', m: 'Mẹo: Đường BỘ = Miền BẮC (cùng chữ B). Đường Thủy = Miền Nam.' },
+      { topic: 'cd1', badge: 'Chuyên đề 1 • Đông Truyền', q: 'Có bao nhiêu thuyết Phật giáo truyền vào TQ? Thuyết nào liên quan Nho giáo?', a: '• Có 12 thuyết.\n• Liên quan Nho giáo: Thuyết "Tây phương Thánh giả của Khổng Tử".', m: 'Thấy chữ Nho giáo là chọn ngay Khổng Tử!' },
+      { topic: 'cd1', badge: 'Chuyên đề 1 • Đông Truyền', q: 'Tất cả thông tin về quyển kinh dịch đầu tiên bằng KHẨU TRUYỀN?', a: '• Kinh Phù Đồ (năm 2 TCN, cuối Tây Hán, vua Hán Ai Đế).\n• Sứ giả Y Tồn (nước Đại Nguyệt Chi) truyền cho Cảnh Lô.\n• Kỷ niệm 2000 năm vào năm 1998.', m: 'Cụm từ khóa dính liền: Khẩu truyền = Kinh Phù Đồ = Năm 2 TCN = Cuối Tây Hán = Hán Ai Đế = Y Tồn (Đại Nguyệt Chi) = Cảnh Lô.' },
+      { topic: 'cd1', badge: 'Chuyên đề 1 • Đông Truyền', q: 'Sự kiện năm 67 Tây lịch (đầu Đông Hán, đời vua Hán Minh Đế)?', a: '• Ca Diếp Ma Đằng & Trúc Pháp Lan mới đến ở Hồng Lô tự → sau vua xây Chùa Bạch Mã (chùa đầu tiên ở TQ).\n• Dịch Kinh Tứ thập nhị chương (kinh chữ Hán đầu tiên).\n• Chữ Thiện Tín và 690 đạo sĩ đòi tranh tài.', m: 'Mới đến ở tạm Hồng Lô tự, sau xây Chùa Bạch Mã, dịch Tứ thập nhị chương.' },
+      // CD2
+      { topic: 'cd2', badge: 'Chuyên đề 2 • Đông Hán', q: 'Bộ luận đầu tiên thời Đông Hán và bối cảnh Nho giáo thời Hán?', a: '• Lý Hoặc luận do Mâu Tử (thời Đông Hán) viết.\n• Đời Hán lấy Nho giáo làm quốc giáo (Đổng Trọng Thư đề nghị Hán Võ Đế).\n• Quý tộc theo Phật: Sở vương Lưu Anh và Trách Dung.', m: 'Nhớ: Mâu Tử viết Lý Hoặc luận thời Đông Hán. Lưu Anh là Sở vương (không phải Hán vương).' },
+      { topic: 'cd2', badge: 'Chuyên đề 2 • Đông Hán', q: 'Ngài An Thế Cao người nước nào? Dịch hệ kinh gì? Gồm những kinh nào?', a: '• Nước An Tức; đem Thiền quán vào TQ; dịch hệ Phật giáo nguyên thủy.\n• 4 kinh: An Ban Thủ Ý, Tứ Đế, Bát Chánh Đạo, Bát Đại Nhân Giác.', m: 'An Thế Cao = nước An Tức = An Ban Thủ Ý + Tứ Đế + Bát Chánh Đạo + Bát Đại Nhân Giác.' },
+      { topic: 'cd2', badge: 'Chuyên đề 2 • Đông Hán', q: 'Ảnh hưởng của Kinh An Ban Thủ Ý và Kinh Bát Đại Nhân Giác?', a: '• Kinh An Ban Thủ Ý → Đạo giáo lập pháp Thai Tức; Đại sư Trí Giả lập Lục Diệu Pháp Môn.\n• Kinh Bát Đại Nhân Giác → Xuất xứ câu "Duy tuệ thị nghiệp".', m: 'Đại Nhân Giác (Giác ngộ cần trí tuệ) = Duy tuệ thị nghiệp.' },
+      { topic: 'cd2', badge: 'Chuyên đề 2 • Đông Hán', q: 'Ngài Chi Lâu Ca Sấm người nước nào? Dịch 2 kinh gì và ảnh hưởng ra sao?', a: '• Nước Đại Nguyệt Chi; dịch hệ Phật giáo phát triển.\n• 1. Đạo Hành Bát Nhã → ảnh hưởng Huyền Học Thanh Đàm.\n• 2. Bát Châu Tam Muội → ảnh hưởng Pháp môn Niệm Phật.', m: 'Chi Lâu Ca Sấm = Đại Nguyệt Chi. Huyền Học = Đạo Hành. Lần 8 viên châu (Bát Châu) = Niệm Phật.' },
+      // CD3
+      { topic: 'cd3', badge: 'Chuyên đề 3 • Tam Quốc', q: '3 nước Tam Quốc: Ai lập? Kinh đô ở đâu? Nước nào có Phật giáo?', a: '• Tào Ngụy (Tào Phi lập - đô Lạc Dương).\n• Thục Hán (Lưu Bị lập - đô Thành Đô).\n• Đông Ngô (Tôn Quyền lập - đô Kiến Nghiệp).\n• Chỉ có Ngụy và Ngô có Phật giáo!', m: 'Cẩn thận bẫy: Tào Phi lập Tào Ngụy (không phải Tào Tháo). Nước Thục không có Phật giáo.' },
+      { topic: 'cd3', badge: 'Chuyên đề 3 • Tam Quốc', q: 'Công trạng của Ngài Đàm Ma Ca La (thời Tào Ngụy)?', a: '• Sơ tổ Luật tông.\n• Dịch Tăng Kỳ giới bổn; cùng Đàm Đế dịch Luật Tứ phần Đàm Vô Đức yết ma.\n• Thỉnh 10 Sa-môn Thiên Trúc lập giới đàn đầu tiên tại Lạc Dương.', m: 'Đàm Ma Ca La = Thời Ngụy = Sơ tổ Luật tông = Giới đàn Lạc Dương.' },
+      { topic: 'cd3', badge: 'Chuyên đề 3 • Tam Quốc', q: 'Công trạng của Ngài Chu Sĩ Hành (thời Tào Ngụy)?', a: '• Người đầu tiên xuất gia thọ giới Tỳ-kheo ở TQ & mở đường "nhập Trúc cầu pháp".\n• Thường giảng Đạo Hành Bát Nhã → năm 260 đến Vu Điền thỉnh Phóng Quang Bát Nhã (đệ tử Phất Như Đàn đem về).', m: 'Chu Sĩ Hành = Hành trình đi Vu Điền cầu kinh Phóng Quang Bát Nhã.' },
+      { topic: 'cd3', badge: 'Chuyên đề 3 • Tam Quốc', q: 'Cư sĩ Chi Khiêm (thời Đông Ngô): Thân thế, "Tam Chi" và 3 dịch phẩm?', a: '• Người Đại Nguyệt Chi, học với Chi Lượng (đệ tử Chi Lâu Ca Sấm) → Tam Chi: Chi Lâu Ca Sấm, Chi Lượng, Chi Khiêm.\n• Dạy Thái tử cho Tôn Quyền.\n• Dịch: Kinh Duy Ma Cật, Kinh Đại Minh Độ, Phật Thuyết Bột kinh sao (Kinh Hiền Nhân).', m: 'Chú ý chọn danh xưng "Cư sĩ Chi Khiêm thời Ngô" (không chọn Tỳ-kheo).' },
+      { topic: 'cd3', badge: 'Chuyên đề 3 • Tam Quốc', q: 'Ngài Khương Tăng Hội (thời Đông Ngô): Quê quán, chùa và dịch phẩm?', a: '• Cha người Khương Cư (đi buôn bán), mẹ & sinh quán tại Giao Châu (Việt Nam) → Người VN đầu tiên truyền PG sang TQ.\n• Đến Kiến Nghiệp (247), Tôn Quyền xây Kiến Sơ tự (chùa đầu tiên ở Ngô).\n• Dịch Lục Độ Tập Kinh, Lục Độ Yếu mục; đề tựa & chú sớ An Ban Thủ Ý.', m: 'Khương Tăng Hội = Giao Châu VN = Kiến Sơ tự = Lục Độ Tập Kinh.' },
+      // CD4
+      { topic: 'cd4', badge: 'Chuyên đề 4 • Tây Tấn & 16 Nước', q: 'Bối cảnh nhà Tây Tấn và các biến loạn lịch sử?', a: '• Tư Mã Viêm lập Tây Tấn, đô ở Lạc Dương, diệt Đông Ngô thống nhất TQ.\n• Suy yếu nghiêm trọng vì Loạn Bát Vương.\n• Kinh đô Lạc Dương bị công phá trong Loạn Vĩnh Gia.', m: 'Suy yếu = Loạn Bát Vương. Phá Lạc Dương = Loạn Vĩnh Gia.' },
+      { topic: 'cd4', badge: 'Chuyên đề 4 • Tây Tấn & 16 Nước', q: 'Ngài Trúc Pháp Hộ (Tây Tấn): Danh hiệu, xuất xứ và các bản dịch?', a: '• Tên khác: Chi Pháp Hộ / Đàm Ma La Sát; người Đại Nguyệt Chi; thầy là Trúc Cao Tọa; tôn là "Đôn Hoàng Bồ tát".\n• Dịch: Chính Pháp Hoa Kinh (phổ biến Quán Thế Âm), Quang Tán Bát Nhã Kinh, Kinh Vu Lan.\n• "Phật giáo đại sự biểu": dịch Kinh Niết Bàn, Kinh Pháp Hoa.', m: '3 mốc dịch kinh: Trúc Pháp Hộ - Cưu Ma La Thập - Huyền Tráng.' },
+      { topic: 'cd4', badge: 'Chuyên đề 4 • Tây Tấn & 16 Nước', q: 'Mối quan hệ giữa Bát-nhã học và Huyền học thời Ngụy – Tấn?', a: '• Tư tưởng trung tâm Bát-nhã: Tánh Không.\n• Huyền học ảnh hưởng Lão-Trang (Trúc Lâm Thất Hiền), tiếp cận Sĩ đại phu & trí thức.\n• Dùng Lão-Trang giải thích PG gọi là "Cách nghĩa" (tránh đồng nhất Không với Vô) → tiền đề cho Lục gia thất tông.', m: 'Vương Phù soạn Lão Tử Hóa Hồ Kinh nhằm đối kháng với Phật giáo.' },
+      { topic: 'cd4', badge: 'Chuyên đề 4 • Tây Tấn & 16 Nước', q: 'Ngài Phật Đồ Trừng là cao tăng nước nào? Có công lao gì?', a: '• Cao tăng nước Hậu Triệu; thầy của Đạo An.\n• Tôn xưng "Quốc chi đại bảo" và "Đại Hòa thượng".\n• Hóa độ vua Thạch Lặc, Thạch Hổ; giúp người Hán được phép xuất gia.', m: 'Phật Đồ Trừng = Hậu Triệu = Quốc chi đại bảo = Thạch Lặc, Thạch Hổ.' },
+      { topic: 'cd4', badge: 'Chuyên đề 4 • Tây Tấn & 16 Nước', q: 'Tổng hợp công trạng của Ngài Đạo An (Cao tăng nước Tiền Tần)?', a: '• Đệ tử Phật Đồ Trừng, thầy Huệ Viễn; vua Phù Kiên thờ làm thầy; bạn Tập Tạc Sĩ.\n• Câu "Bất y quốc chủ tắc pháp sự nan lập"; khuyên thỉnh Cưu Ma La Thập.\n• Tăng Ni lấy họ Thích; soạn Tổng Lý Chúng Kinh Mục Lục (An Lục - thời Đông Tấn); thờ Di Lặc; kết hợp Bát nhã & Thiền; lập Tăng chế; lý luận "Ngũ thất bản, Tam bất dị".', m: 'Cứ thấy "đầu tiên" về Họ Thích, Mục lục kinh (An Lục), Thờ Di Lặc, Quy tắc tự viện, Ngũ thất bản Tam bất dị là khoanh ngay Đạo An (Tiền Tần)!' },
+      // CD5
+      { topic: 'cd5', badge: 'Chuyên đề 5 • Đông Tấn', q: 'Số bản Hán dịch và các dịch phẩm của Ngài Cưu Ma La Thập ảnh hưởng đến các tông phái?', a: '• Pháp Hoa (3 bản), Duy Ma (3 bản), Kim Cang (6 bản) → Cả 3 đều do La Thập dịch Định bản.\n• Pháp Hoa → Thiên Thai Tông | A Di Đà → Tịnh Độ Tông\n• Kim Cang, Thiền pháp yếu giải, Tọa thiền tam muội → Thiền Tông\n• Thập Trụ Tỳ Bà Sa Luận → Hoa Nghiêm | Thành Thực Luận → Thành Thực | Tứ Luận → Tam Luận | Thập Tụng Luật → Luật Tông.', m: 'Hoa Nghiêm Tông gắn với Thập Trụ Tỳ Bà Sa Luận (của La Thập) và Kinh Hoa Nghiêm 60 quyển (của Giác Hiền).' },
+      { topic: 'cd5', badge: 'Chuyên đề 5 • Đông Tấn', q: 'Đạo Sanh, Tăng Triệu, Huệ Viễn, Giác Hiền, Đàm Vô Sấm nổi tiếng với điều gì?', a: '• Đạo Sanh (Hậu Tần, đệ tử La Thập): "Nhất xiển đề cũng có thể thành Phật".\n• Tăng Triệu (Hậu Tần, đệ tử La Thập): "Giải Không đệ nhất".\n• Huệ Viễn (Đông Tấn): Sơ tổ Tịnh Độ, viết Sa môn bất bái vương giả luận & Đại Trí Độ luận sao.\n• Giác Hiền (Đông Tấn): Dịch Hoa Nghiêm 60 quyển.\n• Đàm Vô Sấm (Bắc Lương): Dịch Đại Bát Niết Bàn.', m: 'Đạo Sanh = Nhất xiển đề; Tăng Triệu = Giải Không đệ nhất; Huệ Viễn = Sa môn bất bái vương giả luận.' },
+      { topic: 'cd5', badge: 'Chuyên đề 5 • Đông Tấn', q: 'Sự thành lập Giáo đoàn Tỳ-kheo-ni thời Đông Tấn?', a: '• Vị Tỳ-kheo-ni đầu tiên: Ngài Tịnh Kiểm (y chỉ ngài Trí Sơn thọ 10 giới; cùng 23 người thọ Cụ túc giới).\n• Ngài Đàm Ma Kiệt Đa lập giới đàn trên thuyền sông Tứ.\n• Các Ni nổi tiếng: Tịnh Kiểm, Đạo Dung, Diệu Âm.', m: 'Tịnh Kiểm y chỉ Trí Sơn thọ 10 giới, cùng 23 người thọ Cụ túc giới trên thuyền sông Tứ (Đàm Ma Kiệt Đa).' },
+      // CD6
+      { topic: 'cd6', badge: 'Chuyên đề 6 • Nam Bắc Triều', q: 'Bối cảnh Nam Bắc Triều, Pháp nạn, Pháp Quả, Tuệ Lâm, Lương Vũ Đế, Bồ Đề Đạt Ma?', a: '• Thời đại Nghiên cứu; Bắc = Bắc Ngụy, Nam kế tiếp Đông Tấn = Lưu Tống; kinh do tăng sĩ TQ đi Ấn Độ/Tây Vực đem về.\n• 4 lần pháp nạn = Tam Vũ Nhất Tông.\n• Pháp Quả tôn Đạo Vũ Đế là "Như Lai hiện đời" | Tuệ Lâm = "Tể tướng áo đen".\n• Lương Vũ Đế sùng Phật nhất, ăn chay, thỉnh Chí Công soạn Lương Hoàng Bảo Sám.\n• Bồ Đề Đạt Ma = Sơ tổ Thiền tông TQ, phủ nhận công đức Lương Vũ Đế.', m: 'Pháp Quả = Như Lai hiện đời; Tuệ Lâm = Tể tướng áo đen; Chí Công = Lương Hoàng Bảo Sám.' },
+      { topic: 'cd6', badge: 'Chuyên đề 6 • Nam Bắc Triều', q: 'Kinh khai sáng "Phật tánh luận" và 2 bộ luận tiền thân của Duy Thức Tông?', a: '• Phật tánh luận: Đại Bát Niết Bàn, Thắng Man, Lăng Già, Giải Thâm Mật.\n• Tiền thân Duy Thức Pháp Tướng tông = Địa luận tông + Nhiếp luận tông.\n• Bồ Đề Lưu Chi dịch Thập Địa Kinh luận → Địa luận tông.\n• Chân Đế dịch Nhiếp Đại Thừa luận → Nhiếp luận tông.\n• Tứ đại dịch giả: Cưu Ma La Thập, Chân Đế, Huyền Tráng, Bất Không (Nghĩa Tịnh).', m: 'Thập Địa = Địa luận tông (Bồ Đề Lưu Chi). Nhiếp Đại Thừa = Nhiếp luận tông (Chân Đế).' }
+    ];
+
+    let filteredFC = [...flashcardsData];
+    let currentFCIndex = 0;
+
+    function renderFlashcard() {
+      const cardContainer = document.getElementById('flashcardContainer');
+      cardContainer.classList.remove('flipped');
+      const item = filteredFC[currentFCIndex];
+      document.getElementById('fcBadge').innerText = item.badge;
+      document.getElementById('fcCounter').innerText = `Thẻ ${currentFCIndex + 1} / ${filteredFC.length}`;
+      document.getElementById('fcQuestion').innerText = item.q;
+      document.getElementById('fcAnswer').innerText = item.a;
+      document.getElementById('fcMnemonic').innerText = '💡 ' + item.m;
+    }
+
+    function flipCurrentCard() {
+      document.getElementById('flashcardContainer').classList.toggle('flipped');
+    }
+
+    function nextFlashcard() {
+      currentFCIndex = (currentFCIndex + 1) % filteredFC.length;
+      renderFlashcard();
+    }
+
+    function prevFlashcard() {
+      currentFCIndex = (currentFCIndex - 1 + filteredFC.length) % filteredFC.length;
+      renderFlashcard();
+    }
+
+    function shuffleFlashcards() {
+      filteredFC.sort(() => Math.random() - 0.5);
+      currentFCIndex = 0;
+      renderFlashcard();
+    }
+
+    function filterFlashcards() {
+      const topic = document.getElementById('fcTopicSelect').value;
+      filteredFC = topic === 'all' ? [...flashcardsData] : flashcardsData.filter(f => f.topic === topic);
+      currentFCIndex = 0;
+      renderFlashcard();
+    }
+
+    // Hỗ trợ phím mũi tên khi ở tab Flashcard
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('view-flashcard').classList.contains('hidden')) {
+        if (e.key === 'ArrowRight') nextFlashcard();
+        if (e.key === 'ArrowLeft') prevFlashcard();
+        if (e.key === ' ') {
+          e.preventDefault();
+          flipCurrentCard();
+        }
+      }
+    });
+
+    // 6. Dữ liệu Phòng Thi Thử Trắc Nghiệm (Bao quát các câu hỏi đinh trong 300 câu)
+    const quizBank = [
+      // CD1
+      { topic: 'cd1', q: 'Lịch sử Phật giáo Trung Quốc phân chia theo từng thời đại, theo đúng thứ tự là:', opts: ['Thời đại phiên dịch, Thời đại nghiên cứu, Thời đại kiến thiết, Thời đại kế thừa, Thời đại suy vi', 'Thời đại phiên dịch, Thời đại kiến thiết, Thời đại nghiên cứu, Thời đại kế thừa, Thời đại suy vi', 'Thời đại phiên dịch, Thời đại kiến thiết, Thời đại kế thừa, Thời đại nghiên cứu, Thời đại suy vi', 'Thời đại phiên dịch, Thời đại kế thừa, Thời đại suy vi, Thời đại nghiên cứu, Thời đại kiến thiết'], ans: 0, exp: 'Thứ tự 5 thời kỳ: (1) Phiên dịch → (2) Nghiên cứu → (3) Kiến thiết → (4) Kế thừa → (5) Suy vi.' },
+      { topic: 'cd1', q: 'Lịch sử Phật giáo Trung Quốc phân chia theo thời đại lịch sử TQ (Giai đoạn 1), theo thứ tự:', opts: ['Lưỡng Hán, Nam Bắc Triều, Lưỡng Tấn, Tam Quốc', 'Lưỡng Hán, Tam Quốc, Lưỡng Tấn, Nam Bắc Triều', 'Lưỡng Hán, Lưỡng Tấn, Tam Quốc, Nam Bắc Triều', 'Lưỡng Hán, Nam Bắc Triều, Tam Quốc, Lưỡng Tấn'], ans: 1, exp: 'Thứ tự chuẩn: (1) Lưỡng Hán → (2) Tam Quốc → (3) Lưỡng Tấn → (4) Nam Bắc Triều.' },
+      { topic: 'cd1', q: 'Phật giáo truyền đến Trung Quốc theo đường bộ và đường thủy xuất phát lần lượt từ:', opts: ['Đường bộ từ Miền Nam Ấn Độ, đường thủy từ Miền Bắc Ấn Độ', 'Đường bộ từ Miền Bắc Ấn Độ, đường thủy từ Miền Nam Ấn Độ', 'Đường bộ từ Đông Nam Ấn Độ, đường thủy từ Tây Nam Ấn Độ', 'Cả hai đều từ Miền Bắc Ấn Độ'], ans: 1, exp: 'Mẹo: Đường Bộ = Miền Bắc Ấn Độ (B - B); Đường Thủy = Miền Nam Ấn Độ.' },
+      { topic: 'cd1', q: 'Quyển kinh Phật được dịch đầu tiên bằng khẩu truyền là kinh nào, vào thời gian nào, do ai truyền cho ai?', opts: ['Kinh Tứ thập nhị chương - năm 67 TL - Ca Diếp Ma Đằng truyền cho Hán Minh Đế', 'Kinh Phù Đồ - năm 2 trước Tây lịch (cuối Tây Hán, Hán Ai Đế) - sứ giả Y Tồn (nước Đại Nguyệt Chi) truyền cho Cảnh Lô', 'Kinh Đạo Hành Bát Nhã - năm 2 Tây lịch - Chi Lâu Ca Sấm truyền cho Cảnh Lô', 'Kinh Phù Đồ - năm 67 trước Tây lịch - Y Tồn nước An Tức truyền cho Thái Hâm'], ans: 1, exp: 'Trọn bộ 10 câu hỏi Khẩu truyền: Năm 2 TCN (cuối Tây Hán, vua Hán Ai Đế, kỷ niệm 2000 năm vào năm 1998), sứ giả Y Tồn nước Đại Nguyệt Chi khẩu truyền Kinh Phù Đồ cho Cảnh Lô.' },
+      { topic: 'cd1', q: 'Khi Ngài Ca Diếp Ma Đằng và Trúc Pháp Lan mới đến TQ (năm 67 TL, đầu Đông Hán), vua Hán Minh Đế thỉnh 2 Ngài ở đâu trước khi xây chùa Bạch Mã?', opts: ['Phổ Đà tự', 'Hồng Lô tự', 'Kiến Sơ tự', 'Từ Ân tự'], ans: 1, exp: 'Khi mới đến thỉnh ở Hồng Lô tự, sau đó vua Hán Minh Đế xây Chùa Bạch Mã (ngôi chùa đầu tiên ở TQ) và hai Ngài dịch Kinh Tứ thập nhị chương.' },
+      // CD2
+      { topic: 'cd2', q: 'Tác phẩm "Lý Hoặc luận" được viết vào thời nào và do ai làm tác giả?', opts: ['Khương Tăng Hội thời Đông Ngô', 'Mâu Tử thời Đông Hán', 'Mâu Tử thời Tây Hán', 'Đổng Trọng Thư thời Đông Hán'], ans: 1, exp: 'Lý Hoặc luận là bộ luận hộ pháp đầu tiên viết thời Đông Hán bởi cư sĩ Mâu Tử.' },
+      { topic: 'cd2', q: 'Các dịch phẩm nào sau đây đều do Ngài An Thế Cao (người nước An Tức) dịch?', opts: ['Kinh An Ban Thủ Ý, Tứ Đế, Bát Chánh Đạo, Bát Đại Nhân Giác', 'Kinh An Ban Thủ Ý, Đạo Hành Bát Nhã, Bát Đại Nhân Giác', 'Kinh An Ban Thủ Ý, Bát Chánh Đạo, Bát Châu Tam Muội', 'Kinh Tứ Đế, Bát Chánh Đạo, Lục Độ Tập Kinh'], ans: 0, exp: '4 dịch phẩm của An Thế Cao (hệ Nguyên thủy): An Ban Thủ Ý, Tứ Đế, Bát Chánh Đạo, Bát Đại Nhân Giác. (Đạo Hành Bát Nhã & Bát Châu Tam Muội là của Chi Lâu Ca Sấm; Lục Độ Tập Kinh là của Khương Tăng Hội).' },
+      { topic: 'cd2', q: 'Từ quyển kinh "An Ban Thủ Ý", Đạo giáo và Đại sư Trí Giả đã lập ra những pháp môn nào?', opts: ['Đạo giáo lập Lục Diệu, Trí Giả lập Thai Tức', 'Đạo giáo lập Thai Tức, Đại sư Trí Giả lập Lục Diệu Pháp Môn', 'Cả hai đều lập pháp Sổ tức', 'Cổ vũ cụm từ "Duy tuệ thị nghiệp"'], ans: 1, exp: 'Từ Kinh An Ban Thủ Ý: Đạo giáo lập pháp Thai Tức, Đại sư Trí Giả lập Lục Diệu Pháp Môn. Còn "Duy tuệ thị nghiệp" xuất xứ từ kinh Bát Đại Nhân Giác.' },
+      { topic: 'cd2', q: 'Ngài Chi Lâu Ca Sấm (nước Đại Nguyệt Chi) dịch 2 bộ kinh nào, dẫn đến ảnh hưởng gì?', opts: ['Đạo Hành Bát Nhã (ảnh hưởng Huyền Học Thanh Đàm) và Bát Châu Tam Muội (ảnh hưởng Pháp môn niệm Phật)', 'Quang Tán Bát Nhã và Bát Đại Nhân Giác', 'Phóng Quang Bát Nhã và Kinh Phù Đồ', 'Tứ Thập Nhị Chương và Bát Châu Tam Muội'], ans: 0, exp: 'Chi Lâu Ca Sấm dịch Đạo Hành Bát Nhã (ảnh hưởng Huyền Học Thanh Đàm thời Ngụy Tấn) và Bát Châu Tam Muội (ảnh hưởng Pháp môn niệm Phật).' },
+      { topic: 'cd2', q: 'Đời Hán, trong hàng vương công quý tộc tín ngưỡng Phật giáo có hai nhân vật nào?', opts: ['Hán vương Lưu Anh và Hàn Tín', 'Sở vương Lưu Anh và Trách Dung', 'Lưu Bang và Trương Lương', 'Sở vương Hàn Tín và Đổng Trọng Thư'], ans: 1, exp: 'Chú ý bẫy: Lưu Anh là Sở vương (Sở vương Lưu Anh) và Trách Dung.' },
+      // CD3
+      { topic: 'cd3', q: 'Thời Tam Quốc, những nước nào có Phật giáo? Ai là người lập nước Tào Ngụy (đô ở Lạc Dương)?', opts: ['Ngụy, Thục, Ngô đều có PG - Tào Tháo lập Tào Ngụy', 'Chỉ có Ngụy và Ngô có PG - Tào Phi lập Tào Ngụy', 'Chỉ có Ngụy và Thục có PG - Tư Mã Viêm lập Tào Ngụy', 'Chỉ có Ngô và Thục có PG - Tôn Quyền lập Tào Ngụy'], ans: 1, exp: 'Tam Quốc chỉ có Ngụy và Ngô có Phật giáo. Người lập nước Tào Ngụy là Tào Phi (kinh đô Lạc Dương).' },
+      { topic: 'cd3', q: 'Ngài Đàm Ma Ca La (Sơ tổ Luật tông thời Tào Ngụy) đã dịch bộ giới luật nào và lập giới đàn đầu tiên ở đâu?', opts: ['Dịch Thập Tụng Luật - lập giới đàn ở Kiến Nghiệp', 'Dịch Tăng Kỳ giới bổn, cùng Đàm Đế dịch Luật Tứ phần Đàm Vô Đức yết ma - lập giới đàn đầu tiên ở Lạc Dương', 'Dịch Luật Tứ phần cùng Chu Sĩ Hành - lập giới đàn ở Trường An', 'Dịch Tăng Kỳ giới bổn thời Tây Tấn'], ans: 1, exp: 'Thời Ngụy, Đàm Ma Ca La dịch Tăng Kỳ giới bổn, cùng Đàm Đế dịch Luật Tứ phần Đàm Vô Đức yết ma, thỉnh 10 Sa môn Thiên Trúc lập giới đàn đầu tiên tại Lạc Dương.' },
+      { topic: 'cd3', q: 'Người đầu tiên xuất gia thọ giới Tỳ-kheo ở TQ và mở đường "nhập Trúc cầu pháp" đến Vu Điền năm 260 là ai?', opts: ['Nghiêm Phật Điều', 'Chu Sĩ Hành', 'Đạo An', 'Khương Tăng Hội'], ans: 1, exp: 'Chu Sĩ Hành là người đầu tiên thọ giới Tỳ-kheo ở TQ (còn Nghiêm Phật Điều mới chỉ xuất gia chưa thọ giới), đến Vu Điền thỉnh kinh Phóng Quang Bát Nhã (đệ tử Phất Như Đàn đem về).' },
+      { topic: 'cd3', q: 'Dịch phẩm tiêu biểu của Cư sĩ Chi Khiêm thời Đông Ngô là gì? Nhóm "Tam Chi" gồm những ai?', opts: ['Dịch Kinh Duy Ma Cật, Kinh Đại Minh Độ, Phật Thuyết Bột kinh sao (Kinh Hiền Nhân) - Tam Chi: Chi Lâu Ca Sấm, Chi Lượng, Chi Khiêm', 'Dịch Kinh Pháp Hoa, Kinh Hoa Nghiêm - Tam Chi: Chi Lâu Ca Sấm, Chi Lượng, Trúc Pháp Hộ', 'Dịch Lục Độ Tập Kinh - Tam Chi: Chi Khiêm, Chi Lượng, Cưu Ma La Thập', 'Tỳ kheo Chi Khiêm thời Hán dịch Kinh Đại Minh Độ'], ans: 0, exp: 'Cư sĩ Chi Khiêm thời Ngô thuộc nhóm Tam Chi (Chi Lâu Ca Sấm, Chi Lượng, Chi Khiêm), dịch Kinh Duy Ma Cật, Kinh Đại Minh Độ, Phật Thuyết Bột kinh sao (Kinh Hiền Nhân).' },
+      { topic: 'cd3', q: 'Thông tin nào sau đây ĐÚNG về Ngài Khương Tăng Hội thời Đông Ngô?', opts: ['Cha người Khương Cư (đến Giao Chỉ buôn bán), mẹ & sinh quán ở Giao Châu (Việt Nam); đến Kiến Nghiệp được Tôn Quyền xây Kiến Sơ tự; dịch Lục Độ Tập Kinh, chú sớ An Ban Thủ Ý', 'Cha người Đại Nguyệt Chi, xây Bạch Mã tự ở Lạc Dương', 'Nội dung Lục Độ Tập Kinh gồm: Bố thí, Trì giới, Nhẫn nhục, Tín', 'Ngài là người Trung Quốc đầu tiên sang Việt Nam truyền đạo'], ans: 0, exp: 'Khương Tăng Hội là người Việt Nam đầu tiên truyền PG sang TQ, gắn với chùa Kiến Sơ (chùa đầu tiên ở Ngô) và Lục Độ Tập Kinh (chữ "Tín" không thuộc Lục độ).' },
+      // CD4
+      { topic: 'cd4', q: 'Ngài Trúc Pháp Hộ (Chi Pháp Hộ / Đàm Ma La Sát) thời Tây Tấn được tôn xưng là gì và là dịch giả của các bộ kinh nào?', opts: ['Tây Tấn Bồ tát - dịch Phóng Quang Bát Nhã Kinh', 'Đôn Hoàng Bồ tát - dịch Quang Tán Bát Nhã Kinh, Chính Pháp Hoa Kinh (phổ biến Quán Thế Âm), Kinh Vu Lan (Phật giáo đại sự biểu ghi: Kinh Niết Bàn, Kinh Pháp Hoa)', 'Đông Tấn Bồ tát - dịch Diệu Pháp Liên Hoa Kinh', 'Quốc chi đại bảo - dịch Lão Tử Hóa Hồ Kinh'], ans: 1, exp: 'Trúc Pháp Hộ (người Đại Nguyệt Chi, đệ tử Trúc Cao Tọa) được tôn là Đôn Hoàng Bồ tát, mở đầu 3 mốc phiên dịch (Trúc Pháp Hộ - Cưu Ma La Thập - Huyền Tráng).' },
+      { topic: 'cd4', q: 'Hiện tượng dùng khái niệm của Lão–Trang để giải thích giáo lý Phật giáo thời Ngụy–Tấn gọi là gì? Bát-nhã học tạo tiền đề cho sự xuất hiện của gì?', opts: ['Phán giáo - Ngũ gia thất tông', 'Cách nghĩa - Lục gia thất tông', 'Giáo phán - Tam luận thất phái', 'Truyền đăng - Ngũ giáo thập tông'], ans: 1, exp: 'Dùng Lão-Trang giải thích PG gọi là "Cách nghĩa" (cần tránh đồng nhất Không của Bát-nhã với Vô của Lão-Trang), tạo tiền đề cho Lục gia thất tông.' },
+      { topic: 'cd4', q: 'Thời Đông Tấn Thập lục quốc, các nước có truyền dịch kinh điển là:', opts: ['Tiền Tần, Hậu Tần, Thành, Hạ', 'Đông Tấn, Tiền Tần, Hậu Tần, Bắc Lương', 'Hạ, Tiền Tần, Hậu Tần, Hậu Triệu', 'Hậu Triệu, Tây Tấn, Đông Tấn, Thành'], ans: 1, exp: 'Mẹo: Cứ thấy đáp án có chữ "Bắc Lương" ở cuối là chọn! (Có PG: 5 nước gồm Đông Tấn, Hậu Triệu, Tiền Tần, Hậu Tần, Bắc Lương; Có dịch kinh: bỏ Hậu Triệu còn 4 nước).' },
+      { topic: 'cd4', q: 'Đời Hậu Triệu, vị cao tăng nào được tôn là "Quốc chi đại bảo", "Đại Hòa thượng", hóa độ vua Thạch Lặc, Thạch Hổ và giúp người Hán được phép xuất gia?', opts: ['Đạo An', 'Phật Đồ Trừng', 'Cưu Ma La Thập', 'Huệ Viễn'], ans: 1, exp: 'Ngài Phật Đồ Trừng là cao tăng nước Hậu Triệu, thầy của Ngài Đạo An.' },
+      { topic: 'cd4', q: 'Tất cả những đóng góp nào sau đây đều thuộc về Ngài Đạo An (cao tăng nước Tiền Tần)?', opts: ['Tăng Ni lấy họ Thích, soạn Tổng Lý Chúng Kinh Mục Lục (An Lục - ra đời thời Đông Tấn), thờ Phật Di Lặc, kết hợp Bát nhã và Thiền, lập quy tắc tự viện, lý luận "Ngũ thất bản và Tam bất dị"', 'Viết Sa môn bất bái vương giả luận và khởi xướng niệm Phật', 'Đưa ra tư tưởng Nhất xiển đề cũng có thể thành Phật', 'Dịch Kinh Hoa Nghiêm 60 quyển tại nước Hậu Tần'], ans: 0, exp: 'Ngài Đạo An (nước Tiền Tần, vua Phù Kiên thờ làm thầy, nói câu "Bất y quốc chủ tắc pháp sự nan lập") sở hữu toàn bộ 6 công trạng đầu tiên này.' },
+      // CD5
+      { topic: 'cd5', q: 'Trong các dịch phẩm của Ngài Cưu Ma La Thập, hãy chọn cặp ghép ĐÚNG với Tông phái chịu ảnh hưởng:', opts: ['Kinh Pháp Hoa → Hoa Nghiêm Tông; Thập Trụ Tỳ Bà Sa Luận → Thiên Thai Tông', 'Kinh Pháp Hoa → Thiên Thai Tông; Thập Trụ Tỳ Bà Sa Luận → Hoa Nghiêm Tông; Tứ Luận → Tam Luận Tông; Thập Tụng Luật → Luật Tông', 'Kinh Kim Cang → Tịnh Độ Tông; Kinh A Di Đà → Thiền Tông', 'Thành Thực Luận → Duy Thức Tông'], ans: 1, exp: 'Pháp Hoa → Thiên Thai; A Di Đà → Tịnh Độ; Kim Cang / Thiền pháp yếu giải / Tọa thiền tam muội → Thiền tông; Thập Trụ Tỳ Bà Sa Luận → Hoa Nghiêm; Thành Thực Luận → Thành Thực; Tứ Luận → Tam Luận; Thập Tụng Luật → Luật tông.' },
+      { topic: 'cd5', q: 'Hai đệ tử xuất sắc của Cưu Ma La Thập tại nước Hậu Tần là Đạo Sanh và Tăng Triệu gắn với danh hiệu/tư tưởng nào?', opts: ['Đạo Sanh: "Nhất xiển đề cũng có thể thành Phật" — Tăng Triệu: "Giải Không đệ nhất"', 'Đạo Sanh: "Giải Không đệ nhất" — Tăng Triệu: "Nhất xiển đề cũng thành Phật"', 'Đạo Sanh: "Sa môn bất bái vương giả luận" — Tăng Triệu: "An Lục"', 'Cả hai đều là cao tăng nước Bắc Lương'], ans: 0, exp: 'Đạo Sanh (Hậu Tần) xướng xuất "Nhất xiển đề cũng có thể thành Phật"; Tăng Triệu (Hậu Tần) là "Giải Không đệ nhất".' },
+      { topic: 'cd5', q: 'Ngài Huệ Viễn (Sơ Tổ Tịnh Độ tông thời Đông Tấn) là tác giả của những tác phẩm nào?', opts: ['Lý Hoặc luận và Minh Phật luận', 'Sa môn bất bái vương giả luận và Đại Trí Độ luận sao', 'Tổng Lý Chúng Kinh Mục Lục và Phật Sở Hành Tán', 'Lương Hoàng Bảo Sám và Vãng Sinh Luận'], ans: 1, exp: 'Ngài Huệ Viễn thời Đông Tấn viết "Sa môn bất bái vương giả luận" và "Đại Trí Độ luận sao".' },
+      { topic: 'cd5', q: 'Giáo đoàn Tỳ-kheo-ni bắt đầu từ thời nào? Vị Tỳ-kheo-ni đầu tiên là ai, y chỉ ai thọ 10 giới và ai lập giới đàn trên thuyền sông Tứ?', opts: ['Thời Đông Tấn — Tịnh Kiểm y chỉ ngài Trí Sơn thọ 10 giới (cùng 23 người thọ Cụ túc giới) — Ngài Đàm Ma Kiệt Đa lập giới đàn trên thuyền sông Tứ', 'Thời Tây Tấn — Đạo Dung y chỉ Huệ Viễn thọ Cụ túc giới — Đàm Ma Ca La lập giới đàn', 'Thời Đông Hán — Diệu Âm y chỉ Trí Sơn thọ Bồ tát giới', 'Thời Nam Bắc Triều — Tịnh Kiểm cùng 30 người thọ giới'], ans: 0, exp: 'Trọn bộ kiến thức Ni đoàn thời Đông Tấn: Tịnh Kiểm (Tỳ-kheo-ni đầu tiên, cùng thời có Đạo Dung, Diệu Âm) y chỉ Trí Sơn thọ 10 giới, cùng 23 người thọ Cụ túc giới; Đàm Ma Kiệt Đa lập giới đàn trên thuyền sông Tứ.' },
+      // CD6
+      { topic: 'cd6', q: 'Phật giáo Trung Quốc có mấy lần pháp nạn, gọi là gì? Vị nào tôn Đạo Vũ Đế là "Như Lai hiện đời" và vị nào được gọi là "Tể tướng áo đen"?', opts: ['3 lần (Tam Vũ pháp nạn) — Chơn Đế và Bồ Đề Lưu Chi', '4 lần (Tam Vũ Nhất Tông pháp nạn) — Pháp Quả tôn Đạo Vũ Đế là "Như Lai hiện đời" — Tuệ Lâm là "Tể tướng áo đen"', '4 lần (Tam Đế Nhất Tông) — Tuệ Lâm và Pháp Quả', '2 lần — Chí Công và Bồ Đề Đạt Ma'], ans: 1, exp: '4 lần pháp nạn gọi là Tam Vũ Nhất Tông pháp nạn; Pháp Quả tôn Đạo Vũ Đế là Như Lai hiện đời; Tuệ Lâm là Tể tướng áo đen.' },
+      { topic: 'cd6', q: 'Vua Lương Vũ Đế đã thỉnh Ngài Chí Công soạn bộ sám nào? Ai là người phủ nhận công đức của Lương Vũ Đế?', opts: ['Từ Bi Thủy Sám — Bồ Đề Lưu Chi', 'Lương Hoàng Bảo Sám — Bồ Đề Đạt Ma (Sơ Tổ Thiền tông TQ)', 'Hồng Danh Bảo Sám — Chơn Đế', 'Dược Sư Sám Pháp — Tuệ Lâm'], ans: 1, exp: 'Lương Vũ Đế (vua sùng Phật nhất, đề xướng ăn chay) thỉnh Chí Công soạn Lương Hoàng Bảo Sám. Sơ Tổ Thiền tông Bồ Đề Đạt Ma là người phủ nhận công đức hữu vi của vua.' },
+      { topic: 'cd6', q: 'Những bộ kinh nào khai sáng tư tưởng "Phật tánh luận" và những bộ luận nào thời Nam Bắc Triều là tiền thân của Duy Thức Pháp Tướng tông?', opts: ['Phật tánh luận: Kinh Đại Bát Niết Bàn, Kinh Thắng Man, Kinh Lăng Già, Kinh Giải Thâm Mật — Tiền thân Duy Thức: Thập Địa Kinh luận (Bồ Đề Lưu Chi dịch → Địa luận tông) và Nhiếp Đại Thừa luận (Chân Đế dịch → Nhiếp luận tông)', 'Phật tánh luận: Đạo Hành Bát Nhã, Bát Đại Nhân Giác — Duy Thức: Trung Luận và Thành Thực Luận', 'Phật tánh luận: Tứ Thập Nhị Chương — Duy Thức: Đại Trí Độ Luận', 'Phật tánh luận: Kinh Pháp Hoa — Duy Thức: Thập Nhị Môn Luận'], ans: 0, exp: 'Nắm chắc câu này là giải quyết trọn vẹn 12 câu cuối của Đề 6 (Nam Bắc Triều)!' }
+    ];
+
+    let rightCount = 0;
+    let wrongCount = 0;
+    let answeredCount = 0;
+
+    function initQuiz() {
+      const topic = document.getElementById('quizTopicFilter').value;
+      let list = topic === 'all' ? [...quizBank] : quizBank.filter(q => q.topic === topic);
+      if (topic === 'all') list.sort(() => Math.random() - 0.5);
+
+      rightCount = 0;
+      wrongCount = 0;
+      answeredCount = 0;
+      updateQuizStats();
+
+      const container = document.getElementById('quizList');
+      container.innerHTML = '';
+
+      list.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-5 rounded-2xl shadow-sm border border-amber-200 space-y-3';
+        
+        let optsHTML = '';
+        const labels = ['A', 'B', 'C', 'D'];
+        item.opts.forEach((opt, oIdx) => {
+          optsHTML += `
+            <button onclick="checkQuizAnswer(this, ${idx}, ${oIdx}, ${item.ans})" class="quiz-opt-${idx} w-full text-left p-3 rounded-xl border border-stone-200 hover:bg-amber-50 text-xs md:text-sm transition flex items-start gap-2.5">
+              <span class="font-extrabold text-amber-900 bg-amber-100 px-2 py-0.5 rounded">${labels[oIdx]}</span>
+              <span class="flex-1 text-stone-700 font-medium">${opt}</span>
+            </button>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <h4 class="text-sm md:text-base font-bold text-stone-800">
+              <span class="text-red-800">Câu ${idx + 1}:</span> ${item.q}
+            </h4>
+          </div>
+          <div class="grid grid-cols-1 gap-2 pt-1">
+            ${optsHTML}
+          </div>
+          <div id="quiz-exp-${idx}" class="hidden p-3.5 rounded-xl text-xs md:text-sm bg-amber-50 border border-amber-300 text-amber-950">
+            <b>💡 Giải thích & Mẹo nhớ:</b> ${item.exp}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function checkQuizAnswer(btn, qIdx, selected, correct) {
+      const allOpts = document.querySelectorAll(`.quiz-opt-${qIdx}`);
+      // Ngăn bấm lại
+      allOpts.forEach(b => b.disabled = true);
+
+      answeredCount++;
+      if (selected === correct) {
+        rightCount++;
+        btn.className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-xs md:text-sm font-bold text-emerald-950 flex items-start gap-2.5';
+      } else {
+        wrongCount++;
+        btn.className = 'w-full text-left p-3 rounded-xl border-2 border-red-600 bg-red-50 text-xs md:text-sm font-bold text-red-950 flex items-start gap-2.5';
+        allOpts[correct].className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-xs md:text-sm font-bold text-emerald-950 flex items-start gap-2.5';
+      }
+
+      document.getElementById(`quiz-exp-${qIdx}`).classList.remove('hidden');
+      updateQuizStats();
+    }
+
+    function updateQuizStats() {
+      document.getElementById('quizProgress').innerText = answeredCount;
+      document.getElementById('quizRight').innerText = rightCount;
+      document.getElementById('quizWrong').innerText = wrongCount;
+    }
+
+    // Khởi tạo ban đầu
+    renderFlashcard();
+    initQuiz();
+  </script>
+</body>
+</html>

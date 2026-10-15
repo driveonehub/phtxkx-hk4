@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ôn Thi Giữa Học Kỳ 4 - Môn Hán Cổ (Full 4 Phần - Font Chuẩn Đề Thi)</title>
+  <!-- Nạp font Khải thư (Kaiti) dự phòng từ CDN cho thiết bị di động không có sẵn DFKai-SB -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-han: 'DFKai-SB', 'BiauKai', '標楷體', 'KaiTi', 'STKaiti', 'Kaiti TC', 'TW-Kai', 'LXGW WenKai TC', 'Noto Serif TC', serif;
+      --font-viet: 'Times New Roman', Times, Georgia, serif;
+      --primary: #8b1e1e;
+      --primary-light: #fdf2f2;
+      --accent: #b45309;
+      --success: #15803d;
+      --danger: #b91c1c;
+      --bg: #f8f6f0;
+      --card: #ffffff;
+      --border: #d6d3c9;
+      --han-scale: 1;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      font-family: var(--font-viet);
+      color: #1c1917;
+      line-height: 1.5;
+    }
+
+    /* Header chuẩn phong cách đề cương */
+    header {
+      background: #fff;
+      border-bottom: 3px double var(--primary);
+      padding: 14px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    header .sub-header {
+      font-size: 0.95rem;
+      color: #444;
+      margin-top: 4px;
+    }
+
+    /* Thanh điều khiển cỡ chữ & Tab */
+    .top-bar {
+      max-width: 1050px;
+      margin: 12px auto 0;
+      padding: 0 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tab-btn {
+      font-family: var(--font-viet);
+      font-size: 0.98rem;
+      font-weight: bold;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: #333;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .font-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 15px auto 50px;
+      padding: 0 15px;
+    }
+
+    /* Chữ Hán chuẩn font Khải thư trong đề thi */
+    .hanzi {
+      font-family: var(--font-han);
+      font-size: calc(1.85rem * var(--han-scale));
+      line-height: 1.35;
+      font-weight: normal;
+      letter-spacing: 2px;
+      color: #000;
+    }
+    .hanzi-lg {
+      font-family: var(--font-han);
+      font-size: calc(2.7rem * var(--han-scale));
+      line-height: 1.3;
+      letter-spacing: 3px;
+      color: #000;
+    }
+    .hanzi-inline {
+      font-family: var(--font-han);
+      font-size: calc(1.45rem * var(--han-scale));
+      padding: 0 3px;
+      color: #000;
+    }
+    .key-highlight {
+      color: #d90429 !important;
+      background: #ffe5ec;
+      border-bottom: 2px solid #d90429;
+      border-radius: 4px;
+      padding: 0 2px;
+    }
+
+    /* Toolbar bộ lọc trong từng phần */
+    .filter-bar {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn {
+      font-family: var(--font-viet);
+      padding: 7px 13px;
+      border-radius: 5px;
+      border: 1px solid #bbb;
+      background: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn:hover { background: #f3f4f6; }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .btn-primary:hover { background: #6e1515; }
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    select, input[type="text"] {
+      font-family: var(--font-viet);
+      font-size: 0.95rem;
+      padding: 7px 10px;
+      border-radius: 5px;
+      border: 1px solid #bbb;
+    }
+
+    /* Thẻ bài học & Flashcard */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      position: relative;
+      transition: transform 0.12s;
+    }
+    .card-clickable { cursor: pointer; }
+    .card-clickable:hover { border-color: var(--primary); }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      background: #eee;
+      color: #333;
+      font-weight: bold;
+    }
+    .badge-red { background: #fee2e2; color: #991b1b; }
+    .badge-amber { background: #fef3c7; color: #92400e; }
+    .badge-green { background: #dcfce7; color: #166534; }
+
+    /* Danh sách câu Phần II, III, IV */
+    .sentence-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+    .answer-box {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #ccc;
+    }
+    .tip-box {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      font-size: 0.93rem;
+      color: #78350f;
+      border-radius: 4px;
+    }
+
+    /* Nút đáp án trắc nghiệm A B C D chuẩn đề thi */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 600px) {
+      .options-grid { grid-template-columns: 1fr; }
+    }
+    .opt-btn {
+      font-family: var(--font-viet);
+      font-size: 1.05rem;
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .opt-btn.correct {
+      background: #dcfce7 !important;
+      border-color: #15803d !important;
+      color: #14532d;
+      font-weight: bold;
+    }
+    .opt-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: #b91c1c !important;
+      color: #7f1d1d;
+      text-decoration: line-through;
+    }
+
+    .hidden { display: none !important; }
+    .score-banner {
+      background: #fff;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ÔN THI GIỮA HỌC KỲ 4 KHÓA X KHOA ĐTTX — MÔN: HÁN CỔ</h1>
+  <div class="sub-header">Giáo Thọ Sư: NS. Huệ Chơn • Font chữ Hán: Khải Thư (標楷體) chuẩn đề thi</div>
+</header>
+
+<div class="top-bar">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('part1')">I. Phiên Âm (60 từ - 10đ)</button>
+    <button class="tab-btn" onclick="switchTab('part2')">II. Âm & Dịch (30 câu - 15đ)</button>
+    <button class="tab-btn" onclick="switchTab('part3')">III. Viết Chữ Hán (22 câu - 15đ)</button>
+    <button class="tab-btn" onclick="switchTab('part4')">IV. Ngữ Pháp (120 câu - 10đ)</button>
+    <button class="tab-btn" onclick="switchTab('mock')">⚡ Thi Thử Tổng Duyệt (50đ)</button>
+  </div>
+  <div class="font-control">
+    <label for="fontScale"><strong>Cỡ chữ Hán:</strong></label>
+    <input type="range" id="fontScale" min="0.85" max="1.6" step="0.05" value="1.1" oninput="updateFontScale(this.value)">
+  </div>
+</div>
+
+<main>
+  <!-- ==================== PHẦN I: 60 CỤM TỪ ==================== -->
+  <section id="tab-part1">
+    <div class="filter-bar">
+      <div>
+        <strong>Nhóm mẹo nhớ: </strong>
+        <select id="p1-filter" onchange="renderPart1()">
+          <option value="all">Tất cả 60 cụm chữ Hán</option>
+          <option value="me-cao">1. Chữ Mẹ 高 (Cao) - 5 từ</option>
+          <option value="me-dai-gia">2. Chữ Mẹ 大 (Đại) & 家 (Gia) - 5 từ</option>
+          <option value="me-duong-phat-le">3. Chữ Mẹ 堂 (Đường), 佛 (Phật), 禮 (Lễ) - 5 từ</option>
+          <option value="me-truong">4. Chữ Mẹ 長 (Trưởng) - 3 từ</option>
+          <option value="me-nong">5. Chữ Mẹ 農 (Nông) - 3 từ</option>
+          <option value="me-noi-ha-tro">6. Chữ Mẹ 內 (Nội), 河 (Hà), 助 (Trợ) - 5 từ</option>
+          <option value="me-thanh">7. Chữ Mẹ 成 (Thành) - 3 từ</option>
+          <option value="me-thanh2">8. Chữ Mẹ 青 / 清 (Thanh) - 4 từ</option>
+          <option value="me-nhu-phap">9. Chữ Mẹ 如 (Như) & 法 (Pháp) - 4 từ</option>
+          <option value="nguphap">10. Nhóm chữ trùng Phần Ngữ Pháp - 6 từ</option>
+          <option value="conlai">11. Các từ lẻ còn lại (Số, hướng, bộ Ngôn...)</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn" onclick="toggleP1Hide()">👁️ Ẩn/Hiện Phiên Âm (Tự nhẩm)</button>
+        <button class="btn btn-primary" onclick="startP1Quiz()">🎯 Trắc nghiệm nhanh Phần I</button>
+      </div>
+    </div>
+
+    <div id="p1-quiz-area" class="hidden"></div>
+    <div id="p1-list" class="grid-cards"></div>
+  </section>
+
+  <!-- ==================== PHẦN II: 30 CÂU PHIÊN ÂM & DỊCH ==================== -->
+  <section id="tab-part2" class="hidden">
+    <div class="filter-bar">
+      <div>
+        <strong>Nhóm nhận diện nhanh: </strong>
+        <select id="p2-filter" onchange="renderPart2()">
+          <option value="all">Tất cả 30 câu</option>
+          <option value="dau-cau">Nhóm A: 4 câu có dấu đặc biệt (: hoặc “ ” hoặc ?)</option>
+          <option value="ngan">Nhóm B: 10 câu CỰC NGẮN (5 - 8 chữ)</option>
+          <option value="kinh-ke">Nhóm C: 5 câu Kinh Kệ / Sám Hối (Câu 1 - 5)</option>
+          <option value="lich-su">Nhóm D: 11 câu Lịch sử & Đời sống</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-accent" onclick="toggleP2KeyHighlight()">🖍️ Bật/Tắt tô đỏ Chữ Chìa Khóa</button>
+        <button class="btn" onclick="toggleP2Answers()">👁️ Ẩn/Hiện Âm & Dịch</button>
+        <button class="btn btn-primary" onclick="random8Part2()">🎲 Bốc ngẫu nhiên 8 câu (Như đề thi)</button>
+      </div>
+    </div>
+    <div id="p2-list"></div>
+  </section>
+
+  <!-- ==================== PHẦN III: 22 CÂU DỊCH & VIẾT CHỮ HÁN ==================== -->
+  <section id="tab-part3" class="hidden">
+    <div class="filter-bar">
+      <div>
+        <strong>Bộ lọc Phần III (22 câu): </strong>
+        <select id="p3-filter" onchange="renderPart3()">
+          <option value="all">Tất cả 22 câu</option>
+          <option value="overlap">18 câu CÓ SẴN chữ Hán ở Phần II & IV (Chép hợp pháp trên đề)</option>
+          <option value="unique">4 câu KHÔNG nằm ở Phần II & IV (Cần học kỹ mặt chữ)</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn" onclick="toggleP3Answers()">👁️ Ẩn/Hiện Chữ Hán & Dịch nghĩa</button>
+      </div>
+    </div>
+    <div id="p3-list"></div>
+  </section>
+
+  <!-- ==================== PHẦN IV: 120 CÂU NGỮ PHÁP ==================== -->
+  <section id="tab-part4" class="hidden">
+    <div class="filter-bar">
+      <div>
+        <strong>Chế độ lọc 120 câu: </strong>
+        <select id="p4-filter" onchange="renderPart4()">
+          <option value="all">Toàn bộ 120 câu theo thứ tự đề cương</option>
+          <option value="random20">🎲 Đề thi thử 20 câu ngẫu nhiên (10 điểm)</option>
+          <option value="multi7">⚠️ 35 câu thuộc "7 chữ có từ 2 vai trò trở lên" (之, 上, 是, 後, 子, 因, 即)</option>
+          <option value="missing8">🔍 8 câu bị lỗi mất chữ trong file PDF (Câu 2, 3, 5, 19, 23, 27, 84, 94)</option>
+          <option value="step1">✅ Bước 1: 7 nhóm "Thấy mặt chữ là khoanh" (Số, Trợ ĐT, Liên, Tính, Phương vị, Trợ, Đại)</option>
+          <option value="step2">🚀 Bước 2: Nhóm Auto khoanh PHÓ TỪ (47 câu)</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-primary" onclick="document.getElementById('p4-filter').value='random20'; renderPart4();">🔄 Tạo đề 20 câu mới</button>
+        <button class="btn" onclick="showAllP4Answers()">📖 Hiện tất cả đáp án + Mẹo</button>
+      </div>
+    </div>
+
+    <div class="score-banner">
+      <span id="p4-progress">Đã làm: 0 câu</span>
+      <span id="p4-score" style="color:var(--primary);">Điểm quy đổi (thang 10): 0.0 / 10</span>
+    </div>
+
+    <div id="p4-list"></div>
+  </section>
+
+  <!-- ==================== THI THỬ TỔNG DUYỆT 4 PHẦN (50 ĐIỂM) ==================== -->
+  <section id="tab-mock" class="hidden">
+    <div class="filter-bar">
+      <div>
+        <strong>ĐỀ THI THỬ CHUẨN CẤU TRÚC SÁNG THỨ 7 (Tổng: 50 điểm)</strong>
+      </div>
+      <button class="btn btn-primary" onclick="generateFullMockExam()">🔄 Sinh Đề Thi Mới</button>
+    </div>
+    <div id="mock-container"></div>
+  </section>
+</main>
+
+<script>
+// ==================== DỮ LIỆU PHẦN I (60 CỤM CHỮ HÁN) ====================
+const part1Data = [
+  { id: 1, han: "佛堂", am: "Phật đường", group: "me-duong-phat-le", tip: "佛 (Phật) + 堂 (Đường - dưới có chữ Thổ 土)" },
+  { id: 2, han: "最高", am: "tối cao", group: "me-cao", tip: "Đuôi là chữ Mẹ 高 (Cao - hình cái tháp)" },
+  { id: 3, han: "尊堂", am: "tôn đường", group: "me-duong-phat-le", tip: "Đuôi là chữ Mẹ 堂 (Đường - nhà lớn)" },
+  { id: 4, han: "佛前", am: "Phật tiền", group: "me-duong-phat-le", tip: "Đầu là chữ 佛 (Phật)" },
+  { id: 5, han: "助詞", am: "trợ từ", group: "me-noi-ha-tro", tip: "Đầu là 助 (Trợ)" },
+  { id: 6, han: "法乳", am: "pháp nhũ", group: "me-nhu-phap", tip: "Trùng với câu 41: 法 (Pháp) + 乳 (Nhũ)" },
+  { id: 7, han: "清高", am: "thanh cao", group: "me-cao", tip: "清 (Thanh - có 3 chấm thủy) + 高 (Cao)" },
+  { id: 8, han: "永遠", am: "vĩnh viễn", group: "conlai", tip: "永 (Vĩnh) + 遠 (Viễn - có bộ Sước đi xa)" },
+  { id: 9, han: "請教", am: "thỉnh giáo", group: "conlai", tip: "Đầu có bộ Ngôn 言 (dùng lời để thỉnh giáo)" },
+  { id: 10, han: "坐禪", am: "tọa thiền", group: "conlai", tip: "Chữ 坐 có 2 người (人-人) ngồi trên đất (土)" },
+  { id: 11, han: "大同", am: "đại đồng", group: "me-dai-gia", tip: "大 (Đại) + 同 (Đồng - đã học ở phần Phó từ)" },
+  { id: 12, han: "大家", am: "đại gia", group: "me-dai-gia", tip: "大 (Đại) + 家 (Gia - có mái nhà)" },
+  { id: 13, han: "高僧", am: "cao tăng", group: "me-cao", tip: "Đầu là chữ Mẹ 高 (Cao)" },
+  { id: 14, han: "真如", am: "chân như", group: "me-nhu-phap", tip: "Đuôi là chữ Mẹ 如 (Như = bộ Nữ 女 + Khẩu 口)" },
+  { id: 15, han: "恆河", am: "hằng hà", group: "me-noi-ha-tro", tip: "Đuôi là chữ 河 (Hà - sông, có 3 chấm nước)" },
+  { id: 16, han: "大乘", am: "đại thừa", group: "me-dai-gia", tip: "Đầu là chữ Mẹ 大 (Đại)" },
+  { id: 17, han: "兄長", am: "huynh trưởng", group: "me-truong", tip: "兄 (Huynh - miệng vuông có 2 chân) + 長 (Trưởng)" },
+  { id: 18, han: "河內", am: "Hà Nội", group: "me-noi-ha-tro", tip: "河 (Hà) + 內 (Nội - chữ Nhân trong khung)" },
+  { id: 19, han: "禮堂", am: "lễ đường", group: "me-duong-phat-le", tip: "禮 (Lễ) + 堂 (Đường)" },
+  { id: 20, han: "禮誦", am: "lễ tụng", group: "me-duong-phat-le", tip: "Đầu là chữ 禮 (Lễ)" },
+  { id: 21, han: "無常", am: "vô thường", group: "nguphap", tip: "Chữ 常 (Thường) xuất hiện trong phần Ngữ pháp" },
+  { id: 22, han: "矛盾", am: "mâu thuẫn", group: "nguphap", tip: "Giáo (矛) và Khiên (盾) xuất hiện liên tục ở Phần II & IV" },
+  { id: 23, han: "和平", am: "hòa bình", group: "conlai", tip: "Chữ 平 (Bình) cân đối như cái cân" },
+  { id: 24, han: "住持", am: "trụ trì", group: "conlai", tip: "住 (Trụ - người đứng cạnh cây đèn 主) + 持 (Trì)" },
+  { id: 25, han: "農具", am: "nông cụ", group: "me-nong", tip: "Đầu là chữ Mẹ 農 (Nông)" },
+  { id: 26, han: "父子", am: "phụ tử", group: "nguphap", tip: "父 (Phụ - cha) + 子 (Tử - con, câu 81 Ngữ pháp)" },
+  { id: 27, han: "論語", am: "luận ngữ", group: "conlai", tip: "Cả 2 chữ đều có bộ Ngôn (言 - lời bàn luận)" },
+  { id: 28, han: "出家", am: "xuất gia", group: "me-dai-gia", tip: "出 (2 ngọn núi chồng lên nhau) + 家 (Gia)" },
+  { id: 29, han: "在家", am: "tại gia", group: "me-dai-gia", tip: "在 (Tại) + 家 (Gia)" },
+  { id: 30, han: "西方", am: "tây phương", group: "conlai", tip: "西 (Tây) + 方 (Phương)" },
+  { id: 31, han: "至誠", am: "chí thành", group: "conlai", tip: "Chữ 誠 có bộ Ngôn (言) + Thành (成)" },
+  { id: 32, han: "白衣", am: "bạch y", group: "conlai", tip: "白 (Bạch - màu trắng, ô vuông có phẩy trên đỉnh) + 衣 (Y - áo)" },
+  { id: 33, han: "貧農", am: "bần nông", group: "me-nong", tip: "Đuôi là chữ Mẹ 農 (Nông)" },
+  { id: 34, han: "高等", am: "cao đẳng", group: "me-cao", tip: "Đầu là chữ Mẹ 高 (Cao)" },
+  { id: 35, han: "部長", am: "bộ trưởng", group: "me-truong", tip: "Đuôi là chữ Mẹ 長 (Trưởng)" },
+  { id: 36, han: "圓滿", am: "viên mãn", group: "conlai", tip: "Chữ 圓 có khung vuông lớn bao tròn bên ngoài" },
+  { id: 37, han: "高尚", am: "cao thượng", group: "me-cao", tip: "Đầu là chữ Mẹ 高 (Cao)" },
+  { id: 38, han: "北京", am: "Bắc Kinh", group: "conlai", tip: "北 (Bắc) + 京 (Kinh - trong câu kinh thành Phần III)" },
+  { id: 39, han: "諸位", am: "chư vị", group: "conlai", tip: "諸 (Chư - bộ Ngôn + chữ Giả 者) + 位 (Vị)" },
+  { id: 40, han: "恭敬", am: "cung kính", group: "conlai", tip: "Cung kính" },
+  { id: 41, han: "法乳", am: "Pháp nhũ", group: "me-nhu-phap", tip: "Trùng với từ số 6" },
+  { id: 42, han: "如意", am: "Như ý", group: "me-nhu-phap", tip: "Đầu là chữ Mẹ 如 (Như)" },
+  { id: 43, han: "肉眼", am: "Nhục nhãn", group: "conlai", tip: "肉 (Nhục - thịt, câu 61 Ngữ pháp) + 眼 (Nhãn - mắt)" },
+  { id: 44, han: "內在", am: "Nội tại", group: "me-noi-ha-tro", tip: "內 (Nội) + 在 (Tại)" },
+  { id: 45, han: "內助", am: "Nội trợ", group: "me-noi-ha-tro", tip: "內 (Nội) + 助 (Trợ)" },
+  { id: 46, han: "農民", am: "Nông dân", group: "me-nong", tip: "Đầu là chữ Mẹ 農 (Nông)" },
+  { id: 47, han: "犯戒", am: "Phạm giới", group: "conlai", tip: "Xuất hiện trong câu 6 Phần II (chung bất phạm giới)" },
+  { id: 48, han: "反面", am: "Phản diện", group: "conlai", tip: "反 (Phản - 4 nét đơn giản) + 面 (Diện - khuôn mặt vuông)" },
+  { id: 49, han: "分離", am: "Phân ly", group: "nguphap", tip: "Cuối câu 21 Phần II (phu thê nghĩa trọng dã phân ly)" },
+  { id: 50, han: "青年", am: "Thanh niên", group: "me-thanh2", tip: "青 (Thanh) + 年 (Niên - năm)" },
+  { id: 51, han: "成果", am: "Thành quả", group: "me-thanh", tip: "成 (Thành) + 果 (Quả - hình quả trên cây 木)" },
+  { id: 52, han: "清淨", am: "Thanh tịnh", group: "me-thanh2", tip: "Cả 2 chữ đều có 3 chấm nước bên trái (thanh khiết, tịnh thủy)" },
+  { id: 53, han: "成就", am: "Thành tựu", group: "me-thanh", tip: "Đầu là chữ Mẹ 成 (Thành)" },
+  { id: 54, han: "成員", am: "Thành viên", group: "me-thanh", tip: "成 (Thành) + 員 (Viên - ô vuông trên chữ Bối)" },
+  { id: 55, han: "青春", am: "Thanh xuân", group: "me-thanh2", tip: "青 (Thanh) + 春 (Xuân - trong Xuân Hạ Thu Đông)" },
+  { id: 56, han: "匹夫", am: "Thất phu", group: "nguphap", tip: "匹 (Thất - khung hở phải) + 夫 (Phu)" },
+  { id: 57, han: "七情", am: "Thất tình", group: "conlai", tip: "Đầu là số 7: 七 (Thất)" },
+  { id: 58, han: "譬喻", am: "Thí dụ", group: "conlai", tip: "Dưới chữ 譬 có bộ Ngôn 言, đầu chữ 喻 có bộ Khẩu 口" },
+  { id: 59, han: "是非", am: "Thị phi", group: "nguphap", tip: "Đầu là chữ 是 (Thị) quen thuộc ở Phần IV" },
+  { id: 60, han: "市長", am: "Thị trưởng", group: "me-truong", tip: "Đuôi là chữ Mẹ 長 (Trưởng)" }
+];
+
+// ==================== DỮ LIỆU PHẦN II (30 CÂU) ====================
+const part2Data = [
+  { id: 1, han: "是日已過,命亦隨減,如少水魚,斯有何樂。", key: "是日", group: "kinh-ke", am: "Thị nhật dĩ quá, mệnh/mạng diệc tùy giảm, như thiểu thủy ngư, tư hữu hà lạc.", dich: "Ngày nay đã qua, mạng sống cũng giảm dần, như cá thiếu nước, thì có vui gì?", tip: "Nhìn 2 chữ đầu 是日 (Thị nhật) + 4 vế 4 chữ" },
+  { id: 2, han: "大眾當勤精進,如救頭燃,但念無常,慎勿放逸。", key: "大眾", group: "kinh-ke", am: "Đại chúng đương cần tinh tấn(tiến), như cứu đầu nhiên, đãn niệm vô thường, thận vật phóng dật.", dich: "Đại chúng phải nên siêng năng tinh tấn, như cứu lửa cháy trên đầu, chỉ nhớ nghĩ vô thường, cẩn thận chớ buông lung.", tip: "Nhìn 2 chữ đầu 大眾 (Đại chúng)" },
+  { id: 3, han: "自知往昔所造惡業,實不當作,生大慚愧。", key: "自知", group: "kinh-ke", am: "Tự tri vãng tích sở tạo ác nghiệp, thật bất đương tác, sinh đại tàm quý.", dich: "Tự biết mình từ trước đã tạo ra các nghiệp ác, thật không nên làm mà sinh lòng rất hổ thẹn.", tip: "Nhìn 2 chữ đầu 自知 (Tự tri)" },
+  { id: 4, han: "故今澡浴身心,向佛前焚香禮拜,發露懺悔。", key: "故今", group: "kinh-ke", am: "Cố kim tháo dục thân tâm, hướng Phật tiền phần hương lễ bái, phát lộ sám hối.", dich: "Cho nên ngày nay ta gột rửa thân tâm, đến trước Phật đài, thắp hương lễ lạy, tỏ bày các tội lỗi, cầu xin sám hối.", tip: "Nhìn 2 chữ đầu 故今 (Cố kim) và chữ 佛前 ở giữa" },
+  { id: 5, han: "梵語懺摩,華言悔過。自知往昔所造惡業,實不當作。", key: "梵語", group: "kinh-ke", am: "Phạn ngữ sám ma, Hoa ngôn hối quá. Tự tri vãng tích sở tạo ác nghiệp, thật bất đương tác.", dich: "Sám hối, theo tiếng Ấn Độ là “Sám-ma”. Tiếng Trung Quốc dịch: “Hối quá”. Nghĩa là tự biết mình từ trước đã tạo nhiều nghiệp ác. Thật không nên làm.", tip: "Đầu câu là 梵語 (Phạn ngữ), nửa sau lặp lại câu số 3" },
+  { id: 6, han: "復立誓曰:自今以後,寧啖熱鐵猛火,終不犯戒,作諸惡事。", key: "復立誓曰:", group: "dau-cau", am: "Phục lập thệ viết: “Tự kim dĩ hậu, ninh đạm nhiệt thiết mãnh hỏa, chung bất phạm giới, tác chư ác sự.”", dich: "Lại lập lời thệ nguyện: “Từ nay về sau, con thà nuốt sắt nóng và lửa dữ, trọn đời không còn phạm giới của Phật, mà làm các việc ác”.", tip: "Có dấu hai chấm (:) sau 4 chữ đầu 復立誓曰 và KHÔNG có dấu hỏi" },
+  { id: 7, han: "吾矛之利,物無不陷也。", key: "吾矛", group: "ngan", am: "Ngô mâu chi lợi, vật vô bất hãm dã.", dich: "Cây giáo tôi rất bén, không vật nào (nó) không đâm thủng.", tip: "Câu ngắn 9 chữ, đầu câu là 吾矛 (Ngô mâu - giáo của tôi)" },
+  { id: 8, han: "人應曰:“以子之矛,陷子之盾,何如?”。", key: "何如?”", group: "dau-cau", am: "Nhân ứng viết: “Dĩ tử chi mâu, hãm tử chi thuẫn, hà như?”.", dich: "Có người ứng lời nói: “(Anh thử) dùng cây giáo của anh đâm vào mộc của anh, thì thế nào?”.", tip: "Kết thúc ngay sau dấu chấm hỏi (?) và ngoặc kép" },
+  { id: 9, han: "雨將晴,河水清。兩漁翁,同坐岸上,張網捕魚。", key: "雨將晴", group: "lich-su", am: "Vũ tương tình, hà thủy thanh. Lưỡng ngư ông, đồng tọa ngạn thượng, trương võng bộ ngư.", dich: "Mưa sắp tạnh, nước sông trong. Có hai ông chài, cùng ngồi trên bờ, giăng lưới bắt cá.", tip: "Gồm 5 vế ngắn (3-3-3-4-4 chữ), mở đầu bằng 雨將晴 (Vũ tương tình)" },
+  { id: 10, han: "牛力大,能耕田,能挽車。其肉可食,其乳可飲。", key: "牛力大", group: "lich-su", am: "Ngưu lực đại, năng canh điền, năng vãn xa. Kỳ nhục khả thực, kỳ nhũ khả ẩm.", dich: "Bò sức mạnh, có thể cày ruộng, có thể kéo xe. Thịt nó có thể ăn, sữa của nó có thể uống.", tip: "Mở đầu bằng 牛力大 (Ngưu lực đại - Con bò)" },
+  { id: 11, han: "人應曰:以子之矛,陷子之盾,何如?。其人弗能應也。", key: "其人弗能應也", group: "dau-cau", am: "Nhân ứng viết: Dĩ tử chi mâu, hãm tử chi thuẫn, hà như?. Kỳ nhân phất năng ứng dã.", dich: "Có người ứng lời nói: “(Anh thử) dùng cây giáo của anh đâm vào mộc của anh, thì thế nào?”. Người ấy không trả lời được.", tip: "Giống câu 8 nhưng có thêm đuôi 其人弗能應也 sau dấu chấm hỏi (?)" },
+  { id: 12, han: "王姓徵,諱側,貉將之女。時交止太守蘇定貪殘,殺其夫。", key: "王姓徵", group: "lich-su", am: "Vương tính Trưng, húy Trắc, Lạc tướng chi nữ. Thời Giao Chỉ thái thú Tô Định tham tàn, sát kỳ phu.", dich: "Vương, họ Trưng, húy Trắc, con gái quan Lạc tướng. Lúc bấy giờ thái thú Giao Chỉ là Tô Định tham lam hung bạo, giết chồng bà.", tip: "Chữ đầu tiên là chữ 王 (Vương - 3 gạch ngang 1 sổ dọc)" },
+  { id: 13, han: "至李太祖泛舟珥河津,有雙龍引船,因名昇龍。", key: "至李太祖", group: "lich-su", am: "Chí Lý Thái Tổ phiếm chu Nhĩ Hà tân, hữu song long dẫn thuyền, nhân danh Thăng Long.", dich: "Đến đời vua Lý Thái Tổ dong thuyền ở sông Nhĩ Hà, có hai con rồng (hiện lên) dẫn thuyền, nhân đó đặt tên là Thăng Long.", tip: "Mở đầu bằng 至李太祖 (Chí Lý Thái Tổ)" },
+  { id: 14, han: "內心既虛,外緣亦寂。", key: "內心", group: "ngan", am: "Nội tâm ký hư, ngoại duyên diệc tịch.", dich: "Tâm bên trong đã rỗng rang, duyên bên ngoài cũng lặng lẽ.", tip: "Câu ngắn 8 chữ, mở đầu bằng 內心 (Nội tâm)" },
+  { id: 15, han: "普度眾生,俱成正覺。", key: "普度", group: "ngan", am: "Phổ độ chúng sinh, câu thành chánh giác.", dich: "Cứu độ khắp cả chúng sinh, đều thành chánh giác.", tip: "Câu ngắn 8 chữ, mở đầu bằng 普度 (Phổ độ)" },
+  { id: 16, han: "長江大海;青山碧水。", key: ";", group: "ngan", am: "Trường giang đại hải; Thanh sơn bích thủy.", dich: "Sông dài biển rộng (lớn); Non xanh nước biếc.", tip: "Câu ngắn 8 chữ duy nhất có dấu chấm phẩy (;) ở giữa" },
+  { id: 17, han: "禪是佛心,經是佛語。", key: "是佛", group: "ngan", am: "Thiền thị Phật tâm, kinh thị Phật ngữ.", dich: "Thiền là tâm Phật, kinh là lời Phật.", tip: "Câu ngắn 8 chữ lặp lại cụm 是佛 ở cả 2 vế" },
+  { id: 18, han: "佛之弟子有兩成分:出家是僧人,在家是居士。", key: "佛之弟子", group: "dau-cau", am: "Phật chi đệ tử hữu lưỡng thành phần: Xuất gia thị tăng nhân, tại gia thị cư sĩ.", dich: "Đệ tử của đức Phật có hai thành phần: Xuất gia gọi là tăng sĩ, tại gia gọi là cư sĩ.", tip: "Có dấu hai chấm (:) ở giữa và bắt đầu bằng chữ 佛 (Phật)" },
+  { id: 19, han: "貉龍君娶嫗姬生百男,是為百越之祖。", key: "百", group: "lich-su", am: "Lạc Long Quân thú Âu Cơ sinh bách nam, thị vi Bách Việt chi tổ.", dich: "Lạc Long Quân lấy nàng Âu Cơ sinh ra một trăm người con trai, đó là tổ tiên của Bách Việt.", tip: "Có chữ 百 (Bách = 100) lặp lại ở cả 2 vế (百男 ... 百越)" },
+  { id: 20, han: "日初升,荷鋤出。日將落,荷鋤歸。", key: "日", group: "lich-su", am: "Nhật sơ thăng, hạ sừ xuất. Nhật tương lạc, hạ sừ quy.", dich: "Mặt trời mới mọc, vác cuốc đi ra. Mặt trời sắp lặn, vác cuốc trở về.", tip: "2 câu đối xứng đều bắt đầu bằng chữ 日 (Nhật - mặt trời)" },
+  { id: 21, han: "父母恩深終有別, 夫妻義重也分離。", key: "父母", group: "lich-su", am: "Phụ mẫu ân thâm chung hữu biệt; phu thê nghĩa trọng dã phân ly.", dich: "Ơn cha mẹ sâu rồi cũng cách biệt; nghĩa vợ chồng nặng rồi cũng chia ly.", tip: "Mở đầu bằng 父母 (Phụ mẫu - cha mẹ)" },
+  { id: 22, han: "流水下山非有意,浮雲出岫本無心。", key: "流水", group: "lich-su", am: "Lưu thủy hạ sơn phi hữu ý, phù vân xuất tụ bổn vô tâm.", dich: "Nước chảy xuống núi không có ý, mây trôi qua đỉnh vốn vô tâm.", tip: "Mở đầu bằng 流水下山 (Lưu thủy hạ sơn)" },
+  { id: 23, han: "人之初性本善。", key: "人之初", group: "ngan", am: "Nhân chi sơ tính bổn thiện.", dich: "Con người lúc mới sinh ra, tâm tính vốn hiền thiện.", tip: "Câu ngắn nhất đề cương (chỉ có 6 chữ liền nhau không dấu phẩy)" },
+  { id: 24, han: "秋冬漸寒,草木零落。", key: "秋冬", group: "ngan", am: "Thu Đông tiệm hàn, thảo mộc linh lạc.", dich: "Mùa Thu và Đông dần dần lạnh lẽo, cỏ cây tàn rụng.", tip: "Câu ngắn 8 chữ, mở đầu bằng 秋冬 (Thu Đông)" },
+  { id: 25, han: "經目之事恐未真,背後之言不深信。", key: "經目", group: "lich-su", am: "Kinh mục chi sự khủng vị chân, bối hậu chi ngôn bất thâm tín.", dich: "Việc qua trước mắt sợ còn chưa thật, lời nói sau lưng chớ dễ tin.", tip: "Mở đầu bằng 經目之事 (Kinh mục chi sự)" },
+  { id: 26, han: "人不學則無知,鏡不拂則無光", key: "則無", group: "lich-su", am: "Nhân bất học tắc vô tri, kính bất phất tắc vô quang.", dich: "Người không học thì không có tri thức, gương không lau chùi thì không sáng.", tip: "Lặp cấu trúc ...不...則無... ở cả 2 vế" },
+  { id: 27, han: "寺北有巖,中有石窟。", key: "寺北", group: "ngan", am: "Tự bắc hữu nghiêm, trung hữu thạch quật.", dich: "Phía bắc của chùa có núi cao, chính giữa có hang đá.", tip: "Câu ngắn 8 chữ, mở đầu bằng 寺北 (Tự bắc)" },
+  { id: 28, han: "鳥之將死,其鳴也哀;人之將死,其言也善。", key: "之將死", group: "lich-su", am: "Điểu chi tương tử, kỳ minh dã ai; nhân chi tương tử, kỳ ngôn dã thiện.", dich: "Con chim sắp chết, tiếng kêu của nó bi ai, người ta sắp chết, lời nói tốt lành.", tip: "Lặp cấu trúc ...之將死, 其...也... ở cả 2 vế" },
+  { id: 29, han: "有福同享, 有難同當。", key: "有", group: "ngan", am: "Hữu phúc đồng hưởng, hữu nạn đồng đương.", dich: "Có phúc cùng hưởng, gặp nạn cùng chịu.", tip: "Câu ngắn 8 chữ lặp 有...同... ở cả 2 vế" },
+  { id: 30, han: "不入虎穴,焉得虎子。", key: "不入", group: "ngan", am: "Bất nhập hổ huyệt, yên đắc hổ tử.", dich: "Không vào hang cọp, sao bắt được cọp.", tip: "Câu ngắn 8 chữ, bắt đầu bằng 不入 (Bất nhập) và lặp chữ 虎 (Hổ)" }
+];
+
+// ==================== DỮ LIỆU PHẦN III (22 CÂU) ====================
+const part3Data = [
+  { id: 1, am: "Quang âm tợ (tự) tiễn, nhật nguyệt như thoa, vô thường tấn tốc.", han: "光陰似剪,日月如梭,無常進速。", dich: "Thời gian tợ tên bắn, ngày tháng như thoi đưa, vô thường nhanh chóng.", overlap: false, ref: "Câu riêng của Phần III (Chữ 無常 có ở câu 21 Phần I)" },
+  { id: 2, am: "Đại chúng đãn niệm vô thường, thận vật phóng dật.", han: "大眾但念無常,慎勿放逸。", dich: "Đại chúng chỉ nhớ nghĩ đến vô thường, cẩn thận chớ buông lung.", overlap: true, ref: "Nằm trong Câu 2 Phần II (và trùng Câu 16 Phần III)" },
+  { id: 3, am: "Ngô đồng lưỡng chu, chi cao diệp đại.", han: "梧桐兩株,枝高葉大。", dich: "Hai cây ngô đồng, cành cao lá to.", overlap: true, ref: "Vế đầu nằm ở Câu 1 Phần IV (梧桐兩株)" },
+  { id: 4, am: "Xuân hạ thu đông, thị vi tứ quý.", han: "春夏秋冬,是為四季。", dich: "Xuân hạ thu đông, đó là 4 mùa.", overlap: true, ref: "Nằm nguyên văn ở Câu 5 & Câu 65 Phần IV" },
+  { id: 5, am: "Hữu nông phu, trú sơn hạ, nhật sơ thăng, hạ sừ xuất.", han: "有農夫,住山下,日初升,荷鋤出。", dich: "Có Bác nông phu, ở dưới núi, Mặt trời vừa mọc, vác bừa ra đồng.", overlap: true, ref: "Ghép nguyên văn từ Câu 27 + Câu 12 Phần IV (và Câu 20 Phần II)" },
+  { id: 6, am: "Thủ hỏa nhiên chúc, quang chiếu tứ bích.", han: "取火燃燭,光照四壁。", dich: "Lấy lửa đốt đuốc, ánh sáng chiếu lên bốn vách.", overlap: true, ref: "Nằm nguyên văn ở Câu 23 Phần IV" },
+  { id: 7, am: "Nhân tọa ảnh diệc tọa, nhân hành ảnh diệc hành.", han: "人坐影亦坐,人行影亦行。", dich: "Người ngồi ảnh cũng ngồi, người đi ảnh cũng đi.", overlap: true, ref: "Nằm nguyên văn ở Câu 24, 52, 53 Phần IV" },
+  { id: 8, am: "Tây phong xuy lai, lạc diệp mãn giai.", han: "西風吹來,落葉滿階。", dich: "Gió tây thổi đến, lá rụng đầy thềm.", overlap: false, ref: "Câu riêng của Phần III (Cần nhớ mặt chữ)" },
+  { id: 9, am: "Vũ tương tình, hà thủy thanh.", han: "雨將晴,河水清。", dich: "Mưa sắp tạnh, nước sông trong.", overlap: true, ref: "Nằm nguyên văn ở Câu 9 Phần II và Câu 54 Phần IV" },
+  { id: 10, am: "Lưỡng ngư ông, tu my giai bạch, phi tuy y, đới (đái) nhược mạo.", han: "兩漁翁,鬚眉皆白,披蓑衣,戴箬帽。", dich: "Hai ông chài, râu và lông mày đều bạc, khoác áo tơi, đội nón tre.", overlap: true, ref: "2 vế đầu nằm ở Câu 56 & Câu 85 Phần IV" },
+  { id: 11, am: "Đồng tọa ngạn thượng, trương võng bộ ngư.", han: "同坐岸上,張網捕魚。", dich: "Cùng ngồi trên bờ sông, giăng lưới bắt cá.", overlap: true, ref: "Nằm nguyên văn ở Câu 9 Phần II và Câu 35, 42, 58 Phần IV" },
+  { id: 12, am: "Ngưu lực đại, năng canh điền, năng vãn xa.", han: "牛力大,能耕田,能挽車。", dich: "Bò sức mạnh, có thể cày ruộng, có thể kéo xe.", overlap: true, ref: "Nằm nguyên văn ở Câu 10 Phần II và Câu 32, 59 Phần IV" },
+  { id: 13, am: "Kỳ nhục khả thực, kỳ nhũ khả ẩm.", han: "其肉可食,其乳可飲。", dich: "Thịt bò ăn được, sữa nó uống được.", overlap: true, ref: "Nằm nguyên văn ở Câu 10 Phần II và Câu 61, 63, 64, 69 Phần IV" },
+  { id: 14, am: "Kỳ giác dữ bì, giai khả chế khí.", han: "其角與皮,皆可制器。", dich: "Sừng và da nó đều có thể chế tạo đồ dùng.", overlap: true, ref: "Nằm nguyên văn ở Câu 4, 71, 78, 98 Phần IV" },
+  { id: 15, am: "Đại chúng đương cần tinh tấn(tiến), như cứu đầu nhiên.", han: "大眾當勤精進,如救頭燃", dich: "Đại chúng phải nên siêng năng tinh tấn, như cứu lửa cháy trên đầu.", overlap: true, ref: "Nằm nguyên văn ở Câu 2 Phần II" },
+  { id: 16, am: "Đãn niệm vô thường, thận vật phóng dật.", han: "但念無常,慎勿放逸。", dich: "Chỉ nhớ nghĩ vô thường, cẩn thận chớ buông lung.", overlap: true, ref: "Nằm nguyên văn ở Câu 2 Phần II" },
+  { id: 17, am: "Bộ ảnh nã phong, ngư tử võng phá.", han: "捕影拿風;魚死網破。", dich: "Bắt bóng đuổi theo gió; cá chết lưới rách.", overlap: false, ref: "Câu riêng của Phần III (Chữ 捕, 魚, 網 có ở câu 9 Phần II)" },
+  { id: 18, am: "Quốc gia hưng vong, thất phu hữu trách.", han: "國家興亡,匹夫有責。", dich: "Đất nước hưng vong, người dân thường cũng phải có trách nhiệm.", overlap: false, ref: "Chữ 國, 家, 匹夫, 有 đều có sẵn ở Phần I & IV; chỉ cần nhớ thêm 興亡 và 責" },
+  { id: 19, am: "Thăng Long thành tích hiệu Long Biên địa.", han: "昇龍城昔號龍编地。", dich: "Thành Thăng Long ngày xưa gọi là đất Long Biên.", overlap: true, ref: "Nằm nguyên văn ở Câu 82 Phần IV" },
+  { id: 20, am: "Thượng cổ hữu nhân cư yên. Chí Lý Thái Tổ phiếm chu Nhĩ Hà tân.", han: "上古有人居焉。至李太祖泛舟珥河津。", dich: "Từ đời thượng cổ đã có người ở nơi đó. Đến đời vua Lý Thái Tổ dong thuyền ở sông Nhĩ Hà.", overlap: true, ref: "Nằm nguyên văn ở Câu 94 Phần IV + Câu 13 Phần II" },
+  { id: 21, am: "Hữu song long dẫn thuyền, nhân danh Thăng Long.", han: "有雙龍引船,因名昇龍。", dich: "Có hai con rồng (hiện lên) dẫn thuyền, nhân đó đặt tên là Thăng Long.", overlap: true, ref: "Nằm nguyên văn ở Câu 13 Phần II và Câu 95 Phần IV" },
+  { id: 22, am: "Nhi đô chi, tức kim chi kinh thành dã.", han: "而都之,即今之京城也。", dich: "Mà đóng đô nơi ấy, tức là kinh đô hiện nay vậy.", overlap: true, ref: "Nằm nguyên văn ở Câu 15, 95, 97, 99, 108 Phần IV" }
+];
+
+// ==================== DỮ LIỆU PHẦN IV (120 CÂU NGỮ PHÁP) ====================
+const part4Data = [
+  { id: 1, s: "梧桐兩株。", t: "兩", opts: {a:"Trợ từ", b:"Số từ", c:"Phó từ", d:"Liên từ"}, ans: "b", g: "step1", tip: "Chữ 兩 (lưỡng = hai, hình 2 người đứng trong cân) → Khoanh ngay Số từ." },
+  { id: 2, s: "大門開,兩客來,一老一少。我問客姓,客問我名。", t: " [一] ", opts: {a:"Trợ từ", b:"Số từ", c:"Phó từ", d:"Tính từ"}, ans: "c", g: "missing8", tip: "Câu lỗi mất chữ 一 ở đề! Thấy 一老一少 (một già một trẻ) → Khoanh Phó từ." },
+  { id: 3, s: "河間兩舟,一去一來。", t: " [一] ", opts: {a:"Trợ từ", b:"Số từ", c:"Tính từ", d:"Phó từ"}, ans: "d", g: "missing8", tip: "Câu lỗi mất chữ 一 ở đề! Thấy 一去一來 (một đi một đến) → Khoanh Phó từ." },
+  { id: 4, s: "其角與皮,皆可制器。", t: "其", opts: {a:"Đại từ", b:"Giới từ", c:"Phó từ", d:"Trợ từ"}, ans: "a", g: "step1", tip: "Chữ 其 (kỳ - hình cái thang, xuất hiện 7 câu) → Luôn là Đại từ." },
+  { id: 5, s: "春夏秋冬,是為四季。", t: " [四] ", opts: {a:"Trợ từ", b:"Số từ", c:"Liên từ", d:"Phó từ"}, ans: "b", g: "missing8", tip: "Câu lỗi mất chữ 四 ở đề! Nhìn câu có 四季 (tứ quý = 4 mùa) → Khoanh Số từ." },
+  { id: 6, s: "今爾向日而行,是為東方。", t: "是", opts: {a:"Đại từ", b:"Phó từ", c:"Giới từ", d:"Trợ từ"}, ans: "a", g: "multi7", tip: "Chữ 是 (thị) đi liền trước chữ 為 (是為...) → Khoanh Đại từ." },
+  { id: 7, s: "富與貴,是人之所欲也。", t: "是", opts: {a:"Phó từ", b:"Giới từ", c:"Động từ", d:"Trợ từ"}, ans: "c", g: "multi7", tip: "Chữ 是 trong câu có chữ 也 ở cuối (không đi với 為) → Khoanh Động từ." },
+  { id: 8, s: "大路上,人往來。", t: "上", opts: {a:"Đại từ", b:"Phó từ", c:"Phương vị từ", d:"Giới từ"}, ans: "c", g: "multi7", tip: "Chữ 上 nằm ở giữa/cuối cụm từ (大路上 - trên đường lớn) → Phương vị từ." },
+  { id: 9, s: "上求佛道,下化眾生。", t: "上", opts: {a:"Phó từ", b:"Đại từ", c:"Trợ từ", d:"Giới từ"}, ans: "a", g: "multi7", tip: "Chữ 上 đứng ĐẦU CÂU (上求佛道) → Khoanh Phó từ." },
+  { id: 10, s: "天氣各異。", t: "各", opts: {a:"Đại từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "a", g: "step1", tip: "Chữ 各 (các = mỗi, chữ X trên cái miệng) → Khoanh Đại từ." },
+  { id: 11, s: "肝脾胃小腸均屬消化之機官。", t: "均", opts: {a:"Liên từ", b:"Phó từ", c:"Trợ từ", d:"Giới từ"}, ans: "b", g: "step2", tip: "Chữ 均 (quân = đều) → Auto khoanh Phó từ." },
+  { id: 12, s: "日初升,荷鋤出。", t: "初", opts: {a:"Trợ từ", b:"Liên từ", c:"Giới từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 初 (sơ = vừa mới) → Auto khoanh Phó từ." },
+  { id: 13, s: "日將落,荷鋤歸。", t: "將", opts: {a:"Giới từ", b:"Phó từ", c:"Trợ từ", d:"Liên từ"}, ans: "b", g: "step2", tip: "Chữ 將 (tương = sắp, xuất hiện 5 câu) → Luôn là Phó từ." },
+  { id: 14, s: "(File mới xóa câu 14) 其人弗能應也。", t: "也", opts: {a:"Liên từ", b:"Giới từ", c:"Phó từ", d:"Trợ từ"}, ans: "d", g: "step1", tip: "Chữ 也 (dã - đuôi bọ cạp cong ở cuối câu) → Luôn là Trợ từ." },
+  { id: 15, s: "即今之01京城也。", t: "之01", opts: {a:"Trợ từ kết cấu", b:"Phó từ", c:"Giới từ", d:"Liên từ"}, ans: "a", g: "multi7", tip: "Chữ 之 nằm giữa câu, nhìn 4 đáp án thấy 'Trợ từ kết cấu' → Khoanh ngay." },
+  { id: 16, s: "學之02精進,行之02堅固。", t: "之02", opts: {a:"Phó từ", b:"Giới từ", c:"Trợ từ", d:"Liên từ"}, ans: "c", g: "multi7", tip: "Chữ 之 nằm giữa câu, nhìn 4 đáp án thấy 'Trợ từ' → Khoanh ngay." },
+  { id: 17, s: "人言:鵲之鳴吉,鴉之鳴凶。", t: "之", opts: {a:"Giới từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "d", g: "multi7", tip: "Chữ 之 nằm giữa câu, nhìn đáp án thấy 'Trợ từ' → Khoanh ngay." },
+  { id: 18, s: "鴉鳴於樹上,兒以石擊之03。", t: "之03", opts: {a:"Phó từ", b:"Đại từ", c:"Trợ từ", d:"Liên từ"}, ans: "b", g: "multi7", tip: "Chữ 之 đứng SÁT DẤU CHẤM CUỐI CÂU (擊之。) → Khoanh Đại từ." },
+  { id: 19, s: "(File mới xóa câu 19) 有朋自遠方來,不亦樂乎。", t: " [不] ", opts: {a:"Liên từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "c", g: "missing8", tip: "Câu lỗi mất chữ 不 ở đề! Chữ 不 (bất = không) → Luôn là Phó từ." },
+  { id: 20, s: "楚人有鬻矛與盾者。", t: "者", opts: {a:"Trợ từ", b:"Giới từ", c:"Liên từ", d:"Phó từ"}, ans: "a", g: "step1", tip: "Chữ 者 (giả - đứng cuối câu) → Luôn là Trợ từ." },
+  { id: 21, s: "明月將出。", t: "將", opts: {a:"Trợ từ", b:"Liên từ", c:"Giới từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 將 (tương = sắp) → Luôn là Phó từ." },
+  { id: 22, s: "人之將死,其言也善。", t: "將", opts: {a:"Giới từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "c", g: "step2", tip: "Chữ 將 (tương = sắp) → Luôn là Phó từ." },
+  { id: 23, s: "取火燃燭,光照四壁。", t: " [四] ", opts: {a:"Trợ từ", b:"Số từ", c:"Liên từ", d:"Phó từ"}, ans: "b", g: "missing8", tip: "Câu lỗi mất chữ 四 ở đề! Nhìn câu thấy 四壁 (tứ bích = 4 vách) → Khoanh Số từ." },
+  { id: 24, s: "人坐影亦坐,人行影亦行。", t: "亦", opts: {a:"Trợ từ", b:"Phó từ", c:"Giới từ", d:"Liên từ"}, ans: "b", g: "step2", tip: "Chữ 亦 (diệc = cũng, xuất hiện 4 câu) → Luôn là Phó từ." },
+  { id: 25, s: "全家均好。", t: "均", opts: {a:"Liên từ", b:"Giới từ", c:"Trợ từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 均 (quân = đều) → Luôn là Phó từ." },
+  { id: 26, s: "譽其盾之堅,物莫能陷也。", t: "其", opts: {a:"Trợ từ", b:"Giới từ", c:"Đại từ", d:"Phó từ"}, ans: "c", g: "step1", tip: "Chữ 其 (kỳ - hình cái thang) → Luôn là Đại từ." },
+  { id: 27, s: "有農夫住山下。", t: " [下] ", opts: {a:"Giới từ", b:"Phương vị từ", c:"Liên từ", d:"Phó từ"}, ans: "b", g: "missing8", tip: "Câu lỗi mất chữ 下 ở đề! Chữ 下 (hạ = dưới, chữ T ngược cuối câu) → Phương vị từ." },
+  { id: 28, s: "腦能接認感覺,亦能發生思想。", t: "亦", opts: {a:"Liên từ", b:"Giới từ", c:"Trợ từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 亦 (diệc = cũng) → Luôn là Phó từ." },
+  { id: 29, s: "兄招弟同坐溫課。", t: "同", opts: {a:"Trợ từ", b:"Giới từ", c:"Phó từ", d:"Liên từ"}, ans: "c", g: "step2", tip: "Chữ 同 (đồng = cùng, xuất hiện 5 câu) → Luôn là Phó từ." },
+  { id: 30, s: "百花零落,惟菊獨盛。", t: "惟", opts: {a:"Liên từ", b:"Phó từ", c:"Giới từ", d:"Trợ từ"}, ans: "b", g: "step2", tip: "Chữ 惟 (duy = chỉ) → Luôn là Phó từ." },
+  { id: 31, s: "老幼均安。", t: "均", opts: {a:"Giới từ", b:"Phó từ", c:"Liên từ", d:"Trợ từ"}, ans: "b", g: "step2", tip: "Chữ 均 (quân = đều) → Luôn là Phó từ." },
+  { id: 32, s: "牛力大,能挽車。", t: "能", opts: {a:"Liên từ", b:"Trợ động từ", c:"Giới từ", d:"Trợ từ"}, ans: "b", g: "step1", tip: "Chữ 能 (năng trong 'Khả năng') → Luôn là Trợ động từ." },
+  { id: 33, s: "同往採菱。", t: "同", opts: {a:"Giới từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "c", g: "step2", tip: "Chữ 同 (đồng = cùng) → Luôn là Phó từ." },
+  { id: 34, s: "姊姊,妹妹攜手同遊。", t: "同", opts: {a:"Phó từ", b:"Liên từ", c:"Giới từ", d:"Trợ từ"}, ans: "a", g: "step2", tip: "Chữ 同 (đồng = cùng) → Luôn là Phó từ." },
+  { id: 35, s: "同坐岸上。", t: "上", opts: {a:"Phó từ", b:"Phương vị từ", c:"Liên từ", d:"Trợ từ"}, ans: "b", g: "multi7", tip: "Chữ 上 đứng CUỐI CÂU (岸上 - trên bờ) → Khoanh Phương vị từ." },
+  { id: 36, s: "大腸,腎與膀胱皆任排泄之役。", t: "皆", opts: {a:"Liên từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "c", g: "step2", tip: "Chữ 皆 (giai = đều) → Luôn là Phó từ." },
+  { id: 37, s: "吾矛之利,物無不陷也。", t: "不", opts: {a:"Liên từ", b:"Giới từ", c:"Trợ từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 不 (bất = không) → Luôn là Phó từ." },
+  { id: 38, s: "齒甚銳。", t: "甚", opts: {a:"Liên từ", b:"Giới từ", c:"Phó từ", d:"Trợ từ"}, ans: "c", g: "step2", tip: "Chữ 甚 (thậm = rất) → Luôn là Phó từ." },
+  { id: 39, s: "故其知識終不如人。", t: "終", opts: {a:"Liên từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "c", g: "step2", tip: "Chữ 終 (chung = rốt cuộc) → Luôn là Phó từ." },
+  { id: 40, s: "終不可以見。", t: "終", opts: {a:"Trợ từ", b:"Liên từ", c:"Giới từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 終 (chung = rốt cuộc) → Luôn là Phó từ." },
+  { id: 41, s: "惟不能讀書。", t: "惟", opts: {a:"Trợ từ", b:"Phó từ", c:"Liên từ", d:"Tính từ"}, ans: "b", g: "step2", tip: "Chữ 惟 (duy = chỉ) → Luôn là Phó từ." },
+  { id: 42, s: "同坐岸上。", t: "同", opts: {a:"Trợ từ", b:"Phó từ", c:"Liên từ", d:"Giới từ"}, ans: "b", g: "step2", tip: "Chữ 同 (đồng = cùng) → Luôn là Phó từ." },
+  { id: 43, s: "我等與眾生,皆共成佛道。", t: "皆", opts: {a:"Giới từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "c", g: "step2", tip: "Chữ 皆 (giai = đều) → Luôn là Phó từ." },
+  { id: 44, s: "霜降後,葉漸黃。", t: "漸", opts: {a:"Liên từ", b:"Phó từ", c:"Trợ từ", d:"Giới từ"}, ans: "b", g: "step2", tip: "Chữ 漸 (tiệm = dần dần, xuất hiện 4 câu) → Luôn là Phó từ." },
+  { id: 45, s: "漸入佳境。", t: "漸", opts: {a:"Phó từ", b:"Giới từ", c:"Trợ từ", d:"Liên từ"}, ans: "a", g: "step2", tip: "Chữ 漸 (tiệm = dần dần) → Luôn là Phó từ." },
+  { id: 46, s: "循序漸進。", t: "漸", opts: {a:"Trợ từ", b:"Phó từ", c:"Giới từ", d:"Liên từ"}, ans: "b", g: "step2", tip: "Chữ 漸 (tiệm = dần dần) → Luôn là Phó từ." },
+  { id: 47, s: "吾矛之利,物無不陷也。", t: "也", opts: {a:"Giới từ", b:"Trợ từ", c:"Liên từ", d:"Phó từ"}, ans: "b", g: "step1", tip: "Chữ 也 (dã - đứng cuối câu) → Luôn là Trợ từ." },
+  { id: 48, s: "莊兒將入學。", t: "將", opts: {a:"Liên từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "c", g: "step2", tip: "Chữ 將 (tương = sắp) → Luôn là Phó từ." },
+  { id: 49, s: "又能營巢。", t: "又", opts: {a:"Trợ từ", b:"Phó từ", c:"Giới từ", d:"Liên từ"}, ans: "b", g: "step2", tip: "Chữ 又 (hựu = lại) → Luôn là Phó từ." },
+  { id: 50, s: "人在燭旁,壁上有影。", t: "旁", opts: {a:"Phương vị từ", b:"Liên từ", c:"Giới từ", d:"Phó từ"}, ans: "a", g: "step1", tip: "Chữ 旁 (bàng = bên cạnh, dưới đáy có chữ Phương 方) → Phương vị từ." },
+  { id: 51, s: "人在燭旁,壁上有影。", t: "上", opts: {a:"Phương vị từ", b:"Giới từ", c:"Phó từ", d:"Liên từ"}, ans: "a", g: "multi7", tip: "Chữ 上 đứng sau danh từ (壁上 - trên vách) → Khoanh Phương vị từ." },
+  { id: 52, s: "人坐影亦坐。", t: "亦", opts: {a:"Liên từ", b:"Giới từ", c:"Trợ từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 亦 (diệc = cũng) → Luôn là Phó từ." },
+  { id: 53, s: "人行影亦行。", t: "亦", opts: {a:"Trợ từ", b:"Giới từ", c:"Phó từ", d:"Liên từ"}, ans: "c", g: "step2", tip: "Chữ 亦 (diệc = cũng) → Luôn là Phó từ." },
+  { id: 54, s: "雨將晴,河水清。", t: "將", opts: {a:"Trợ từ", b:"Phó từ", c:"Giới từ", d:"Liên từ"}, ans: "b", g: "step2", tip: "Chữ 將 (tương = sắp) → Luôn là Phó từ." },
+  { id: 55, s: "山之01大者,草,木生之,禽獸居之。", t: "之", opts: {a:"Giới từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "d", g: "multi7", tip: "Hỏi chữ 之01 ở giữa cụm 山之大者 → Khoanh Trợ từ." },
+  { id: 56, s: "鬚眉皆白。", t: "皆", opts: {a:"Giới từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "c", g: "step2", tip: "Chữ 皆 (giai = đều) → Luôn là Phó từ." },
+  { id: 57, s: "常居穴中。", t: "常", opts: {a:"Liên từ", b:"Trợ từ", c:"Giới từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 常 (thường = luôn) → Luôn là Phó từ." },
+  { id: 58, s: "同坐岸上。", t: "上", opts: {a:"Phó từ", b:"Liên từ", c:"Giới từ", d:"Phương vị từ"}, ans: "d", g: "multi7", tip: "Chữ 上 đứng cuối câu (岸上) → Khoanh Phương vị từ." },
+  { id: 59, s: "牛力大,能耕田。", t: "能", opts: {a:"Trợ từ", b:"Trợ động từ", c:"Giới từ", d:"Liên từ"}, ans: "b", g: "step1", tip: "Chữ 能 (năng trong 'Khả năng') → Luôn là Trợ động từ." },
+  { id: 60, s: "有福同享,有難同當。", t: "同", opts: {a:"Phó từ", b:"Liên từ", c:"Giới từ", d:"Trợ từ"}, ans: "a", g: "step2", tip: "Chữ 同 (đồng = cùng) → Luôn là Phó từ." },
+  { id: 61, s: "其肉可食。", t: "其", opts: {a:"Phó từ", b:"Trợ từ", c:"Đại từ", d:"Giới từ"}, ans: "c", g: "step1", tip: "Chữ 其 (kỳ - hình cái thang) → Luôn là Đại từ." },
+  { id: 62, s: "譽其盾之堅,物莫能陷也。", t: "之", opts: {a:"Phó từ", b:"Giới từ", c:"Trợ từ", d:"Liên từ"}, ans: "c", g: "multi7", tip: "Chữ 之 nằm giữa câu (盾之堅) → Khoanh Trợ từ." },
+  { id: 63, s: "其乳可飲。", t: "其", opts: {a:"Phó từ", b:"Trợ từ", c:"Đại từ", d:"Giới từ"}, ans: "c", g: "step1", tip: "Chữ 其 (kỳ) → Luôn là Đại từ." },
+  { id: 64, s: "其乳可飲。", t: "可", opts: {a:"Liên từ", b:"Trợ từ", c:"Trợ động từ", d:"Giới từ"}, ans: "c", g: "step1", tip: "Chữ 可 (khả trong 'Khả năng') → Luôn là Trợ động từ." },
+  { id: 65, s: "春夏秋冬,是為四季。", t: "是", opts: {a:"Giới từ", b:"Đại từ", c:"Trợ từ", d:"Phó từ"}, ans: "b", g: "multi7", tip: "Chữ 是 đi liền trước 為 (是為四季) → Khoanh Đại từ." },
+  { id: 66, s: "王乃與妹貳起兵攻之。", t: "之", opts: {a:"Phó từ", b:"Trợ từ", c:"Giới từ", d:"Đại từ"}, ans: "d", g: "multi7", tip: "Chữ 之 đứng SÁT DẤU CHẤM CUỐI CÂU (攻之。) → Khoanh Đại từ." },
+  { id: 67, s: "天初晚,月光明。", t: "初", opts: {a:"Phó từ", b:"Giới từ", c:"Trợ từ", d:"Liên từ"}, ans: "a", g: "step2", tip: "Chữ 初 (sơ = vừa mới) → Luôn là Phó từ." },
+  { id: 68, s: "我家之人甚多。", t: "甚", opts: {a:"Liên từ", b:"Phó từ", c:"Trợ từ", d:"Giới từ"}, ans: "b", g: "step2", tip: "Chữ 甚 (thậm = rất) → Luôn là Phó từ." },
+  { id: 69, s: "其肉可食。", t: "可", opts: {a:"Trợ động từ", b:"Giới từ", c:"Trợ từ", d:"Liên từ"}, ans: "a", g: "step1", tip: "Chữ 可 (khả) → Luôn là Trợ động từ." },
+  { id: 70, s: "無骨人不能立。無筋人不能舉動。", t: "不", opts: {a:"Giới từ", b:"Liên từ", c:"Trợ từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 不 (bất = không) → Luôn là Phó từ." },
+  { id: 71, s: "其角與皮,皆可制器。", t: "與", opts: {a:"Liên từ", b:"Trợ từ", c:"Giới từ", d:"Phó từ"}, ans: "a", g: "step1", tip: "Chữ 與 (dữ = và, nhiều nét đan nhau) → Luôn là Liên từ." },
+  { id: 72, s: "山之大者,草,木生之02,禽獸居之。", t: "之02", opts: {a:"Giới từ", b:"Đại từ", c:"Trợ từ", d:"Phó từ"}, ans: "b", g: "multi7", tip: "Chữ 之02 đứng SÁT DẤU PHẨY (生之02,) → Khoanh Đại từ." },
+  { id: 73, s: "譽其盾之堅,物莫能陷也。", t: "能", opts: {a:"Liên từ", b:"Giới từ", c:"Trợ động từ", d:"Trợ từ"}, ans: "c", g: "step1", tip: "Chữ 能 (năng) → Luôn là Trợ động từ." },
+  { id: 74, s: "譽其盾之堅,物莫能陷也。", t: "也", opts: {a:"Trợ từ", b:"Giới từ", c:"Liên từ", d:"Phó từ"}, ans: "a", g: "step1", tip: "Chữ 也 (dã - cuối câu) → Luôn là Trợ từ." },
+  { id: 75, s: "俄而又譽其矛。", t: "其", opts: {a:"Giới từ", b:"Đại từ", c:"Phó từ", d:"Trợ từ"}, ans: "b", g: "step1", tip: "Chữ 其 (kỳ) → Luôn là Đại từ." },
+  { id: 76, s: "吾矛之利,物無不陷也。", t: "吾", opts: {a:"Đại từ", b:"Trợ từ", c:"Giới từ", d:"Phó từ"}, ans: "a", g: "step1", tip: "Chữ 吾 (ngô = tôi, số 5 trên cái miệng) → Luôn là Đại từ." },
+  { id: 77, s: "前不見古人,後不見來者。", t: "後", opts: {a:"Giới từ", b:"Phó từ", c:"Trợ từ", d:"Liên từ"}, ans: "b", g: "multi7", tip: "Chữ 後 đứng SAU DẤU PHẨY (, 後不見...) → Khoanh Phó từ." },
+  { id: 78, s: "其角與皮,皆可制器。", t: "可", opts: {a:"Giới từ", b:"Liên từ", c:"Trợ từ", d:"Trợ động từ"}, ans: "d", g: "step1", tip: "Chữ 可 (khả) → Luôn là Trợ động từ." },
+  { id: 79, s: "竹簾外,兩燕子,忽飛來,忽飛去。", t: "忽", opts: {a:"Giới từ", b:"Trợ từ", c:"Phó từ", d:"Liên từ"}, ans: "c", g: "step2", tip: "Chữ 忽 (hốt = chợt) → Luôn là Phó từ." },
+  { id: 80, s: "以子之矛,陷子之盾,何如?。", t: "子", opts: {a:"Trợ từ", b:"Giới từ", c:"Phó từ", d:"Đại từ"}, ans: "d", g: "multi7", tip: "Chữ 子 trong câu có DẤU CHẤM HỎI (?) → Khoanh Đại từ (ngài, anh)." },
+  { id: 81, s: "父慈子孝,家庭幸福。", t: "子", opts: {a:"Liên từ", b:"Giới từ", c:"Danh từ", d:"Phó từ"}, ans: "c", g: "multi7", tip: "Chữ 子 trong câu KHÔNG có dấu hỏi (父慈子孝 - cha từ con hiếu) → Danh từ." },
+  { id: 82, s: "昇龍城昔號龍编地。", t: "昔", opts: {a:"Giới từ", b:"Trợ từ", c:"Liên từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 昔 (tích = xưa) → Luôn là Phó từ." },
+  { id: 83, s: "王,姓徵,諱側,貉將之女。", t: "之", opts: {a:"Trợ từ kết cấu", b:"Liên từ", c:"Phó từ", d:"Giới từ"}, ans: "a", g: "multi7", tip: "Chữ 之 nằm giữa cụm (貉將之女) → Khoanh Trợ từ kết cấu." },
+  { id: 84, s: "舟已行矣,而劍不行。", t: " [已] ", opts: {a:"Liên từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "c", g: "missing8", tip: "Câu lỗi mất chữ 已 ở đề! Câu bắt đầu bằng chữ 舟 (thuyền) → Khoanh Phó từ." },
+  { id: 85, s: "兩漁翁。", t: "兩", opts: {a:"Số từ", b:"Liên từ", c:"Phó từ", d:"Trợ từ"}, ans: "a", g: "step1", tip: "Chữ 兩 (lưỡng = hai) → Luôn là Số từ." },
+  { id: 86, s: "庭中種桂,其葉常綠。", t: "常", opts: {a:"Giới từ", b:"Liên từ", c:"Trợ từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 常 (thường = luôn) → Luôn là Phó từ." },
+  { id: 87, s: "山之大者,草,木生之,禽獸居之03.", t: "之03", opts: {a:"Phó từ", b:"Giới từ", c:"Đại từ", d:"Trợ từ"}, ans: "c", g: "multi7", tip: "Chữ 之03 đứng CUỐI CÂU (居之03.) → Khoanh Đại từ." },
+  { id: 88, s: "我國獨立自王始,可謂女中第一英雄。", t: "中", opts: {a:"Phó từ", b:"Phương vị từ", c:"Giới từ", d:"Liên từ"}, ans: "b", g: "step1", tip: "Chữ 中 (trung = trong, ô vuông có sổ dọc giữa) → Luôn là Phương vị từ." },
+  { id: 89, s: "誠無窮之利也。", t: "之", opts: {a:"Trợ từ kết cấu", b:"Phó từ", c:"Liên từ", d:"Giới từ"}, ans: "a", g: "multi7", tip: "Chữ 之 nằm giữa câu (無窮之利) → Khoanh Trợ từ kết cấu." },
+  { id: 90, s: "人之01身體,以衣護之,以食養之。", t: "之01", opts: {a:"Giới từ", b:"Phó từ", c:"Trợ từ kết cấu", d:"Liên từ"}, ans: "c", g: "multi7", tip: "Chữ 之01 nằm giữa cụm (人之身體) → Khoanh Trợ từ kết cấu." },
+  { id: 91, s: "人之身體,以衣護之02,以食養之。", t: "之02", opts: {a:"Phó từ", b:"Đại từ", c:"Trợ từ", d:"Giới từ"}, ans: "b", g: "multi7", tip: "Chữ 之02 đứng SÁT DẤU PHẨY (護之02,) → Khoanh Đại từ." },
+  { id: 92, s: "人之身體,以衣護之,以食養之03。", t: "之03", opts: {a:"Phó từ", b:"Trợ từ", c:"Đại từ", d:"Giới từ"}, ans: "c", g: "multi7", tip: "Chữ 之03 đứng SÁT DẤU CHẤM CUỐI CÂU (養之03。) → Khoanh Đại từ." },
+  { id: 93, s: "其人弗能應也。", t: "其", opts: {a:"Trợ từ", b:"Đại từ", c:"Giới từ", d:"Phó từ"}, ans: "b", g: "step1", tip: "Chữ 其 (kỳ) → Luôn là Đại từ." },
+  { id: 94, s: "上古有人居焉。", t: " [焉] ", opts: {a:"Giới từ", b:"Liên từ", c:"Đại từ", d:"Phó từ"}, ans: "c", g: "missing8", tip: "Câu lỗi mất chữ 焉 ở đề! Nhìn chữ cuối câu có 4 chấm dưới đáy (焉) → Đại từ." },
+  { id: 95, s: "因名昇龍,而都之。", t: "因", opts: {a:"Trợ từ", b:"Liên từ", c:"Giới từ", d:"Phó từ"}, ans: "b", g: "multi7", tip: "Câu chỉ có 1 chữ 因 (因名昇龍 - nhân đó đặt tên) → Khoanh Liên từ." },
+  { id: 96, s: "因戒生,因定發慧。。", t: "因", opts: {a:"Phó từ", b:"Giới từ", c:"Trợ từ", d:"Liên từ"}, ans: "b", g: "multi7", tip: "Câu lặp lại 2 chữ 因 (因戒..., 因定... - nhờ giới, nhờ định) → Khoanh Giới từ." },
+  { id: 97, s: "因名昇龍,而都之。", t: "之", opts: {a:"Phó từ", b:"Trợ từ", c:"Đại từ", d:"Giới từ"}, ans: "c", g: "multi7", tip: "Chữ 之 đứng SÁT DẤM CHẤM CUỐI CÂU (而都之。) → Khoanh Đại từ." },
+  { id: 98, s: "其角與皮,皆可制器。", t: "與", opts: {a:"Phó từ", b:"Liên từ", c:"Trợ từ", d:"Giới từ"}, ans: "b", g: "step1", tip: "Chữ 與 (dữ = và) → Luôn là Liên từ." },
+  { id: 99, s: "因名昇龍,即今之京城也。", t: "也", opts: {a:"Giới từ", b:"Trợ từ", c:"Liên từ", d:"Phó từ"}, ans: "b", g: "step1", tip: "Chữ 也 (dã - cuối câu) → Luôn là Trợ từ." },
+  { id: 100, s: "其人弗能應也。", t: "能", opts: {a:"Giới từ", b:"Liên từ", c:"Trợ động từ", d:"Trợ từ"}, ans: "c", g: "step1", tip: "Chữ 能 (năng) → Luôn là Trợ động từ." },
+  { id: 101, s: "時交趾太守蘇定貪殘,殺其夫。", t: "其", opts: {a:"Trợ từ", b:"Giới từ", c:"Phó từ", d:"Đại từ"}, ans: "d", g: "step1", tip: "Chữ 其 (kỳ) → Luôn là Đại từ." },
+  { id: 102, s: "楚人有鬻矛與盾者。", t: "與", opts: {a:"Phó từ", b:"Liên từ", c:"Giới từ", d:"Trợ từ"}, ans: "b", g: "step1", tip: "Chữ 與 (dữ = và) → Luôn là Liên từ." },
+  { id: 103, s: "建國自立為王,都麋冷。", t: "自", opts: {a:"Phó từ", b:"Đại từ", c:"Giới từ", d:"Trợ từ"}, ans: "b", g: "step1", tip: "Chữ 自 (tự = tự mình, hình cái mũi có râu trên đầu) → Luôn là Đại từ." },
+  { id: 104, s: "我國獨立自王始。", t: "我", opts: {a:"Giới từ", b:"Phó từ", c:"Đại từ", d:"Trợ từ"}, ans: "c", g: "step1", tip: "Chữ 我 (ngã = ta, chúng ta) → Luôn là Đại từ." },
+  { id: 105, s: "我國獨立自王始,可謂女中第一英雄。", t: "可", opts: {a:"Trợ từ", b:"Trợ động từ", c:"Liên từ", d:"Giới từ"}, ans: "b", g: "step1", tip: "Chữ 可 (khả) → Luôn là Trợ động từ." },
+  { id: 106, s: "金,玉,煤,鐵之屬,產於其中。", t: "之", opts: {a:"Giới từ", b:"Trợ từ kết cấu", c:"Liên từ", d:"Phó từ"}, ans: "b", g: "multi7", tip: "Chữ 之 nằm giữa câu, nhìn đáp án thấy 'Trợ từ kết cấu' → Khoanh ngay." },
+  { id: 107, s: "其人弗能應也。", t: "弗", opts: {a:"Trợ từ", b:"Đại từ", c:"Giới từ", d:"Phó từ"}, ans: "d", g: "step2", tip: "Chữ 弗 (phất = không) → Luôn là Phó từ." },
+  { id: 108, s: "因名昇龍,即今之京城也。", t: "即", opts: {a:"Giới từ", b:"Trợ từ", c:"Liên từ", d:"Động từ"}, ans: "d", g: "multi7", tip: "Chữ 即 trong câu DÀI có dấu phẩy (因名昇龍, 即今...) → Khoanh Động từ." },
+  { id: 109, s: "覺即覺悟。", t: "即", opts: {a:"Phó từ", b:"Trợ từ", c:"Liên từ", d:"Động từ"}, ans: "a", g: "multi7", tip: "Chữ 即 trong câu NGẮN 4 chữ (覺即覺悟) → Khoanh Phó từ." },
+  { id: 110, s: "庭中種桂,其葉常綠。", t: "中", opts: {a:"Phương vị từ", b:"Liên từ", c:"Trợ từ", d:"Phó từ"}, ans: "a", g: "step1", tip: "Chữ 中 (trung = trong) → Luôn là Phương vị từ." },
+  { id: 111, s: "竹簾外,兩燕子,忽飛來,忽飛去。", t: "忽", opts: {a:"Giới từ", b:"Phó từ", c:"Phương vị từ", d:"Liên từ"}, ans: "b", g: "step2", tip: "Chữ 忽 (hốt = chợt) → Luôn là Phó từ." },
+  { id: 112, s: "竹簾外,兩燕子,忽飛來,忽飛去。", t: "外", opts: {a:"Giới từ", b:"Trợ từ", c:"Phương vị từ", d:"Liên từ"}, ans: "c", g: "step1", tip: "Chữ 外 (ngoại = ngoài) → Luôn là Phương vị từ." },
+  { id: 113, s: "霜降後,葉漸黃。", t: "漸", opts: {a:"Phó từ", b:"Giới từ", c:"Liên từ", d:"Trợ từ"}, ans: "a", g: "step2", tip: "Chữ 漸 (tiệm = dần dần) → Luôn là Phó từ." },
+  { id: 114, s: "霜降後,葉漸黃。", t: "後", opts: {a:"Phó từ", b:"Phương vị từ", c:"Liên từ", d:"Trợ từ"}, ans: "b", g: "multi7", tip: "Chữ 後 đứng TRƯỚC DẤU PHẨY (霜降後,) → Khoanh Phương vị từ." },
+  { id: 115, s: "霜降後,葉漸黃。", t: "黃", opts: {a:"Phó từ", b:"Giới từ", c:"Tính từ", d:"Trợ từ"}, ans: "c", g: "step1", tip: "Chữ 黃 (hoàng = màu vàng) → Chữ Tính từ duy nhất trong 120 câu!" },
+  { id: 116, s: "富與貴,是人之所欲也。", t: "與", opts: {a:"Phó từ", b:"Liên từ", c:"Đại từ", d:"Trợ từ"}, ans: "b", g: "step1", tip: "Chữ 與 (dữ = và) → Luôn là Liên từ." },
+  { id: 117, s: "三藏者經藏律藏論藏也。", t: "也", opts: {a:"Phó từ", b:"Liên từ", c:"Đại từ", d:"Trợ từ"}, ans: "d", g: "step1", tip: "Chữ 也 (dã - cuối câu) → Luôn là Trợ từ." },
+  { id: 118, s: "有朋自遠方來,不亦樂乎。", t: "乎", opts: {a:"Liên từ", b:"Trợ từ", c:"Phó từ", d:"Giới từ"}, ans: "b", g: "step1", tip: "Chữ 乎 (hồ - cuối câu) → Luôn là Trợ từ." },
+  { id: 119, s: "汝願諧矣。", t: "矣", opts: {a:"Phó từ", b:"Liên từ", c:"Đại từ", d:"Trợ từ"}, ans: "d", g: "step1", tip: "Chữ 矣 (hĩ - cuối câu) → Luôn là Trợ từ." },
+  { id: 120, s: "今爾向日而行,是為東方。", t: "爾", opts: {a:"Đại từ", b:"Phó từ", c:"Giới từ", d:"Trợ từ"}, ans: "a", g: "step1", tip: "Chữ 爾 (nhĩ = ngươi, có 4 chữ X nhỏ trong bụng) → Luôn là Đại từ." }
+];
+
+// ==================== BIẾN TRẠNG THÁI ====================
+let p1HideAm = false;
+let p2HighlightKey = true;
+let p2HideAns = false;
+let p3HideAns = false;
+let p4CurrentList = [];
+let p4Answered = 0;
+let p4Correct = 0;
+
+function updateFontScale(val) {
+  document.documentElement.style.setProperty('--han-scale', val);
+}
+
+function switchTab(tab) {
+  ['part1', 'part2', 'part3', 'part4', 'mock'].forEach(t => {
+    document.getElementById('tab-' + t).classList.add('hidden');
+  });
+  document.getElementById('tab-' + tab).classList.remove('hidden');
+
+  const btns = document.querySelectorAll('.tab-btn');
+  const mapIdx = { part1:0, part2:1, part3:2, part4:3, mock:4 };
+  btns.forEach((b, i) => b.classList.toggle('active', i === mapIdx[tab]));
+
+  if (tab === 'part1') renderPart1();
+  if (tab === 'part2') renderPart2();
+  if (tab === 'part3') renderPart3();
+  if (tab === 'part4') renderPart4();
+  if (tab === 'mock') generateFullMockExam();
+}
+
+// ==================== XỬ LÝ PHẦN I ====================
+function renderPart1() {
+  document.getElementById('p1-quiz-area').classList.add('hidden');
+  const filter = document.getElementById('p1-filter').value;
+  const list = filter === 'all' ? part1Data : part1Data.filter(d => d.group === filter);
+  const container = document.getElementById('p1-list');
+
+  container.innerHTML = list.map(item => `
+    <div class="card card-clickable" onclick="this.querySelector('.p1-am').classList.toggle('hidden')">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="badge">STT ${item.id}</span>
+        <span style="font-size:0.8rem; color:#666;">(Bấm thẻ để ẩn/hiện)</span>
+      </div>
+      <div class="hanzi-lg" style="text-align:center; margin: 12px 0;">${item.han}</div>
+      <div class="p1-am ${p1HideAm ? 'hidden' : ''}" style="text-align:center; border-top:1px dashed #ccc; padding-top:10px;">
+        <div style="font-size:1.3rem; font-weight:bold; color:var(--primary);">${item.am}</div>
+        <div style="font-size:0.88rem; color:#555; margin-top:4px;">💡 ${item.tip}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleP1Hide() {
+  p1HideAm = !p1HideAm;
+  renderPart1();
+}
+
+function startP1Quiz() {
+  const area = document.getElementById('p1-quiz-area');
+  area.classList.remove('hidden');
+  const sample = [...part1Data].sort(() => Math.random() - 0.5).slice(0, 10);
+  area.innerHTML = `
+    <div class="sentence-card" style="border:2px solid var(--primary);">
+      <h3 style="margin-top:0; color:var(--primary);">🎯 Trắc nghiệm phản xạ nhanh 10 từ Phần I</h3>
+      ${sample.map((q, idx) => {
+        const wrongs = part1Data.filter(x => x.am.toLowerCase() !== q.am.toLowerCase())
+          .sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.am);
+        const opts = [q.am, ...wrongs].sort(() => Math.random() - 0.5);
+        return `
+          <div style="margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid #eee;">
+            <div><strong>Câu ${idx+1}:</strong> Cụm chữ Hán <span class="hanzi" style="margin:0 8px;">${q.han}</span> có phiên âm là:</div>
+            <div class="options-grid">
+              ${opts.map(o => `
+                <button class="opt-btn" onclick="checkSimpleOpt(this, '${o === q.am ? '1' : '0'}')">${o}</button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function checkSimpleOpt(btn, isRight) {
+  const parent = btn.parentElement;
+  if (isRight === '1') {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+  }
+}
+
+// ==================== XỬ LÝ PHẦN II ====================
+function renderPart2(customList = null) {
+  const filter = document.getElementById('p2-filter').value;
+  const list = customList || (filter === 'all' ? part2Data : part2Data.filter(d => d.group === filter));
+  const container = document.getElementById('p2-list');
+
+  container.innerHTML = list.map(item => {
+    let displayedHan = item.han;
+    if (p2HighlightKey && item.key) {
+      displayedHan = displayedHan.replace(item.key, `<span class="key-highlight">${item.key}</span>`);
+    }
+    return `
+      <div class="sentence-card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="badge badge-red">Câu ${item.id} (Phần II)</span>
+          <button class="btn" style="padding:3px 10px; font-size:0.85rem;" onclick="this.parentElement.parentElement.querySelector('.answer-box').classList.toggle('hidden')">Ẩn/Hiện đáp án</button>
+        </div>
+        <div class="hanzi" style="margin: 10px 0;">${displayedHan}</div>
+        <div class="answer-box ${p2HideAns ? 'hidden' : ''}">
+          <div><strong>• Âm:</strong> <span style="font-size:1.1rem; color:var(--primary); font-weight:bold;">${item.am}</span></div>
+          <div style="margin-top:4px;"><strong>• Dịch:</strong> <span style="font-size:1.08rem;">${item.dich}</span></div>
+          <div class="tip-box">🔑 <strong>Mẹo nhận diện:</strong> ${item.tip}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleP2KeyHighlight() {
+  p2HighlightKey = !p2HighlightKey;
+  renderPart2();
+}
+
+function toggleP2Answers() {
+  p2HideAns = !p2HideAns;
+  renderPart2();
+}
+
+function random8Part2() {
+  const sample = [...part2Data].sort(() => Math.random() - 0.5).slice(0, 8);
+  p2HideAns = true;
+  renderPart2(sample);
+}
+
+// ==================== XỬ LÝ PHẦN III ====================
+function renderPart3() {
+  const filter = document.getElementById('p3-filter').value;
+  let list = part3Data;
+  if (filter === 'overlap') list = part3Data.filter(d => d.overlap);
+  if (filter === 'unique') list = part3Data.filter(d => !d.overlap);
+
+  const container = document.getElementById('p3-list');
+  container.innerHTML = list.map(item => `
+    <div class="sentence-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <div>
+          <span class="badge badge-amber">Câu ${item.id} (Phần III)</span>
+          <span class="badge ${item.overlap ? 'badge-green' : 'badge-red'}">${item.ref}</span>
+        </div>
+        <button class="btn" style="padding:3px 10px; font-size:0.85rem;" onclick="this.parentElement.parentElement.querySelector('.answer-box').classList.toggle('hidden')">Ẩn/Hiện Chữ Hán & Dịch</button>
+      </div>
+      <div style="font-size:1.25rem; font-weight:bold; margin: 10px 0; color:#111;">
+        Âm: ${item.am}
+      </div>
+      <div class="answer-box ${p3HideAns ? 'hidden' : ''}">
+        <div class="hanzi-lg" style="margin: 8px 0; color:var(--primary);">${item.han}</div>
+        <div style="font-size:1.1rem;"><strong>Dịch:</strong> ${item.dich}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleP3Answers() {
+  p3HideAns = !p3HideAns;
+  renderPart3();
+}
+
+// ==================== XỬ LÝ PHẦN IV (120 CÂU NGỮ PHÁP) ====================
+function renderPart4() {
+  const filter = document.getElementById('p4-filter').value;
+  p4Answered = 0;
+  p4Correct = 0;
+
+  if (filter === 'all') p4CurrentList = [...part4Data];
+  else if (filter === 'random20') {
+    p4CurrentList = [...part4Data].filter(q => q.id !== 14 && q.id !== 19)
+      .sort(() => Math.random() - 0.5).slice(0, 20);
+  }
+  else if (filter === 'multi7') p4CurrentList = part4Data.filter(q => q.g === 'multi7');
+  else if (filter === 'missing8') p4CurrentList = part4Data.filter(q => q.g === 'missing8');
+  else if (filter === 'step1') p4CurrentList = part4Data.filter(q => q.g === 'step1');
+  else if (filter === 'step2') p4CurrentList = part4Data.filter(q => q.g === 'step2');
+
+  updateP4Banner();
+
+  const container = document.getElementById('p4-list');
+  container.innerHTML = p4CurrentList.map((q, idx) => `
+    <div class="sentence-card" id="p4-q-${idx}">
+      <div style="font-size:1.15rem;">
+        <strong>${q.id}/</strong>
+        <span class="hanzi-inline">${q.s}</span>
+        Trong câu này, <span class="hanzi-inline" style="color:var(--primary); font-weight:bold;">${q.t}</span> là:
+      </div>
+      <div class="options-grid">
+        ${['a','b','c','d'].map(k => `
+          <button class="opt-btn" data-key="${k}" onclick="answerP4(${idx}, '${k}')">
+            ${k}/${q.opts[k]}
+          </button>
+        `).join('')}
+      </div>
+      <div class="tip-box hidden" id="p4-tip-${idx}">
+        ✅ <strong>Đáp án đúng: ${q.ans.toUpperCase()} (${q.opts[q.ans]})</strong> — ${q.tip}
+      </div>
+    </div>
+  `).join('');
+}
+
+function answerP4(idx, choice) {
+  const q = p4CurrentList[idx];
+  const card = document.getElementById('p4-q-' + idx);
+  const btns = card.querySelectorAll('.opt-btn');
+
+  btns.forEach(b => {
+    b.disabled = true;
+    const k = b.getAttribute('data-key');
+    if (k === q.ans) b.classList.add('correct');
+    else if (k === choice) b.classList.add('wrong');
+  });
+
+  document.getElementById('p4-tip-' + idx).classList.remove('hidden');
+  p4Answered++;
+  if (choice === q.ans) p4Correct++;
+  updateP4Banner();
+}
+
+function updateP4Banner() {
+  const total = p4CurrentList.length || 1;
+  document.getElementById('p4-progress').textContent = `Đã làm: ${p4Answered} / ${p4CurrentList.length} câu (Đúng: ${p4Correct})`;
+  const score10 = p4Answered > 0 ? ((p4Correct / p4CurrentList.length) * 10).toFixed(1) : "0.0";
+  document.getElementById('p4-score').textContent = `Điểm quy đổi: ${score10} / 10 điểm`;
+}
+
+function showAllP4Answers() {
+  p4CurrentList.forEach((q, idx) => {
+    const card = document.getElementById('p4-q-' + idx);
+    const btns = card.querySelectorAll('.opt-btn');
+    btns.forEach(b => {
+      if (b.getAttribute('data-key') === q.ans) b.classList.add('correct');
+    });
+    document.getElementById('p4-tip-' + idx).classList.remove('hidden');
+  });
+}
+
+// ==================== THI THỬ TỔNG DUYỆT 4 PHẦN (50 ĐIỂM) ====================
+function generateFullMockExam() {
+  const m1 = [...part1Data].sort(() => Math.random() - 0.5).slice(0, 10);
+  const m2 = [...part2Data].sort(() => Math.random() - 0.5).slice(0, 8);
+  const m3 = [...part3Data].sort(() => Math.random() - 0.5).slice(0, 5);
+  const m4 = [...part4Data].filter(q => q.id !== 14 && q.id !== 19).sort(() => Math.random() - 0.5).slice(0, 20);
+
+  const container = document.getElementById('mock-container');
+  container.innerHTML = `
+    <div class="sentence-card">
+      <h2 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--primary); padding-bottom:6px;">
+        I. PHIÊN ÂM KHÔNG CẦN DỊCH NGHĨA (10 điểm - 10 cụm từ ngẫu nhiên)
+      </h2>
+      <p style="font-style:italic; margin-top:0;">Hãy đọc to âm Hán Việt trước khi bấm vào thẻ để kiểm tra đáp án:</p>
+      <div class="grid-cards">
+        ${m1.map((item, i) => `
+          <div class="card card-clickable" onclick="this.querySelector('.m1-ans').classList.toggle('hidden')">
+            <div><strong>Câu ${i+1} (STT${item.id}):</strong></div>
+            <div class="hanzi-lg" style="text-align:center; margin:8px 0;">${item.han}</div>
+            <div class="m1-ans hidden" style="text-align:center; color:var(--primary); font-weight:bold; font-size:1.2rem; border-top:1px dashed #ccc; padding-top:6px;">
+              ${item.am}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="sentence-card">
+      <h2 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--primary); padding-bottom:6px;">
+        II. PHIÊN ÂM VÀ DỊCH NGHĨA (15 điểm - Đề thi ra 8 câu)
+      </h2>
+      ${m2.map((item, i) => `
+        <div style="padding:12px 0; border-bottom:1px solid #eee;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong>Câu ${i+1} (Đề cương câu ${item.id}):</strong>
+            <button class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="this.parentElement.parentElement.querySelector('.m2-ans').classList.toggle('hidden')">Xem đáp án</button>
+          </div>
+          <div class="hanzi" style="margin:8px 0;">${item.han}</div>
+          <div class="m2-ans hidden tip-box">
+            <div><strong>Âm:</strong> ${item.am}</div>
+            <div><strong>Dịch:</strong> ${item.dich}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="sentence-card">
+      <h2 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--primary); padding-bottom:6px;">
+        III. DỰA VÀO ÂM HÁN VIỆT DỊCH NGHĨA VÀ VIẾT CHỮ HÁN (15 điểm)
+      </h2>
+      ${m3.map((item, i) => `
+        <div style="padding:12px 0; border-bottom:1px solid #eee;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong>Câu ${i+1} (Đề cương câu ${item.id}):</strong>
+            <button class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="this.parentElement.parentElement.querySelector('.m3-ans').classList.toggle('hidden')">Xem chữ Hán & Dịch</button>
+          </div>
+          <div style="font-size:1.2rem; font-weight:bold; margin:6px 0;">Âm: ${item.am}</div>
+          <div class="m3-ans hidden tip-box">
+            <div class="hanzi-lg" style="color:var(--primary);">${item.han}</div>
+            <div><strong>Dịch:</strong> ${item.dich}</div>
+            <div style="font-size:0.85rem; color:#555;">📌 ${item.ref}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="sentence-card">
+      <h2 style="margin-top:0; color:var(--primary); border-bottom:2px solid var(--primary); padding-bottom:6px;">
+        IV. NGỮ PHÁP (10 điểm - Đề thi ra 20 câu trắc nghiệm)
+      </h2>
+      ${m4.map((q, i) => `
+        <div style="padding:12px 0; border-bottom:1px solid #eee;">
+          <div style="font-size:1.15rem;">
+            <strong>Câu ${i+1} (Đề cương câu ${q.id}):</strong>
+            <span class="hanzi-inline">${q.s}</span>
+            Trong câu này, <span class="hanzi-inline" style="color:var(--primary); font-weight:bold;">${q.t}</span> là:
+          </div>
+          <div class="options-grid">
+            ${['a','b','c','d'].map(k => `
+              <button class="opt-btn" onclick="checkSimpleOpt(this, '${k === q.ans ? '1' : '0'}'); this.parentElement.nextElementSibling.classList.remove('hidden');">
+                ${k}/ ${q.opts[k]}
+              </button>
+            `).join('')}
+          </div>
+          <div class="tip-box hidden">
+            ✅ <strong>Đáp án: ${q.ans.toUpperCase()} (${q.opts[q.ans]})</strong> —${q.tip}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// Khởi chạy mặc định Phần I
+renderPart1();
+</script>
+</body>
+</html>
